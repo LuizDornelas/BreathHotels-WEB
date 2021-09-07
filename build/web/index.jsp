@@ -1,3 +1,4 @@
+<%@page import="Modelo.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -6,6 +7,15 @@
         <title>Breath Hotels</title>
     </head>
     <body>
-        <h1>Logado com sucesso!</h1>
+        <%
+            Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
+            if (usuario == null) {
+                response.sendRedirect("login.jsp");
+            }
+        %>
+        <form action="Login" method="POST">
+            <h1>Logado com sucesso!</h1>
+            <a href="logout.jsp">Sair</a>
+        </form>
     </body>
 </html>

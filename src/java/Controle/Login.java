@@ -20,28 +20,34 @@ public class Login extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            
+
             String acao = request.getParameter("acao");
             if (acao.equals("Entrar")) {
                 Usuario usuario = new Usuario();
                 usuario.setLogin(request.getParameter("txt_login"));
                 usuario.setSenha(request.getParameter("txt_senha"));
-                
+
                 UsuarioDAO usuarioDAO = new UsuarioDAO();
                 Usuario usuarioAutenticado = usuarioDAO.autenticaUsuario(usuario);
 
                 //Verifica se o usuario existe no banco
                 if (usuarioAutenticado != null) {
 
-                    //Cria uma sessao para o usuario
-                    HttpSession sessaoUsuario = request.getSession();
-                    sessaoUsuario.setAttribute("usuarioAutenticado", usuarioAutenticado);
-                    
-                    //Redireciona para a pagina princiapal
-                    response.sendRedirect("index.jsp");
-                    
-                } 
-                else {
+                    if ("Admin".equals(usuarioAutenticado.getTipo().toString()) || "Func".equals(usuarioAutenticado.getTipo().toString())) {
+
+                        //Cria uma sessao para o usuario Admin
+                        HttpSession sessaoUsuario = request.getSession();
+                        sessaoUsuario.setAttribute("usuarioAutenticado", usuarioAutenticado);
+
+                        //Redireciona para a pagina princiapal
+                        response.sendRedirect("index.jsp");
+                    } else {
+                        RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+                        request.setAttribute("msg", "Login ou Senha Incorretos!");
+                        rd.forward(request, response);
+                    }
+
+                } else {
                     RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
                     request.setAttribute("msg", "Login ou Senha Incorretos!");
                     rd.forward(request, response);
@@ -49,7 +55,7 @@ public class Login extends HttpServlet {
             } else if (acao.equals("Sair")) {
                 HttpSession sessaoUsuario = request.getSession();
                 sessaoUsuario.removeAttribute("usuarioAutenticado");
-                response.sendRedirect("logout.jsp");
+                response.sendRedirect("login.jsp");
             }
         } catch (Exception erro) {
             RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");

@@ -1,8 +1,9 @@
 package Modelo;
 
 public class Usuario {
+
     private String login;
-    private String senha;    
+    private String senha;
     private EnumTipoAcesso tipo;
 
     public String getLogin() {
@@ -34,7 +35,7 @@ public class Usuario {
 
     public Usuario(String login, String senha, EnumTipoAcesso tipo) {
         this.login = login;
-        this.senha = senha;      
+        this.senha = senha;
         this.tipo = tipo;
-    }        
+    }
 }

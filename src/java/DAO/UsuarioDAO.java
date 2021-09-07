@@ -10,7 +10,7 @@ import Modelo.EnumTipoAcesso;
 
 public class UsuarioDAO {
     
-    private static final String AUTENTICA_USUARIO = "SELECT * FROM login WHERE login=? AND senha=? AND ativo= 'SIM';";
+    private static final String AUTENTICA_USUARIO = "SELECT login, senha, tipo FROM login WHERE login=? AND senha=? AND ativo='SIM';";
     
     public Usuario autenticaUsuario(Usuario usuario) throws ClassNotFoundException{
         Usuario usuarioAutenticado = null;
@@ -27,7 +27,7 @@ public class UsuarioDAO {
                 usuarioAutenticado = new Usuario();
                 usuarioAutenticado.setLogin(rsUsuario.getString("login"));
                 usuarioAutenticado.setLogin(rsUsuario.getString("senha"));
-                usuarioAutenticado.setTipo(EnumTipoAcesso.valueOf(rsUsuario.getString("tipo")));
+                usuarioAutenticado.setTipo(EnumTipoAcesso.valueOf(rsUsuario.getString("tipo")));                
             }
         } catch (SQLException sqlErro){
             throw new RuntimeException(sqlErro);
