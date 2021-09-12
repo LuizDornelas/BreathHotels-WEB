@@ -8,6 +8,7 @@
     </head>
     <body>
         <%
+            //Valida se a sessão está valida
             Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
             if (usuario == null) {
                 response.sendRedirect("login.jsp");
@@ -15,6 +16,8 @@
         %>
         <form action="Login" method="POST">
             <h1>Logado com sucesso!</h1>
+            <a href="CadUser.jsp">Cadastro de Usuários</a>
+            <br><br>
             <a href="logout.jsp">Sair</a>
         </form>
     </body>

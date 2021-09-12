@@ -23,7 +23,9 @@ public class Login extends HttpServlet {
 
             String acao = request.getParameter("acao");
             if (acao.equals("Entrar")) {
+                //Ao clicar em entrar no login o trará até esse servlet
                 Usuario usuario = new Usuario();
+                //Instancia o que foi escrito nas caixas de texto até a classe instancia anteriormente
                 usuario.setLogin(request.getParameter("txt_login"));
                 usuario.setSenha(request.getParameter("txt_senha"));
 
@@ -35,15 +37,16 @@ public class Login extends HttpServlet {
 
                     if ("Admin".equals(usuarioAutenticado.getTipo().toString()) || "Func".equals(usuarioAutenticado.getTipo().toString())) {
 
-                        //Cria uma sessao para o usuario Admin
+                        //Cria uma sessao para o usuario Admin ou Func
                         HttpSession sessaoUsuario = request.getSession();
                         sessaoUsuario.setAttribute("usuarioAutenticado", usuarioAutenticado);
 
                         //Redireciona para a pagina princiapal
                         response.sendRedirect("index.jsp");
                     } else {
+                        //Se for usuário tipo cliente virá a essa etapa
                         RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-                        request.setAttribute("msg", "Login ou Senha Incorretos!");
+                        request.setAttribute("msg", "Tipo de login não permitido no momento");
                         rd.forward(request, response);
                     }
 
@@ -52,10 +55,6 @@ public class Login extends HttpServlet {
                     request.setAttribute("msg", "Login ou Senha Incorretos!");
                     rd.forward(request, response);
                 }
-            } else if (acao.equals("Sair")) {
-                HttpSession sessaoUsuario = request.getSession();
-                sessaoUsuario.removeAttribute("usuarioAutenticado");
-                response.sendRedirect("login.jsp");
             }
         } catch (Exception erro) {
             RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");

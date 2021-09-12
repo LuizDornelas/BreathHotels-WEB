@@ -5,7 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Error Page</title>
     </head>
-    <body style="background-color:gray;">
+    <body>
         <h1>Não foi possivel completar a ação, tente novamente!</h1>
     </body>
 </html>
