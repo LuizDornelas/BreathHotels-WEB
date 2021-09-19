@@ -7,5 +7,15 @@
     </head>
     <body>
         <h1>Não foi possivel completar a ação, tente novamente!</h1>
+        
+        <%
+
+        //Traz a mensagem diretamente da control
+        String erro = (String) request.getAttribute("erro");
+        if (erro != null) {
+
+    %>
+    <font color="red"><%=erro%></font>
+    <%}%>
     </body>
 </html>

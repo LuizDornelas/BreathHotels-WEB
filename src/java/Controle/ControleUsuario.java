@@ -6,7 +6,6 @@
 package Controle;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,17 +14,53 @@ import javax.servlet.http.HttpServletResponse;
 import Modelo.Usuario;
 import DAO.UsuarioDAO;
 import Modelo.EnumTipoAcesso;
+import java.sql.SQLException;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 
 /**
  *
  * @author Luiz Dornelas
  */
-@WebServlet(name = "ControleUsuario", urlPatterns = {"/ControleUsuario"})
-public class ControleUsuario extends HttpServlet {
+@WebServlet(name = "ControleUsuario", urlPatterns = {
+    "/CadastroUsuario",
+    "/ListarUsuario"})
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+public class ControleUsuario extends HttpServlet {
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        try {
+            String uri = request.getRequestURI();
+
+            if (uri.equals(request.getContextPath() + "/ListarUsuario")) {
+                listar(request, response);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("Erro.jsp");
+        }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            String uri = request.getRequestURI();
+
+            if (uri.equals(request.getContextPath() + "/CadastroUsuario")) {
+                cadastrar(request, response);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("Erro.jsp");
+        }
+    }
+    
+    private void cadastrar(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ClassNotFoundException, SQLException {
+        
         response.setContentType("text/html;charset=UTF-8");
         try {
             String acao = request.getParameter("acao");
@@ -68,9 +103,8 @@ public class ControleUsuario extends HttpServlet {
                         request.setAttribute("msg", "Este Login já existe!");
                         rd.forward(request, response);
                     } else {
-                        request.setAttribute("msg", "Usuario cadastrado com sucesso!");
-                        RequestDispatcher rd
-                                = request.getRequestDispatcher("CadUser.jsp");
+                        RequestDispatcher rd = request.getRequestDispatcher("CadUser.jsp");
+                        request.setAttribute("msg", "Usuario cadastrado com sucesso!");                        
                         rd.forward(request, response);
                     }
                 }
@@ -86,16 +120,16 @@ public class ControleUsuario extends HttpServlet {
             rd.forward(request, response);
         }
     }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    
+    private void listar(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ClassNotFoundException, SQLException {
+        
+        UsuarioDAO dao = new UsuarioDAO();
+        
+        List<Usuario> todosUsuarios = dao.consultarTodos();
+        
+        request.setAttribute("todosUsuarios", todosUsuarios);
+        
+        request.getRequestDispatcher("ListUsers.jsp").forward(request, response);
     }
 }

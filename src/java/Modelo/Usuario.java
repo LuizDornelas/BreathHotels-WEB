@@ -1,10 +1,12 @@
 package Modelo;
 
 public class Usuario {
-
+    
+    private int id;
     private String login;
     private String senha;
     private EnumTipoAcesso tipo;
+    private EnumAtivo ativo;
     private String nome;
     private String rg;
     private String telefone;
@@ -116,6 +118,21 @@ public class Usuario {
         return login_duplicado;
     }
 
+    public EnumAtivo getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(EnumAtivo ativo) {
+        this.ativo = ativo;
+    }        
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }    
     public void setLogin_duplicado(boolean login_duplicado) {
         this.login_duplicado = login_duplicado;
     }        

@@ -7,13 +7,17 @@ import java.sql.SQLException;
 import Conexao.ConectaBanco;
 import Modelo.Usuario;
 import Modelo.EnumTipoAcesso;
+import Modelo.EnumAtivo;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UsuarioDAO {
 
     private static final String AUTENTICA_USUARIO = "SELECT login, senha, tipo FROM login WHERE login=? AND senha=? AND ativo='SIM';";
-    private static final String CADASTRA_NOVO_USUARIO = "INSERT INTO public.usuario(usuarioid, nome, rg, telefone, rua, numero, bairro, cidade, estado, cep, ativo) VALUES (?,?,?,?,?,?,?,?,?,?,'SIM');";
+    private static final String CADASTRA_NOVO_USUARIO = "INSERT INTO public.usuario(usuarioid, nome, rg, telefone, rua, numero, bairro, cidade, estado, cep) VALUES (?,?,?,?,?,?,?,?,?,?);";
     private static final String CADASTRA_NOVO_LOGIN = "INSERT INTO public.login(loginid, login, senha, ativo, tipo, fk_usuario) VALUES (?,?,?,'SIM',?,?);";
-
+    private static final String ATUALIZA_USUARIO = "select usuarioid, nome, rg, telefone, rua, numero, bairro, cidade, estado, cep, login, senha, tipo, ativo from usuario, login where usuarioid = fk_usuario order by usuarioid;";
+    
     //Trás a classe instanciada como parametro no servlet
     public Usuario autenticaUsuario(Usuario usuario) throws ClassNotFoundException {
         Usuario usuarioAutenticado = null;
@@ -118,6 +122,37 @@ public class UsuarioDAO {
 
             }
         }
+    }
+    public List<Usuario> consultarTodos() throws ClassNotFoundException, SQLException {
+
+        Connection con = ConectaBanco.getConexao();
+
+        PreparedStatement comando = con.prepareStatement(ATUALIZA_USUARIO);
+        ResultSet resultado = comando.executeQuery();
+
+        List<Usuario> todosUsuarios = new ArrayList<Usuario>();
+        while (resultado.next()) {
+            Usuario user = new Usuario();
+            
+            user.setId(resultado.getInt("usuarioid"));
+            user.setNome(resultado.getString("nome"));
+            user.setRg(resultado.getString("rg"));
+            user.setTelefone(resultado.getString("telefone"));
+            user.setRua(resultado.getString("rua"));
+            user.setNumero(resultado.getString("numero"));
+            user.setBairro(resultado.getString("bairro"));
+            user.setCidade(resultado.getString("cidade"));
+            user.setEstado(resultado.getString("estado"));
+            user.setCep(resultado.getString("cep"));
+            user.setLogin(resultado.getString("login"));
+            user.setSenha(resultado.getString("senha"));
+            user.setTipo((EnumTipoAcesso.valueOf(resultado.getString("tipo"))));
+            user.setAtivo((EnumAtivo.valueOf(resultado.getString("ativo"))));
+                        
+            todosUsuarios.add(user);
+        }
+        con.close();
+        return todosUsuarios;
 
     }
 }
