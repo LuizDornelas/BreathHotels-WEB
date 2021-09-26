@@ -22,7 +22,11 @@
 %>
 
 <a class="btn btn-outline-primary" href="CadUser.jsp">Cadastrar Usuários</a>
+            <div class="botoes">
+            <a href="index.jsp">Voltar</a>  
+            </div>
 <br><br>
+
 
 <center>                         
         <table border="1">
