@@ -7,7 +7,7 @@ public class Quartos {
     private int camaCasal;
     private String status;
     private double diaria;
-    
+    private boolean quarto_duplicado;
 
     public String getQuarto() {
         return quarto;
@@ -56,7 +56,14 @@ public class Quartos {
     public void setDiaria(double diaria) {
         this.diaria = diaria;
     }
-    
+
+    public boolean isQuarto_duplicado() {
+        return quarto_duplicado;
+    }
+
+    public void setQuarto_duplicado(boolean quarto_duplicado) {
+        this.quarto_duplicado = quarto_duplicado;
+    }   
     public Quartos() {
     }
     
