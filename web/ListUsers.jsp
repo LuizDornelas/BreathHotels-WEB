@@ -13,22 +13,22 @@
         <title>Lista de Usuários</title>
     </head>
     <body>                    
-<%
-    //Valida se a sessão está valida
-    Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
-    if (usuario == null) {
-        response.sendRedirect("login.jsp");
-    } else {
-%>
+        <%
+            //Valida se a sessão está valida
+            Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
+            if (usuario == null) {
+                response.sendRedirect("login.jsp");
+            } else {
+        %>
 
-<a class="btn btn-outline-primary" href="CadUser.jsp">Cadastrar Usuários</a>
-            <div class="botoes">
+        <a class="btn btn-outline-primary" href="CadUser.jsp">Cadastrar Usuários</a>
+        <div class="botoes">
             <a href="index.jsp">Voltar</a>  
-            </div>
-<br><br>
+        </div>
+        <br><br>
 
 
-<center>                         
+    <center>                         
         <table border="1">
             <tr>                
                 <th>Nome</th>
@@ -45,7 +45,6 @@
                 <th>Tipo</th>
                 <th>Ativo</th>
                 <th>Editar</th>
-                <th>Excluir</th>
             </tr>
     </center>
 
@@ -64,13 +63,13 @@
             <td align="center">${user.senha}</td>
             <td align="center">${user.tipo.toString()}</td>
             <td align="center">${user.ativo.toString()}</td>
-            <td align="center"><a href="EdicaoUsuario?id=${user.id}">Editar</a></td>
-            <td align="center"><a href="ExcluirUsuario?id=${user.id}">Excluir</a></td>
+            <td align="center"><a href="IniciarEdicaoUsuario?id=${user.id}" alt="">Editar</a></td>               
         </tr>
     </c:forEach>
 </table>
 
 <%}%>
+
 </form>
 </body>
 </html>
