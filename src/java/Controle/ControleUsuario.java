@@ -193,9 +193,11 @@ public class ControleUsuario extends HttpServlet {
                 usuario.setAtivo(EnumAtivo.NAO);
             }
 
+            /*
             RequestDispatcher rde = request.getRequestDispatcher("IniciarEdicaoUsuario");
             request.setAttribute("msg", "Há dados vazios, favor validar!");
             rde.forward(request, response);
+            */
             
             //Valida se os dados não estão vazios
             if (usuario.getNome().equals("") || usuario.getRg().equals("") || usuario.getTelefone().equals("") || usuario.getRua().equals("") || usuario.getNumero().equals("") || usuario.getBairro().equals("") || usuario.getCidade().equals("") || usuario.getEstado().equals("") || usuario.getCep().equals("") || usuario.getLogin().equals("") || usuario.getSenha().equals("")) {

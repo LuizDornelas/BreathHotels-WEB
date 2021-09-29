@@ -196,8 +196,18 @@ public class UsuarioDAO {
 
         rsUsuario.close();
 
-        if (qntLogin > 1) {
+        if (qntLogin <= 1) {
             //Se não houver login igual irá cadastrar na tabela usuário e login conforme parametros
+            pstmt = con.prepareStatement("UPDATE public.login SET login=?, senha=?, ativo=?, tipo=?, fk_usuario=? WHERE loginid=?;");           
+            pstmt.setString(1, usuario.getLogin());
+            pstmt.setString(2, usuario.getSenha());
+            pstmt.setString(3, usuario.getAtivo().toString());
+            pstmt.setString(4, usuario.getTipo().toString());
+            pstmt.setInt(5, usuario.getId());
+            pstmt.setInt(6, usuario.getId());
+            pstmt.execute();
+            pstmt.close();  
+            
             pstmt = con.prepareStatement("UPDATE public.usuario SET nome=?, rg=?, telefone=?, rua=?, numero=?, bairro=?, cidade=?, estado=?, cep=? WHERE usuarioid=?;");            
             pstmt.setString(1, usuario.getNome());
             pstmt.setString(2, usuario.getRg());
@@ -209,16 +219,7 @@ public class UsuarioDAO {
             pstmt.setString(8, usuario.getEstado());
             pstmt.setString(9, usuario.getCep());
             pstmt.setInt(10, usuario.getId());
-            pstmt.execute();
-            pstmt.close();
-
-            pstmt = con.prepareStatement("UPDATE public.login SET login=?, senha=?, ativo=?, tipo=?, fk_usuario=? WHERE loginid=?;");           
-            pstmt.setString(1, usuario.getLogin());
-            pstmt.setString(2, usuario.getSenha());
-            pstmt.setString(3, usuario.getTipo().toString());
-            pstmt.setInt(4, usuario.getId());
-            pstmt.setInt(5, usuario.getId());
-            pstmt.execute();
+            pstmt.execute();                      
         } else {
             //Caso haja login igual irá instanciar atributo como true para mostrar que há login duplicado no front
             usuario.setLogin_duplicado(true);
