@@ -79,7 +79,7 @@
     <a href="CadUser.jsp">Cadastro de Usuários</a>
     <a href="#">Cadastro de Cartões</a>
     <a href="CadBedroom.jsp">Cadastro de Quartos</a>
-    <a href="#">Cadastro de Itens</a>
+    <a href="CadItens.jsp">Cadastro de Itens</a>
   </div>
   <button class="dropdown-btn">Atualizar 
     <i class="fa fa-caret-down"></i>
