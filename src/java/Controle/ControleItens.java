@@ -4,6 +4,7 @@ import DAO.ItemDAO;
 import Modelo.Itens;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,7 +17,8 @@ import javax.servlet.http.HttpServletResponse;
     "/CadastroItem",
     "/ListarItem",
     "/IniciarEdicaoItem",
-    "/ConfirmarEdicaoItem"})
+    "/ConfirmarEdicaoItem",
+    "/ExcluirItem"})
 
 public class ControleItens extends HttpServlet {
 
@@ -28,9 +30,11 @@ public class ControleItens extends HttpServlet {
             String uri = request.getRequestURI();
 
             if (uri.equals(request.getContextPath() + "/ListarItem")) {
-                //listar(request, response);
+                listar(request, response);
             } else if (uri.equals(request.getContextPath() + "/IniciarEdicaoItem")) {
                 //iniciarEdicao(request, response);
+            } else if (uri.equals(request.getContextPath() + "/ExcluirItem")) {
+                //excluir(request, response);
             }
         } catch (Exception e) {
             RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
@@ -104,5 +108,16 @@ public class ControleItens extends HttpServlet {
             request.setAttribute("erro", erro);
             rd.forward(request, response);
         }
+    }
+    private void listar(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ClassNotFoundException, SQLException {
+
+        ItemDAO dao = new ItemDAO();
+
+        List<Itens> todosItens = dao.consultarTodos();
+
+        request.setAttribute("todosItens", todosItens);
+
+        request.getRequestDispatcher("ListItens.jsp").forward(request, response);
     }
 }

@@ -2,11 +2,13 @@ package Modelo;
 
 
 public class Itens {
+    private int id;
     private String nome_item;
     private double valor_item;
     private int quantidade;
     private String nome_fornecedor;
     private double valor_compra;
+    private String status;
     private boolean item_duplicado;
 
     public String getNome_item() {
@@ -48,7 +50,7 @@ public class Itens {
     public void setValor_compra(double valor_compra) {
         this.valor_compra = valor_compra;
     }
-
+    
     public boolean isItem_duplicado() {
         return item_duplicado;
     }
@@ -56,8 +58,23 @@ public class Itens {
     public void setItem_duplicado(boolean item_duplicado) {
         this.item_duplicado = item_duplicado;
     }
-        
-    
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+                
     public Itens() {
     }
         

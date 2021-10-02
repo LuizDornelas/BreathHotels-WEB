@@ -3,6 +3,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="icon" type="image/png" href="view/img/icons/logo-hotel.ico" />
         <title>Error Page</title>
     </head>
     <body>
