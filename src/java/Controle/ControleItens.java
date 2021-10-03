@@ -166,6 +166,10 @@ public class ControleItens extends HttpServlet {
                 response.sendRedirect("ListarItem");
 
             }
+        } catch (SQLException e) {
+            RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
+            request.setAttribute("erro", "Esse item já existe!");
+            rd.forward(request, response);
         } catch (Exception e) {
             RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
             request.setAttribute("erro", e.toString());

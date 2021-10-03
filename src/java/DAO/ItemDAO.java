@@ -135,42 +135,30 @@ public class ItemDAO {
         Connection con = null;
         PreparedStatement pstmt = null;
 
-        try {
-            //Conecta com o banco
-            con = ConectaBanco.getConexao();
+        //Conecta com o banco
+        con = ConectaBanco.getConexao();
 
-            //Se não houver item igual irá atualizar na tabela itens e fornecedor conforme parametros
-            pstmt = con.prepareStatement("UPDATE public.itens SET item=?, valor=?, quantidade=?, status=? WHERE itemid=?;");
-            pstmt.setString(1, item.getNome_item());
-            pstmt.setDouble(2, item.getValor_item());
-            pstmt.setInt(3, item.getQuantidade());
-            if (item.getQuantidade() == 0) {
-                pstmt.setString(4, "Indisponivel");
-            } else {
-                pstmt.setString(4, "Disponivel");
-            }
-            pstmt.setInt(5, item.getId());
-            pstmt.execute();
-            pstmt.close();
-
-            //atualiza na tabela fornecedor
-            pstmt = con.prepareStatement("UPDATE public.fornecedor SET nome_fornecedor=?, valor_item=? WHERE itemfk=?;");
-            pstmt.setString(1, item.getNome_fornecedor());
-            pstmt.setDouble(2, item.getValor_compra());
-            pstmt.setInt(3, item.getId());
-            pstmt.execute();
-
-        } catch (SQLException sqlErro) {
-            throw new RuntimeException(sqlErro);
-        } finally {
-            if (con != null) {
-                try {
-                    con.close();
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                }
-            }
+        //Se não houver item igual irá atualizar na tabela itens e fornecedor conforme parametros
+        pstmt = con.prepareStatement("UPDATE public.itens SET item=?, valor=?, quantidade=?, status=? WHERE itemid=?;");
+        pstmt.setString(1, item.getNome_item());
+        pstmt.setDouble(2, item.getValor_item());
+        pstmt.setInt(3, item.getQuantidade());
+        if (item.getQuantidade() == 0) {
+            pstmt.setString(4, "Indisponivel");
+        } else {
+            pstmt.setString(4, "Disponivel");
         }
+        pstmt.setInt(5, item.getId());
+        pstmt.execute();
+        pstmt.close();
+
+        //atualiza na tabela fornecedor
+        pstmt = con.prepareStatement("UPDATE public.fornecedor SET nome_fornecedor=?, valor_item=? WHERE itemfk=?;");
+        pstmt.setString(1, item.getNome_fornecedor());
+        pstmt.setDouble(2, item.getValor_compra());
+        pstmt.setInt(3, item.getId());
+        pstmt.execute();
+
     }
 
     public void excluir(Itens item) throws ClassNotFoundException, SQLException {
@@ -179,7 +167,7 @@ public class ItemDAO {
         com.setInt(1, item.getId());
         com.execute();
         com.close();
-        
+
         com = con.prepareStatement("DELETE FROM public.itens WHERE itemid=?;");
         com.setInt(1, item.getId());
         com.execute();
