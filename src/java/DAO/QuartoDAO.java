@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import Modelo.Quartos;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -19,7 +21,7 @@ import Modelo.Quartos;
 public class QuartoDAO {
 
     private static final String CADASTRA_NOVO_QUARTO = "INSERT INTO public.quartos(quarto, tipo, camasolteiro, camacasal, status, diaria) VALUES (?,?,?,?,'Disponível',?);";
-    private static final String ATUALIZA_QUARTO = "select usuarioid, nome, rg, telefone, rua, numero, bairro, cidade, estado, cep, login, senha, tipo, ativo from usuario, login where usuarioid = fk_usuario order by usuarioid;";
+    private static final String CONSULTA_QUARTO = "select quarto, tipo, camasolteiro, camacasal, status,diaria from quartos";
 
     public void cadastraNovoQuarto(Quartos quartos) throws ClassNotFoundException, SQLException {
 
@@ -60,5 +62,29 @@ public class QuartoDAO {
                 }
             }
         }
+    }
+    
+    public List<Quartos> consultarTodos() throws ClassNotFoundException, SQLException {
+
+        Connection con = ConectaBanco.getConexao();
+
+        PreparedStatement comando = con.prepareStatement(CONSULTA_QUARTO);
+        ResultSet resultado = comando.executeQuery();
+
+        List<Quartos> todosQuartos = new ArrayList<Quartos>();
+        while (resultado.next()) {
+            Quartos quartos = new Quartos();
+            
+            quartos.setQuarto(resultado.getString("quarto"));
+            quartos.setTipo(resultado.getString("tipo"));
+            quartos.setCamaSolteiro(resultado.getInt("camaSolteiro"));
+            quartos.setCamaCasal(resultado.getInt("camaCasal"));
+            quartos.setStatus(resultado.getString("status"));
+            quartos.setDiaria(resultado.getDouble("diaria"));
+                                          
+            todosQuartos.add(quartos);
+        }
+        con.close();
+        return todosQuartos;
     }
 }

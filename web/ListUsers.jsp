@@ -21,10 +21,9 @@
                 response.sendRedirect("login.jsp");
             } else {
         %>
-        <a class="btn btn-outline-secondary" href="index.jsp">Voltar</a>  
-        <a class="btn btn-outline-primary" href="CadUser.jsp">Cadastrar Usuários</a>              
-        <br><br>
-    <center>                         
+        
+    <center> 
+        <h3 class="cyan-text text-cyan darken-2">Usuários</h3>
         <table class="striped highlight responsive-table" border="1">
             <tr>                
                 <th style="width: 15%;">Nome</th>
@@ -65,7 +64,10 @@
 </table>
 
 <%}%>
-
+ <br><br>
+<a class="btn btn-outline-secondary" href="index.jsp">Voltar</a>  
+<a class="btn btn-outline-primary" href="CadUser.jsp">Cadastrar Usuários</a>      
+<br><br>
 </form>
 </body>
 </html>

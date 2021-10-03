@@ -21,12 +21,11 @@
                 response.sendRedirect("login.jsp");
             } else {
         %>
-        <a class="btn btn-outline-secondary" href="index.jsp">Voltar</a>  
-        <a class="btn btn-outline-primary" href="CadItens.jsp">Cadastrar Itens</a>        
-        <br><br>
+        
 
 
-    <center>                         
+    <center>   
+        <h3 class="cyan-text text-cyan darken-2">Itens</h3>
         <table class="striped highlight" border="1">
             <tr>                
                 <th style="width: 10%;">Item</th>
@@ -55,6 +54,9 @@
 </table>
 
 <%}%>
+<br><br>
+<a class="btn btn-outline-secondary" href="index.jsp">Voltar</a>  
+<a class="btn btn-outline-primary" href="CadItens.jsp">Cadastrar Itens</a>        
 
 </form>
 </body>

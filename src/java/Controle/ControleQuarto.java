@@ -19,7 +19,9 @@ import javax.servlet.http.HttpServlet;
 
 @WebServlet(name = "ControleQuarto", urlPatterns = {
     "/CadastroQuarto",
-    "/ListarQuarto"})
+    "/ListarQuarto",
+    "/EditarQuarto",
+    "/ExcluirQuarto"})
 
 public class ControleQuarto extends HttpServlet {
 
@@ -33,9 +35,15 @@ public class ControleQuarto extends HttpServlet {
             if (uri.equals(request.getContextPath() + "/ListarQuarto")) {
                 listarQuarto(request, response);
             }
+            else if (uri.equals(request.getContextPath() + "/EditarQuarto")) {
+                //iniciarEdicao(request, response);
+            } else if (uri.equals(request.getContextPath() + "/ExcluirQuarto")) {
+                //excluir(request, response);
+            }
         } catch (Exception e) {
-            e.printStackTrace();
-            response.sendRedirect("Erro.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
+            request.setAttribute("erro", e.toString());
+            rd.forward(request, response);
         }
     }
 
@@ -69,14 +77,14 @@ public class ControleQuarto extends HttpServlet {
                 quartos.setCamaCasal(Integer.parseInt(request.getParameter("camaCasal")));
                 quartos.setDiaria(Double.parseDouble(request.getParameter("diaria")));
 
-                //Valida se os dados nÃ£o estÃ£o vazios
+                //Valida se os dados  não estão vazios
                 if (quartos.getDiaria() == 0 || quartos.getQuarto().equals("") || quartos.getTipo().equals("") || quartos.getCamaSolteiro() == 0 || quartos.getCamaCasal() == 0) {
                     RequestDispatcher rd = request.getRequestDispatcher("CadBedroom.jsp");
                     request.setAttribute("msg", "Há dados vazios, favor validar!");
                     rd.forward(request, response);
                 } else {                                                            
                     QuartoDAO quartoDAO = new QuartoDAO();
-                    //Instancia uma DAO e leva os dados atÃ© o mÃ©todo
+                    //Instancia uma DAO e leva os dados até o metodo
                     quartoDAO.cadastraNovoQuarto(quartos);
                     
                     if(quartos.isQuarto_duplicado()){
@@ -110,9 +118,11 @@ public class ControleQuarto extends HttpServlet {
     private void listarQuarto(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
 
-        QuartoDAO dao = new QuartoDAO();        
+        QuartoDAO dao = new QuartoDAO();    
+        
+        List<Quartos> todosQuartos = dao.consultarTodos();
 
-        //request.setAttribute("todosQuartos", todosQuartos);
+        request.setAttribute("todosQuartos", todosQuartos);
 
         request.getRequestDispatcher("ListQuartos.jsp").forward(request, response);
     }

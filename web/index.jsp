@@ -12,8 +12,16 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>        
+        <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>     
+
         <title>Breath Hotels</title>
+<style>
+      /* Make the image fully responsive */
+      .carousel-inner img {
+        width: 100%;
+        height: 100%;
+      }
+</style>
     </head>
     <body>
 
@@ -56,57 +64,47 @@
             </ul>
         </nav>
 
+                <!-- Segunda navbar -->
+<nav class="navbar navbar-expand-sm navbar-dark justify-content-between" style="background-color: #4682B4;">
+ 
+  <!-- Links -->
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="ListarUsuario">Usuários</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="ListarItem">Itens</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="ListarQuarto">Quartos</a>
+    </li>
+     <li class="nav-item">
+      <a class="nav-link" href="ListarQuarto">Histórico</a>
+    </li>
 
-        <!-- Menu lateral -->   
-        <div class="sidenav">
+    <!-- Dropdown -->
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+       Reservas
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Check-in</a>
+        <a class="dropdown-item" href="#">Check-out</a>
+      </div>
+    </li>
+    <!-- Dropdown -->
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+       Produtos
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Comprar itens</a>
+        <a class="dropdown-item" href="#">Estoque</a>
+      </div>
+    </li>
+  </ul>
+</nav>
+<br>
 
-            <div class="logo" style="background-image: url('view/img/icons/logo-white.jpg');  background-size: auto;"></div>
-            <a href="#about"></a>
-            <a href="#about"></a>
-
-            <a href="ListarUsuario">Usuários</a>
-            <a href="ListarItem">Itens</a>
-
-            <button class="dropdown-btn">Reservas
-                <i class="fa fa-caret-down"></i>
-            </button>
-            <div class="dropdown-container">
-                <a href="#"></a>
-                <a href="#">Check-in</a>
-                <a href="#">Check-out</a>
-            </div>
-            <button class="dropdown-btn">Produtos
-                <i class="fa fa-caret-down"></i>
-            </button>
-            <div class="dropdown-container">
-                <a href="#">Comprar itens</a>
-                <a href="#">Estoque</a>
-            </div>
-            <a href="#">Histórico</a>
-
-        </div>
-
-        <div class="main">
-
-        </div>
-
-        <script>
-            /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
-            var dropdown = document.getElementsByClassName("dropdown-btn");
-            var i;
-
-            for (i = 0; i < dropdown.length; i++) {
-                dropdown[i].addEventListener("click", function () {
-                    this.classList.toggle("active");
-                    var dropdownContent = this.nextElementSibling;
-                    if (dropdownContent.style.display === "block") {
-                        dropdownContent.style.display = "none";
-                    } else {
-                        dropdownContent.style.display = "block";
-                    }
-                });
-            }
-        </script>
-
-    </body>
+  </body>
 </html>
