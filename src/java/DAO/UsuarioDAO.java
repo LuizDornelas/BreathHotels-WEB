@@ -17,6 +17,7 @@ public class UsuarioDAO {
     private static final String CADASTRA_NOVO_USUARIO = "INSERT INTO public.usuario(usuarioid, nome, rg, telefone, rua, numero, bairro, cidade, estado, cep) VALUES (?,?,?,?,?,?,?,?,?,?);";
     private static final String CADASTRA_NOVO_LOGIN = "INSERT INTO public.login(loginid, login, senha, ativo, tipo, fk_usuario) VALUES (?,?,?,'SIM',?,?);";
     private static final String CONSULTA_USUARIO = "select usuarioid, nome, rg, telefone, rua, numero, bairro, cidade, estado, cep, login, senha, tipo, ativo from usuario, login where usuarioid = fk_usuario order by usuarioid;";
+    private static final String CONSULTA_USUARIO_FUNC = "select usuarioid, nome, rg, telefone, rua, numero, bairro, cidade, estado, cep, login, senha, tipo, ativo from usuario, login where usuarioid = fk_usuario and tipo != 'Admin' order by usuarioid;";
 
     //Trás a classe instanciada como parametro no servlet
     public Usuario autenticaUsuario(Usuario usuario) throws ClassNotFoundException {
@@ -106,7 +107,6 @@ public class UsuarioDAO {
                 pstmt.setInt(5, id_num);
                 pstmt.execute();
             } else {
-                //Caso haja login igual irá instanciar atributo como true para mostrar que há login duplicado no front
                 usuario.setLogin_duplicado(true);
             }
 
@@ -124,14 +124,19 @@ public class UsuarioDAO {
         }
     }
 
-    public List<Usuario> consultarTodos() throws ClassNotFoundException, SQLException {
+    public List<Usuario> consultarTodos(String tipo) throws ClassNotFoundException, SQLException {
 
         Connection con = ConectaBanco.getConexao();
+        PreparedStatement comando;
+        if ("Admin".equals(tipo)) {
+            comando = con.prepareStatement(CONSULTA_USUARIO);
+        } else {
+            comando = con.prepareStatement(CONSULTA_USUARIO_FUNC);
+        }
 
-        PreparedStatement comando = con.prepareStatement(CONSULTA_USUARIO);
         ResultSet resultado = comando.executeQuery();
 
-        List<Usuario> todosUsuarios = new ArrayList<Usuario>();
+        List<Usuario> todosUsuarios = new ArrayList<>();
         while (resultado.next()) {
             Usuario user = new Usuario();
 
@@ -182,47 +187,32 @@ public class UsuarioDAO {
     }
 
     public void Editar(Usuario usuario) throws ClassNotFoundException, SQLException {
-        PreparedStatement pstmt = null;
-        ResultSet rsUsuario = null;
+        PreparedStatement pstmt = null;        
 
-        Connection con = ConectaBanco.getConexao();
+        Connection con = ConectaBanco.getConexao();        
 
-        pstmt = con.prepareStatement("select count(login) from login where login=?;");
+        //Se não houver login igual irá cadastrar na tabela usuário e login conforme parametros
+        pstmt = con.prepareStatement("UPDATE public.login SET login=?, senha=?, ativo=?, tipo=?, fk_usuario=? WHERE loginid=?;");
         pstmt.setString(1, usuario.getLogin());
-        rsUsuario = pstmt.executeQuery();
-        rsUsuario.next();
+        pstmt.setString(2, usuario.getSenha());
+        pstmt.setString(3, usuario.getAtivo().toString());
+        pstmt.setString(4, usuario.getTipo().toString());
+        pstmt.setInt(5, usuario.getId());
+        pstmt.setInt(6, usuario.getId());
+        pstmt.execute();
+        pstmt.close();
 
-        int qntLogin = Integer.parseInt(rsUsuario.getString("count"));
-
-        rsUsuario.close();
-
-        if (qntLogin <= 1) {
-            //Se não houver login igual irá cadastrar na tabela usuário e login conforme parametros
-            pstmt = con.prepareStatement("UPDATE public.login SET login=?, senha=?, ativo=?, tipo=?, fk_usuario=? WHERE loginid=?;");           
-            pstmt.setString(1, usuario.getLogin());
-            pstmt.setString(2, usuario.getSenha());
-            pstmt.setString(3, usuario.getAtivo().toString());
-            pstmt.setString(4, usuario.getTipo().toString());
-            pstmt.setInt(5, usuario.getId());
-            pstmt.setInt(6, usuario.getId());
-            pstmt.execute();
-            pstmt.close();  
-            
-            pstmt = con.prepareStatement("UPDATE public.usuario SET nome=?, rg=?, telefone=?, rua=?, numero=?, bairro=?, cidade=?, estado=?, cep=? WHERE usuarioid=?;");            
-            pstmt.setString(1, usuario.getNome());
-            pstmt.setString(2, usuario.getRg());
-            pstmt.setString(3, usuario.getTelefone());
-            pstmt.setString(4, usuario.getRua());
-            pstmt.setString(5, usuario.getNumero());
-            pstmt.setString(6, usuario.getBairro());
-            pstmt.setString(7, usuario.getCidade());
-            pstmt.setString(8, usuario.getEstado());
-            pstmt.setString(9, usuario.getCep());
-            pstmt.setInt(10, usuario.getId());
-            pstmt.execute();                      
-        } else {
-            //Caso haja login igual irá instanciar atributo como true para mostrar que há login duplicado no front
-            usuario.setLogin_duplicado(true);
-        }
+        pstmt = con.prepareStatement("UPDATE public.usuario SET nome=?, rg=?, telefone=?, rua=?, numero=?, bairro=?, cidade=?, estado=?, cep=? WHERE usuarioid=?;");
+        pstmt.setString(1, usuario.getNome());
+        pstmt.setString(2, usuario.getRg());
+        pstmt.setString(3, usuario.getTelefone());
+        pstmt.setString(4, usuario.getRua());
+        pstmt.setString(5, usuario.getNumero());
+        pstmt.setString(6, usuario.getBairro());
+        pstmt.setString(7, usuario.getCidade());
+        pstmt.setString(8, usuario.getEstado());
+        pstmt.setString(9, usuario.getCep());
+        pstmt.setInt(10, usuario.getId());
+        pstmt.execute();
     }
 }

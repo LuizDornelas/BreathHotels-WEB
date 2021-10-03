@@ -45,7 +45,7 @@
     </center>
 
     <c:forEach items="${todosUsuarios}" var="user">
-        <tr>            
+        <tr>                                           
             <td align="center">${user.nome}</td>
             <td align="center">${user.rg}</td>
             <td align="center">${user.telefone}</td>

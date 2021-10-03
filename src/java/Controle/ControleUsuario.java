@@ -18,6 +18,7 @@ import Modelo.EnumAtivo;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -109,7 +110,7 @@ public class ControleUsuario extends HttpServlet {
 
                     if (usuario.isLogin_duplicado()) {
                         RequestDispatcher rd = request.getRequestDispatcher("CadUser.jsp");
-                        request.setAttribute("msg", "Este Login já existe!");
+                        request.setAttribute("msg", "Esse login já existe!");
                         rd.forward(request, response);
                     } else {
                         RequestDispatcher rd = request.getRequestDispatcher("CadUser.jsp");
@@ -135,7 +136,10 @@ public class ControleUsuario extends HttpServlet {
 
         UsuarioDAO dao = new UsuarioDAO();
 
-        List<Usuario> todosUsuarios = dao.consultarTodos();
+        HttpSession session = request.getSession(true);
+        Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
+
+        List<Usuario> todosUsuarios = dao.consultarTodos(usuario.getTipo().toString());
 
         request.setAttribute("todosUsuarios", todosUsuarios);
 
@@ -192,30 +196,22 @@ public class ControleUsuario extends HttpServlet {
             } else {
                 usuario.setAtivo(EnumAtivo.NAO);
             }
-
-            /*
-            RequestDispatcher rde = request.getRequestDispatcher("IniciarEdicaoUsuario");
-            request.setAttribute("msg", "Há dados vazios, favor validar!");
-            rde.forward(request, response);
-            */
-            
             //Valida se os dados não estão vazios
             if (usuario.getNome().equals("") || usuario.getRg().equals("") || usuario.getTelefone().equals("") || usuario.getRua().equals("") || usuario.getNumero().equals("") || usuario.getBairro().equals("") || usuario.getCidade().equals("") || usuario.getEstado().equals("") || usuario.getCep().equals("") || usuario.getLogin().equals("") || usuario.getSenha().equals("")) {
-                RequestDispatcher rd = request.getRequestDispatcher("IniciarEdicaoUsuario");
-                request.setAttribute("msg", "Há dados vazios, favor validar!");
+                RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
+                request.setAttribute("erro", "Há dados vazios, favor validar!");
                 rd.forward(request, response);
             } else {
 
                 dao.Editar(usuario);
 
-                if (usuario.isLogin_duplicado()) {
-                    RequestDispatcher rd = request.getRequestDispatcher("IniciarEdicaoUsuario");
-                    request.setAttribute("msg", "Este Login já existe!");
-                    rd.forward(request, response);
-                } else {
-                    response.sendRedirect("ListarUsuario");
-                }
+                response.sendRedirect("ListarUsuario");
+
             }
+        } catch (SQLException e) {
+            RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
+            request.setAttribute("erro", "Esse login já existe!");
+            rd.forward(request, response);
         } catch (Exception e) {
             RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
             request.setAttribute("erro", e.toString());

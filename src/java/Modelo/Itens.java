@@ -8,7 +8,7 @@ public class Itens {
     private int quantidade;
     private String nome_fornecedor;
     private double valor_compra;
-    private String status;
+    private EnumStatus status;
     private boolean item_duplicado;
 
     public String getNome_item() {
@@ -59,14 +59,6 @@ public class Itens {
         this.item_duplicado = item_duplicado;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public int getId() {
         return id;
     }
@@ -74,6 +66,14 @@ public class Itens {
     public void setId(int id) {
         this.id = id;
     }
+
+    public EnumStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(EnumStatus status) {
+        this.status = status;
+    }    
                 
     public Itens() {
     }

@@ -5,14 +5,19 @@
             <url>src/java/Controle/ControleUsuario.java</url>
             <bookmark id="1">
                 <name/>
-                <line>40</line>
+                <line>41</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/OneDrive%20-%20MS365/Área%20de%20Trabalho/Análise%20e%20Desenvolvimento%20de%20Sistemas%204/Implementação%20e%20Testes%20Proj%20Soft/BreathHotels-WEB/web/EdItens.jsp</file>
+            <file>file:/D:/OneDrive%20-%20MS365/Área%20de%20Trabalho/Análise%20e%20Desenvolvimento%20de%20Sistemas%204/Implementação%20e%20Testes%20Proj%20Soft/BreathHotels-WEB/src/java/DAO/ItemDAO.java</file>
+            <file>file:/D:/OneDrive%20-%20MS365/Área%20de%20Trabalho/Análise%20e%20Desenvolvimento%20de%20Sistemas%204/Implementação%20e%20Testes%20Proj%20Soft/BreathHotels-WEB/src/java/DAO/UsuarioDAO.java</file>
             <file>file:/D:/OneDrive%20-%20MS365/Área%20de%20Trabalho/Análise%20e%20Desenvolvimento%20de%20Sistemas%204/Implementação%20e%20Testes%20Proj%20Soft/BreathHotels-WEB/src/java/Controle/ControleUsuario.java</file>
+            <file>file:/D:/OneDrive%20-%20MS365/Área%20de%20Trabalho/Análise%20e%20Desenvolvimento%20de%20Sistemas%204/Implementação%20e%20Testes%20Proj%20Soft/BreathHotels-WEB/src/java/Modelo/Itens.java</file>
+            <file>file:/D:/OneDrive%20-%20MS365/Área%20de%20Trabalho/Análise%20e%20Desenvolvimento%20de%20Sistemas%204/Implementação%20e%20Testes%20Proj%20Soft/BreathHotels-WEB/src/java/Controle/ControleItens.java</file>
         </group>
     </open-files>
 </project-private>

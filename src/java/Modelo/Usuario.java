@@ -15,7 +15,7 @@ public class Usuario {
     private String bairro;
     private String cidade;
     private String estado;
-    private String cep;
+    private String cep;   
     private boolean login_duplicado;
 
     public String getLogin() {
@@ -114,9 +114,6 @@ public class Usuario {
         this.cep = cep;
     }
 
-    public boolean isLogin_duplicado() {
-        return login_duplicado;
-    }
 
     public EnumAtivo getAtivo() {
         return ativo;
@@ -132,7 +129,12 @@ public class Usuario {
 
     public void setId(int id) {
         this.id = id;
-    }    
+    }       
+
+    public boolean isLogin_duplicado() {
+        return login_duplicado;
+    }
+
     public void setLogin_duplicado(boolean login_duplicado) {
         this.login_duplicado = login_duplicado;
     }        
