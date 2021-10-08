@@ -7,7 +7,7 @@
         <title>Cadastro de Quartos</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" href="view/styles/CadBedroom.css">
+        <link rel="stylesheet" type="text/css"  href="view/styles/CadUser.css">
         <link rel="icon" type="image/png" href="view/img/icons/logo-hotel.ico" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -47,11 +47,8 @@
                                 <div class="form-group">
                                     <input type="text" name="diaria" class="form-control" placeholder="Valor da diária">
                                 </div>              
-                                <div class="form-group">
+                                 <div class="form-group">
                                     <input class="btn btn-primary custom-btn" type="submit" name="acao" value="Cadastrar">
-                                    </br></br>                                    
-                                    <a href="index.jsp">Voltar</a>
-                                    <br>
                                     <%
                                         //Traz a mensagem diretamente da control
                                         String msg = (String) request.getAttribute("msg");
@@ -61,6 +58,9 @@
                                     <font color="#274360"><%=msg%></font>
                                     <%}%>
                                     <%}%>
+                                    <div class="botoes">
+                                        <a href="ListarQuarto">Voltar</a>  
+                                    </div>
                                 </div>
                             </form>
                         </div>      

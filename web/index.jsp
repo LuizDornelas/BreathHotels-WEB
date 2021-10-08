@@ -15,13 +15,6 @@
         <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>     
 
         <title>Breath Hotels</title>
-<style>
-      /* Make the image fully responsive */
-      .carousel-inner img {
-        width: 100%;
-        height: 100%;
-      }
-</style>
     </head>
     <body>
 
@@ -48,7 +41,7 @@
                         if (login != null) {
                         }
                 %>                             
-                <h3  class="text-light" >Bem vindo, <%=login%> </h3>
+                <h3  class="text-light" >Olá, <%=login%> </h3>
                 <%}%>  
 
                 <li class="nav-item dropdown">
@@ -78,8 +71,11 @@
     <li class="nav-item">
       <a class="nav-link" href="ListarQuarto">Quartos</a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Cartões</a>
+    </li>
      <li class="nav-item">
-      <a class="nav-link" href="ListarQuarto">Histórico</a>
+      <a class="nav-link" href="#">Histórico</a>
     </li>
 
     <!-- Dropdown -->
@@ -98,8 +94,8 @@
        Produtos
       </a>
       <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Comprar itens</a>
-        <a class="dropdown-item" href="#">Estoque</a>
+        <a class="dropdown-item" href="ComprarItens.jsp">Comprar itens</a>
+        <a class="dropdown-item" href="Estoque.jsp">Estoque</a>
       </div>
     </li>
   </ul>

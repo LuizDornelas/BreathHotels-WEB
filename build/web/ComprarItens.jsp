@@ -4,10 +4,10 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
     <head>
-        <title>Cadastro de Quartos</title>
+        <title>Comprar itens</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css"  href="view/styles/CadUser.css">
+        <link rel="stylesheet" type="text/css" href="view/styles/Estoque.css">
         <link rel="icon" type="image/png" href="view/img/icons/logo-hotel.ico" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -29,26 +29,41 @@
                     <div class="col-sm-10 col-lg-6 offset-sm-1 offset-lg-3">        
                         <div class="form-bg">
                             <a href="#"><img src="view/img/icons/BreathLogo.png" alt="logo" class="logo"></a>
-                            <h2>Cadastro de Quartos</h2>
-                            <form action="CadastroQuarto" method="POST">
+                            <h2>Comprar itens</h2>
+                            <form action="#" method="POST">
 
                                 <div class="form-group">
-                                    <input type="text" name="quarto" class="form-control" placeholder="Quarto">
+                                    <input type="text" name="#" class="form-control" placeholder="Nome do Cliente">
+                                </div>
+                                <div class="dropdown">
+                                <button class="btn btn-default btn-block text-left dropdown-toggle" type="button" data-toggle="dropdown">Quarto
+                                <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                  <li><a href="#">1</a></li>
+                                  <li><a href="#">2</a></li>
+                                  <li><a href="#">3</a></li>
+                                </ul>
+                                </div>
+                                </br>
+                                <div class="dropdown">
+                                <button class="btn btn-default btn-block text-left dropdown-toggle" type="button" data-toggle="dropdown">Item
+                                <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                  <li><a href="#">1</a></li>
+                                  <li><a href="#">2</a></li>
+                                  <li><a href="#">3</a></li>
+                                </ul>
+                                </div>
+                                </br>
+                                <div class="form-group">
+                                    <input type="text" name="valor" class="form-control" placeholder="Valor do item">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="tipo" class="form-control" placeholder="Tipo">
-                                </div>
+                                    <input type="text" name="#" class="form-control" placeholder="Quantidade">
+                                </div>                                           
                                 <div class="form-group">
-                                    <input type="text" name="camaSolteiro" class="form-control" placeholder="Número de camas de solteiro">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" name="camaCasal" class="form-control" placeholder="Número de camas de casal">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" name="diaria" class="form-control" placeholder="Valor da diária">
-                                </div>              
-                                 <div class="form-group">
-                                    <input class="btn btn-primary custom-btn" type="submit" name="acao" value="Cadastrar">
+                                    <input class="btn btn-primary custom-btn" type="submit" name="acao" value="Comprar">
+                                    <br>
                                     <%
                                         //Traz a mensagem diretamente da control
                                         String msg = (String) request.getAttribute("msg");
@@ -59,7 +74,7 @@
                                     <%}%>
                                     <%}%>
                                     <div class="botoes">
-                                        <a href="ListarQuarto">Voltar</a>  
+                                        <a href="index.jsp">Voltar</a>  
                                     </div>
                                 </div>
                             </form>

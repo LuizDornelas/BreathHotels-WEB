@@ -21,17 +21,6 @@
     text-align: center;
     margin: 32px;
 }
-button.login-with-fb {
-    background-color: #d93025;
-    border: none;
-    width: 100%;
-    color: #fff;
-    font-size: 14px;
-    text-align: center;
-    padding: 8px 15px;
-    border-radius: 4px;
-    font-weight: 600;
-}
 .signup-btn {
     background-color: #274360;
     border: none;
@@ -100,15 +89,23 @@ span.option-br {
 .login-link p a{
     color: #d93026;
 }
-.get-app {
-    font-size: 16px;
-    padding: 10px 10px 15px;
-    text-align: center;
+
+.btn-primary.custom-btn {
+	background-color: #274360;
+    border: none;
     width: 100%;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-weight: 600;
+    margin: 10px 0px 10px;
 }
-.get-app a {
-    display: inline-block;
-    margin: 15px 5px;
+
+.botoes{
+  text-align: center;
+  margin: 24px;
 }
 
 
