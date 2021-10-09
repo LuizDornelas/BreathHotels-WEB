@@ -55,7 +55,7 @@
 
 <%}%>
 <br><br>
-<a class="btn btn-outline-secondary" href="index.jsp">Voltar</a>  
+<a class="btn btn-outline-secondary" href="index">Voltar</a>  
 <a class="btn btn-outline-primary" href="CadItens.jsp">Cadastrar Itens</a>        
 
 </form>

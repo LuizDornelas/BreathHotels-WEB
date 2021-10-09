@@ -18,6 +18,7 @@ public class UsuarioDAO {
     private static final String CADASTRA_NOVO_LOGIN = "INSERT INTO public.login(loginid, login, senha, ativo, tipo, fk_usuario) VALUES (?,?,?,'SIM',?,?);";
     private static final String CONSULTA_USUARIO = "select usuarioid, nome, rg, telefone, rua, numero, bairro, cidade, estado, cep, login, senha, tipo, ativo from usuario, login where usuarioid = fk_usuario order by usuarioid;";
     private static final String CONSULTA_USUARIO_FUNC = "select usuarioid, nome, rg, telefone, rua, numero, bairro, cidade, estado, cep, login, senha, tipo, ativo from usuario, login where usuarioid = fk_usuario and tipo != 'Admin' order by usuarioid;";
+    private static final String CONSULTA_CLIENTE = "select usuarioid, nome, ativo from usuario, login where usuarioid = fk_usuario and ativo = 'SIM' order by usuarioid;";
 
     //Trás a classe instanciada como parametro no servlet
     public Usuario autenticaUsuario(Usuario usuario) throws ClassNotFoundException {
@@ -187,9 +188,9 @@ public class UsuarioDAO {
     }
 
     public void Editar(Usuario usuario) throws ClassNotFoundException, SQLException {
-        PreparedStatement pstmt = null;        
+        PreparedStatement pstmt = null;
 
-        Connection con = ConectaBanco.getConexao();        
+        Connection con = ConectaBanco.getConexao();
 
         //Se não houver login igual irá cadastrar na tabela usuário e login conforme parametros
         pstmt = con.prepareStatement("UPDATE public.login SET login=?, senha=?, ativo=?, tipo=?, fk_usuario=? WHERE loginid=?;");
@@ -214,5 +215,29 @@ public class UsuarioDAO {
         pstmt.setString(9, usuario.getCep());
         pstmt.setInt(10, usuario.getId());
         pstmt.execute();
+    }
+
+    public List<Usuario> consultarClientes() throws ClassNotFoundException, SQLException {
+
+        Connection con = ConectaBanco.getConexao();
+        PreparedStatement comando;
+
+        comando = con.prepareStatement(CONSULTA_CLIENTE);
+
+        ResultSet resultado = comando.executeQuery();
+
+        List<Usuario> todosUsuarios = new ArrayList<>();
+        while (resultado.next()) {
+            Usuario user = new Usuario();
+
+            user.setId(resultado.getInt("usuarioid"));
+            user.setNome(resultado.getString("nome"));            
+            user.setAtivo((EnumAtivo.valueOf(resultado.getString("ativo"))));
+
+            todosUsuarios.add(user);
+        }
+        con.close();
+        return todosUsuarios;
+
     }
 }

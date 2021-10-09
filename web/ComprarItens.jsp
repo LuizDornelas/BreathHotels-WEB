@@ -74,7 +74,7 @@
                                     <%}%>
                                     <%}%>
                                     <div class="botoes">
-                                        <a href="index.jsp">Voltar</a>  
+                                        <a href="index">Voltar</a>  
                                     </div>
                                 </div>
                             </form>

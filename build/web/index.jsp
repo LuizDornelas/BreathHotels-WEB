@@ -1,4 +1,5 @@
 <%@page import="Modelo.Usuario"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,8 +13,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>     
-
+        <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>             
         <title>Breath Hotels</title>
     </head>
     <body>
@@ -57,50 +57,79 @@
             </ul>
         </nav>
 
-                <!-- Segunda navbar -->
-<nav class="navbar navbar-expand-sm navbar-dark justify-content-between" style="background-color: #4682B4;">
- 
-  <!-- Links -->
-  <ul class="navbar-nav">
-    <li class="nav-item">
-      <a class="nav-link" href="ListarUsuario">Usuários</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="ListarItem">Itens</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="ListarQuarto">Quartos</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Cartões</a>
-    </li>
-     <li class="nav-item">
-      <a class="nav-link" href="#">Histórico</a>
-    </li>
+        <!-- Segunda navbar -->
+        <nav class="navbar navbar-expand-sm navbar-dark justify-content-between" style="background-color: #4682B4;">
 
-    <!-- Dropdown -->
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-       Reservas
-      </a>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Check-in</a>
-        <a class="dropdown-item" href="#">Check-out</a>
-      </div>
-    </li>
-    <!-- Dropdown -->
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-       Produtos
-      </a>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="ComprarItens.jsp">Comprar itens</a>
-        <a class="dropdown-item" href="Estoque.jsp">Estoque</a>
-      </div>
-    </li>
-  </ul>
-</nav>
-<br>
+            <!-- Links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="ListarUsuario">Usuários</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="ListarItem">Itens</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="ListarQuarto">Quartos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Cartões</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Histórico</a>
+                </li>
 
-  </body>
+                <!-- Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                        Reservas
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="Checkin">Check-in</a>
+                        <a class="dropdown-item" href="#">Check-out</a>
+                    </div>
+                </li>
+                <!-- Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                        Produtos
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="ComprarItens.jsp">Comprar itens</a>
+                        <a class="dropdown-item" href="Estoque.jsp">Estoque</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <br>
+    <center> 
+        <%//Traz a mensagem diretamente da control
+            Boolean validaDados = (Boolean) request.getAttribute("validaDados");
+            if (validaDados = true) {%>
+        <h3>Reservas em andamento</h3>             
+
+        <table class="table">
+            <thead class="thead-light">
+                <tr>                                
+                    <th style="width: 15%;">Cliente</th>
+                    <th style="width: 10%;">Entrada</th>
+                    <th style="width: 5%;">Valor</th>
+                    <th style="width: 5%;">Quarto</th>            
+                </tr>
+            </thead>
+    </center>
+
+    <c:forEach items="${todasReservas}" var="todasReservas">      
+        <tr>                                           
+            <td>${todasReservas.nomeCliente}</td>
+            <td>${todasReservas.entrada}</td>
+            <td>${todasReservas.valor}</td>
+            <td>${todasReservas.quarto}</td>           
+        </tr>
+    </c:forEach>   
+</table>
+<%} else {%>
+<h3>Não há reservas em andamento</h3>     
+<%}%>
+
+</body>
 </html>

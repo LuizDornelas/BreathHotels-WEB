@@ -22,6 +22,7 @@ public class QuartoDAO {
 
     private static final String CADASTRA_NOVO_QUARTO = "INSERT INTO public.quartos(quarto, tipo, camasolteiro, camacasal, status, diaria) VALUES (?,?,?,?,'Disponível',?);";
     private static final String CONSULTA_QUARTO = "select quarto, tipo, camasolteiro, camacasal, status,diaria from quartos";
+    private static final String CONSULTA_DISPONIVEIS = "select quarto, camasolteiro, camacasal, diaria from quartos where status = 'Disponível'";
 
     public void cadastraNovoQuarto(Quartos quartos) throws ClassNotFoundException, SQLException {
 
@@ -80,6 +81,26 @@ public class QuartoDAO {
             quartos.setCamaSolteiro(resultado.getInt("camaSolteiro"));
             quartos.setCamaCasal(resultado.getInt("camaCasal"));
             quartos.setStatus(resultado.getString("status"));
+            quartos.setDiaria(resultado.getDouble("diaria"));
+                                          
+            todosQuartos.add(quartos);
+        }
+        con.close();
+        return todosQuartos;
+    }
+    public List<Quartos> consultarDisponiveis() throws ClassNotFoundException, SQLException {
+
+        Connection con = ConectaBanco.getConexao();
+
+        PreparedStatement comando = con.prepareStatement(CONSULTA_DISPONIVEIS);
+        ResultSet resultado = comando.executeQuery();
+
+        List<Quartos> todosQuartos = new ArrayList<Quartos>();
+        while (resultado.next()) {
+            Quartos quartos = new Quartos();            
+            quartos.setQuarto(resultado.getString("quarto"));            
+            quartos.setCamaSolteiro(resultado.getInt("camaSolteiro"));
+            quartos.setCamaCasal(resultado.getInt("camaCasal"));            
             quartos.setDiaria(resultado.getDouble("diaria"));
                                           
             todosQuartos.add(quartos);
