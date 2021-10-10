@@ -21,7 +21,7 @@ import java.util.List;
 public class QuartoDAO {
 
     private static final String CADASTRA_NOVO_QUARTO = "INSERT INTO public.quartos(quarto, tipo, camasolteiro, camacasal, status, diaria) VALUES (?,?,?,?,'Disponível',?);";
-    private static final String CONSULTA_QUARTO = "select quarto, tipo, camasolteiro, camacasal, status,diaria from quartos";
+    private static final String CONSULTA_QUARTO = "select quarto, tipo, camasolteiro, camacasal, status, diaria from quartos";
     private static final String CONSULTA_DISPONIVEIS = "select quarto, camasolteiro, camacasal, diaria from quartos where status = 'Disponível'";
 
     public void cadastraNovoQuarto(Quartos quartos) throws ClassNotFoundException, SQLException {
@@ -107,5 +107,32 @@ public class QuartoDAO {
         }
         con.close();
         return todosQuartos;
+    }
+    
+    public void Editar(Quartos quartos) throws ClassNotFoundException, SQLException {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+
+        //Conecta com o banco
+        con = ConectaBanco.getConexao();
+
+        pstmt = con.prepareStatement("UPDATE public.quartos SET quarto=?, tipo=?, camaSolteiro=?, camaCasal=?, diaria=?, WHERE quarto=?;");
+        pstmt.setString(1, quartos.getQuarto());
+        pstmt.setString(2, quartos.getTipo());
+        pstmt.setInt(3, quartos.getCamaSolteiro());
+        pstmt.setInt(4, quartos.getCamaCasal());
+        pstmt.setDouble(5, quartos.getDiaria());
+        
+       
+        pstmt.execute();
+        pstmt.close();
+    }
+    
+     public void excluir(Quartos quartos) throws ClassNotFoundException, SQLException {
+        Connection con = ConectaBanco.getConexao();
+        PreparedStatement com = con.prepareStatement("DELETE FROM public.quartos WHERE quarto=?;");
+        com.setString(1, quartos.getQuarto());
+        com.execute();
+        com.close();
     }
 }

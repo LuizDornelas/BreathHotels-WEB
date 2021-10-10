@@ -20,7 +20,8 @@ import javax.servlet.http.HttpServlet;
 @WebServlet(name = "ControleQuarto", urlPatterns = {
     "/CadastroQuarto",
     "/ListarQuarto",
-    "/EditarQuarto",
+    "/IniciarEdicaoQuarto",
+    "/ConfirmarEdicaoQuarto",
     "/ExcluirQuarto"})
 
 public class ControleQuarto extends HttpServlet {
@@ -35,8 +36,8 @@ public class ControleQuarto extends HttpServlet {
             if (uri.equals(request.getContextPath() + "/ListarQuarto")) {
                 listarQuarto(request, response);
             }
-            else if (uri.equals(request.getContextPath() + "/EditarQuarto")) {
-                //iniciarEdicao(request, response);
+            else if (uri.equals(request.getContextPath() + "/IniciarEdicaoQuarto")) {
+                iniciarEdicao(request, response);
             } else if (uri.equals(request.getContextPath() + "/ExcluirQuarto")) {
                 //excluir(request, response);
             }
@@ -54,7 +55,10 @@ public class ControleQuarto extends HttpServlet {
 
             if (uri.equals(request.getContextPath() + "/CadastroQuarto")) {
                 cadastrarQuarto(request, response);
+            }else if (uri.equals(request.getContextPath() + "/ConfirmarEdicaoQuarto")) {
+                confirmarEdicao(request, response);
             }
+            
         } catch (Exception e) {
             e.printStackTrace();
             response.sendRedirect("Erro.jsp");
@@ -126,4 +130,76 @@ public class ControleQuarto extends HttpServlet {
 
         request.getRequestDispatcher("ListQuartos.jsp").forward(request, response);
     }
+    
+    private void iniciarEdicao(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ClassNotFoundException, SQLException, ServletException {
+        try {
+
+            Quartos quartos = new Quartos();
+            QuartoDAO dao = new QuartoDAO();  
+            quartos.setQuarto(request.getParameter("quarto"));;
+
+            dao.consultarTodos();
+
+            request.setAttribute("quarto", quartos);
+            request.getRequestDispatcher("EdBedroom.jsp").forward(request, response);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("Erro.jsp");
+        }
+    }
+    
+     private void confirmarEdicao(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ClassNotFoundException, SQLException, ServletException {
+        try {
+            Quartos quartos = new Quartos();
+            QuartoDAO quartoDAO = new QuartoDAO();
+             quartos.setQuarto(request.getParameter("quarto"));
+             quartos.setTipo(request.getParameter("tipo"));
+             quartos.setCamaSolteiro(Integer.parseInt(request.getParameter("camaSolteiro")));
+             quartos.setCamaCasal(Integer.parseInt(request.getParameter("camaCasal")));
+             quartos.setDiaria(Double.parseDouble(request.getParameter("diaria")));
+
+            //Valida se os dados não estão vazios
+           if (quartos.getDiaria() == 0 || quartos.getQuarto().equals("") || quartos.getTipo().equals("") || quartos.getCamaSolteiro() == 0 || quartos.getCamaCasal() == 0) {
+                    RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
+                    request.setAttribute("msg", "Há dados vazios, favor validar!");
+                    rd.forward(request, response);
+            } else {
+
+                quartoDAO.Editar(quartos);
+
+                response.sendRedirect("ListarQuarto");
+
+            }
+        } catch (SQLException e) {
+            RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
+            request.setAttribute("erro", "Esse Quarto já existe!");
+            rd.forward(request, response);
+        } catch (Exception e) {
+            RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
+            request.setAttribute("erro", e.toString());
+            rd.forward(request, response);
+        }
+    }
+     
+     private void excluir(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ClassNotFoundException, SQLException, ServletException {
+        try {
+
+           Quartos quartos = new Quartos();
+           QuartoDAO quartoDAO = new QuartoDAO();
+           quartos.setQuarto(request.getParameter("quarto"));
+
+            quartoDAO.excluir(quartos);
+
+            response.sendRedirect("ListarQuarto");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("Erro.jsp");
+        }
+    }
+
 }

@@ -46,8 +46,8 @@
             <td align="center">${quartos.camaCasal}</td>
             <td align="center">${quartos.status}</td>
             <td align="center">${quartos.diaria}</td>
-            <td align="center"><a href="#" alt="">Editar</a></td>     
-            <td align="center"><a href="#" alt="">Excluir</a></td>  
+            <td align="center"><a href="IniciarEdicaoQuarto?quarto=${quartos.quarto}" alt="">Editar</a></td>     
+            <td align="center"><a href="ExcluirQuarto?quarto=${quartos.quarto}" alt="">Excluir</a></td>  
         </tr>
     </c:forEach>
 </table>
