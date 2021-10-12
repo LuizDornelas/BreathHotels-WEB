@@ -39,7 +39,7 @@ public class ControleQuarto extends HttpServlet {
             else if (uri.equals(request.getContextPath() + "/IniciarEdicaoQuarto")) {
                 iniciarEdicao(request, response);
             } else if (uri.equals(request.getContextPath() + "/ExcluirQuarto")) {
-                //excluir(request, response);
+                excluir(request, response);
             }
         } catch (Exception e) {
             RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
@@ -139,7 +139,7 @@ public class ControleQuarto extends HttpServlet {
             QuartoDAO dao = new QuartoDAO();  
             quartos.setQuarto(request.getParameter("quarto"));;
 
-            dao.consultarTodos();
+            dao.consultarporQuarto(quartos);
 
             request.setAttribute("quarto", quartos);
             request.getRequestDispatcher("EdBedroom.jsp").forward(request, response);
@@ -162,9 +162,9 @@ public class ControleQuarto extends HttpServlet {
              quartos.setDiaria(Double.parseDouble(request.getParameter("diaria")));
 
             //Valida se os dados não estão vazios
-           if (quartos.getDiaria() == 0 || quartos.getQuarto().equals("") || quartos.getTipo().equals("") || quartos.getCamaSolteiro() == 0 || quartos.getCamaCasal() == 0) {
+           if (quartos.getDiaria() <= 0 || quartos.getQuarto().equals("") || quartos.getTipo().equals("") || quartos.getCamaSolteiro() < 0 || quartos.getCamaCasal() < 0) {
                     RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
-                    request.setAttribute("msg", "Há dados vazios, favor validar!");
+                    request.setAttribute("erro", "Há dados vazios, favor validar!");
                     rd.forward(request, response);
             } else {
 
@@ -175,7 +175,7 @@ public class ControleQuarto extends HttpServlet {
             }
         } catch (SQLException e) {
             RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
-            request.setAttribute("erro", "Esse Quarto já existe!");
+            request.setAttribute("erro", e.toString());
             rd.forward(request, response);
         } catch (Exception e) {
             RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");

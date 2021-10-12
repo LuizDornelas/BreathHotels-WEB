@@ -33,19 +33,19 @@
                             <form action="ConfirmarEdicaoQuarto" method="POST">
 
                                 <div class="form-group">
-                                    <input type="text" name="quarto" class="form-control" placeholder="Quarto" value="${quartos.quarto}">
+                                    <input type="text" name="quarto" class="form-control" placeholder="Quarto" value="${quarto.quarto}" readonly>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="tipo" class="form-control" placeholder="Tipo" value="${quartos.tipo}">
+                                    <input type="text" name="tipo" class="form-control" placeholder="Tipo" value="${quarto.tipo}">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="camaSolteiro" class="form-control" placeholder="Número de camas de solteiro" value="${quartos.camaSolteiro}">
+                                    <input type="text" name="camaSolteiro" class="form-control" placeholder="Número de camas de solteiro" value="${quarto.camaSolteiro}">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="camaCasal" class="form-control" placeholder="Número de camas de casal" value="${quartos.camaCasal}">
+                                    <input type="text" name="camaCasal" class="form-control" placeholder="Número de camas de casal" value="${quarto.camaCasal}">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="diaria" class="form-control" placeholder="Valor da diária" value="${quartos.diaria}">
+                                    <input type="text" name="diaria" class="form-control" placeholder="Valor da diária" value="${quarto.diaria}">
                                 </div>              
                                  <div class="form-group">
                                     <input class="btn btn-primary custom-btn" type="submit" name="acao" value="Cadastrar" >

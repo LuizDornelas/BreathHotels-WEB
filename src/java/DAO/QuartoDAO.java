@@ -21,7 +21,7 @@ import java.util.List;
 public class QuartoDAO {
 
     private static final String CADASTRA_NOVO_QUARTO = "INSERT INTO public.quartos(quarto, tipo, camasolteiro, camacasal, status, diaria) VALUES (?,?,?,?,'Disponível',?);";
-    private static final String CONSULTA_QUARTO = "select quarto, tipo, camasolteiro, camacasal, status, diaria from quartos";
+    private static final String CONSULTA_QUARTO = "select quarto, tipo, camasolteiro, camacasal, status, diaria from quartos order by quarto";
     private static final String CONSULTA_DISPONIVEIS = "select quarto, camasolteiro, camacasal, diaria from quartos where status = 'Disponível'";
 
     public void cadastraNovoQuarto(Quartos quartos) throws ClassNotFoundException, SQLException {
@@ -116,13 +116,13 @@ public class QuartoDAO {
         //Conecta com o banco
         con = ConectaBanco.getConexao();
 
-        pstmt = con.prepareStatement("UPDATE public.quartos SET quarto=?, tipo=?, camaSolteiro=?, camaCasal=?, diaria=?, WHERE quarto=?;");
+        pstmt = con.prepareStatement("UPDATE public.quartos SET quarto=?, tipo=?, camaSolteiro=?, camaCasal=?, diaria=? WHERE quarto=?;");
         pstmt.setString(1, quartos.getQuarto());
         pstmt.setString(2, quartos.getTipo());
         pstmt.setInt(3, quartos.getCamaSolteiro());
         pstmt.setInt(4, quartos.getCamaCasal());
         pstmt.setDouble(5, quartos.getDiaria());
-        
+        pstmt.setString(6, quartos.getQuarto());        
        
         pstmt.execute();
         pstmt.close();
@@ -134,5 +134,19 @@ public class QuartoDAO {
         com.setString(1, quartos.getQuarto());
         com.execute();
         com.close();
+    }
+     public void consultarporQuarto(Quartos quarto) throws ClassNotFoundException, SQLException {
+        Connection con = ConectaBanco.getConexao();
+        PreparedStatement com = con.prepareStatement("select quarto, tipo, camasolteiro, camacasal, diaria from quartos where quarto=?;");
+        com.setString(1, quarto.getQuarto());
+        ResultSet resultado = com.executeQuery();
+
+        if (resultado.next()) {
+            quarto.setQuarto(resultado.getString("quarto"));
+            quarto.setTipo(resultado.getString("tipo"));
+            quarto.setCamaSolteiro(resultado.getInt("camasolteiro"));
+            quarto.setCamaCasal(resultado.getInt("camacasal"));
+            quarto.setDiaria(resultado.getDouble("diaria"));       
+        }
     }
 }
