@@ -11,9 +11,6 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -90,49 +87,36 @@ public class ControleCheckin extends HttpServlet {
 
         try {
             CheckinDAO dao = new CheckinDAO();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            LocalDateTime entrada = null;
-            LocalDateTime saida = null;
+
             HttpSession session = request.getSession(true);
             Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
-
+            
+            DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             String parameter = request.getParameter("entrada");
             parameter = parameter.replace("T", " ");
-            if (!"".equals(parameter)) {
+            if (!"".equals(parameter)) {                                                
                 usuario.setEntrada(parameter);
-                entrada = LocalDateTime.parse(parameter, formatter);
             }
 
             parameter = request.getParameter("saida");
             parameter = parameter.replace("T", " ");
-            if (!"".equals(parameter)) {
+            if (!"".equals(parameter)) {                
                 usuario.setSaida(parameter);
-                saida = LocalDateTime.parse(parameter, formatter);
             }
 
             usuario.setQuarto(request.getParameter("cmb_quarto"));
-            if (request.getParameter("cmb_cliente") != null) {
+            if(request.getParameter("cmb_cliente") != null){
                 usuario.setId(Integer.parseInt(request.getParameter("cmb_cliente")));
             }
-
-            if (usuario.getEntrada() == null || usuario.getSaida() == null || usuario.getQuarto() == null || usuario.getId() == 0) {
+            
+            if (usuario.getEntrada() == null || usuario.getSaida() == null || usuario.getQuarto() == null || usuario.getId()== 0) {
                 RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
                 request.setAttribute("erro", "Há dados vazios, favor validar!");
                 rd.forward(request, response);
             } else {
-                long validaEntrada = Duration.between(LocalDateTime.now(), entrada).toDays();
-                long validaSaida = Duration.between(entrada, saida).toDays();
-                if (validaEntrada < 0) {
-                    RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
-                    request.setAttribute("erro", "Data de entrada não pode ser menor que hoje!");
-                    rd.forward(request, response);
-                } else if (validaSaida < 0){
-                    RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
-                    request.setAttribute("erro", "Data de saída não pode ser menor que entrada!");
-                    rd.forward(request, response);
-                }
-                usuario.setDias((int)validaSaida);
+
                 dao.cadastrar(usuario);
+
                 response.sendRedirect("index");
 
             }

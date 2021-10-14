@@ -51,15 +51,12 @@ public class CheckinDAO {
             pstmt.setInt(2, usuario.getId());
             rsDiaria = pstmt.executeQuery();
             rsDiaria.next();
-            //A querry acima retorna o valor da diaria              
+            //A querry acima retorna o valor da diaria       
             double diaria = rsDiaria.getDouble("diaria");
-            if (usuario.getDias() != 0){
-                diaria *= usuario.getDias();
-            }            
             usuario.setNome(rsDiaria.getString("nome"));
 
             rsDiaria.close();
-            
+
             //Essa querry irá inserir dados na tabela reserva
             pstmt = con.prepareStatement("INSERT INTO reservas(nomefunc, nomecli, entrada, saida, valor, quartofk, status, usuariofk) VALUES(?,?,?,?,?,?,'Em andamento',?);");
             pstmt.setString(1, usuario.getLogin());

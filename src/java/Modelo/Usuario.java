@@ -5,6 +5,7 @@ import java.util.Date;
 public class Usuario {
     
     private int id;
+    private int dias;
     private String login;
     private String senha;
     private EnumTipoAcesso tipo;
@@ -168,6 +169,14 @@ public class Usuario {
     public void setQuarto(String quarto) {
         this.quarto = quarto;
     }        
+
+    public int getDias() {
+        return dias;
+    }
+
+    public void setDias(int dias) {
+        this.dias = dias;
+    }
     
     public Usuario() {
     }    

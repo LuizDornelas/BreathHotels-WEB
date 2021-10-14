@@ -47,7 +47,7 @@
                                 <select name="cmb_quarto" class="browser-default">
                                     <option disabled selected>Selecione o quarto</option>
                                     <c:forEach items="${quarto}" var="quarto">                                                                                                                       
-                                        <option>${quarto.quarto}</option>                                                                                       
+                                        <option value="${quarto.quarto}">${quarto.quarto} | R$${quarto.diaria} | Cama Solteiro: ${quarto.camaSolteiro} | Cama Casal: ${quarto.camaCasal}</option>                                                                                       
                                     </c:forEach>                                    
                                 </select>
 
