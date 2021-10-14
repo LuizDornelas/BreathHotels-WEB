@@ -122,7 +122,7 @@
         <tr>                                           
             <td>${todasReservas.nomeCliente}</td>
             <td>${todasReservas.entrada}</td>
-            <td>${todasReservas.valor}</td>
+            <td>R$ ${todasReservas.valor}0</td>
             <td>${todasReservas.quarto}</td>           
         </tr>
     </c:forEach>   

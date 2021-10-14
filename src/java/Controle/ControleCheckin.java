@@ -94,16 +94,14 @@ public class ControleCheckin extends HttpServlet {
             DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             String parameter = request.getParameter("entrada");
             parameter = parameter.replace("T", " ");
-            if (!"".equals(parameter)) {                                
-                java.sql.Date data = new java.sql.Date(fmt.parse(parameter).getTime());
-                usuario.setEntrada(data);
+            if (!"".equals(parameter)) {                                                
+                usuario.setEntrada(parameter);
             }
 
             parameter = request.getParameter("saida");
             parameter = parameter.replace("T", " ");
-            if (!"".equals(parameter)) {
-                java.sql.Date data = new java.sql.Date(fmt.parse(parameter).getTime());
-                usuario.setSaida(data);
+            if (!"".equals(parameter)) {                
+                usuario.setSaida(parameter);
             }
 
             usuario.setQuarto(request.getParameter("cmb_quarto"));

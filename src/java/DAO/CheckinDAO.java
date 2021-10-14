@@ -1,15 +1,12 @@
 package DAO;
 
 import Conexao.ConectaBanco;
-import Modelo.EnumAtivo;
 import Modelo.Reserva;
 import Modelo.Usuario;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,11 +26,8 @@ public class CheckinDAO {
         List<Reserva> reservas = new ArrayList<>();
         while (resultado.next()) {
             Reserva reserva = new Reserva();
-            reserva.setNomeCliente(resultado.getString("nomecli"));
-            Date date = resultado.getDate("entrada");
-            SimpleDateFormat formata = new SimpleDateFormat("dd/MM/yyyy");
-            String data = formata.format(date);
-            reserva.setEntrada(data);
+            reserva.setNomeCliente(resultado.getString("nomecli"));                       
+            reserva.setEntrada(resultado.getString("entrada"));
             reserva.setValor(resultado.getDouble("valor"));
             reserva.setQuarto(resultado.getString("quartofk"));
             reservas.add(reserva);
@@ -67,8 +61,8 @@ public class CheckinDAO {
             pstmt = con.prepareStatement("INSERT INTO reservas(nomefunc, nomecli, entrada, saida, valor, quartofk, status, usuariofk) VALUES(?,?,?,?,?,?,'Em andamento',?);");
             pstmt.setString(1, usuario.getLogin());
             pstmt.setString(2, usuario.getNome());
-            pstmt.setDate(3, usuario.getEntrada());
-            pstmt.setDate(4, usuario.getSaida());
+            pstmt.setString(3, usuario.getEntrada());
+            pstmt.setString(4, usuario.getSaida());
             pstmt.setDouble(5, diaria);
             pstmt.setString(6, usuario.getQuarto());
             pstmt.setInt(7, usuario.getId());

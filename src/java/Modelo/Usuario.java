@@ -19,8 +19,8 @@ public class Usuario {
     private String estado;
     private String cep;   
     private boolean login_duplicado;
-    private java.sql.Date entrada;
-    private java.sql.Date saida;
+    private String entrada;
+    private String saida;
     private String quarto;
     
 
@@ -145,21 +145,21 @@ public class Usuario {
         this.login_duplicado = login_duplicado;
     }        
 
-    public java.sql.Date getEntrada() {
+    public String getEntrada() {
         return entrada;
     }
 
-    public void setEntrada(java.sql.Date entrada) {
+    public void setEntrada(String entrada) {
         this.entrada = entrada;
     }
 
-    public java.sql.Date getSaida() {
+    public String getSaida() {
         return saida;
     }
 
-    public void setSaida(java.sql.Date saida) {
+    public void setSaida(String saida) {
         this.saida = saida;
-    }        
+    }  
 
     public String getQuarto() {
         return quarto;
