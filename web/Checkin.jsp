@@ -33,18 +33,18 @@
                         <div class="form-bg">
                             <a href="#"><img src="view/img/icons/BreathLogo.png" alt="logo" class="logo"></a>
                             <h2>Checkin</h2>
-                            <form method="POST">                               
+                            <form action="CadastraCheckin" method="POST">                               
                                 <div class="form-group">
                                     <label>Entrada</label>
-                                    <input type="date" name="entrada" class="form-control timepicker" >
+                                    <input type="datetime-local" name="entrada" class="form-control timepicker" >
                                 </div>
                                 <div class="form-group">
                                     <label>Saída</label>
-                                    <input type="date" name="saida" class="form-control timepicker" >
+                                    <input type="datetime-local" name="saida" class="form-control timepicker" >
                                 </div>
 
                                 <label>Quarto</label>
-                                <select class="browser-default">
+                                <select name="cmb_quarto" class="browser-default">
                                     <option disabled selected>Selecione o quarto</option>
                                     <c:forEach items="${quarto}" var="quarto">                                                                                                                       
                                         <option>${quarto.quarto}</option>                                                                                       
@@ -52,7 +52,7 @@
                                 </select>
 
                                 <label>Cliente</label>
-                                <select class="browser-default">
+                                <select name="cmb_cliente" class="browser-default">
                                     <option disabled selected>Selecione o cliente</option>
                                     <c:forEach items="${user}" var="user">                                                                                                                       
                                         <option value="${user.id}">${user.nome}</option>                                                                                       

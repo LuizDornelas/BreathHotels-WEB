@@ -1,7 +1,5 @@
 package Modelo;
 
-import java.util.Date;
-
 public class Usuario {
     
     private int id;
@@ -19,10 +17,6 @@ public class Usuario {
     private String estado;
     private String cep;   
     private boolean login_duplicado;
-    private java.sql.Date entrada;
-    private java.sql.Date saida;
-    private String quarto;
-    
 
     public String getLogin() {
         return login;
@@ -144,31 +138,7 @@ public class Usuario {
     public void setLogin_duplicado(boolean login_duplicado) {
         this.login_duplicado = login_duplicado;
     }        
-
-    public java.sql.Date getEntrada() {
-        return entrada;
-    }
-
-    public void setEntrada(java.sql.Date entrada) {
-        this.entrada = entrada;
-    }
-
-    public java.sql.Date getSaida() {
-        return saida;
-    }
-
-    public void setSaida(java.sql.Date saida) {
-        this.saida = saida;
-    }        
-
-    public String getQuarto() {
-        return quarto;
-    }
-
-    public void setQuarto(String quarto) {
-        this.quarto = quarto;
-    }        
     
     public Usuario() {
-    }    
+    }
 }

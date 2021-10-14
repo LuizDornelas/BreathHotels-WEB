@@ -32,7 +32,7 @@ public class CheckinDAO {
             reserva.setNomeCliente(resultado.getString("nomecli"));
             Date date = resultado.getDate("entrada");
             SimpleDateFormat formata = new SimpleDateFormat("dd/MM/yyyy");
-            String data = formata.format(date);            
+            String data = formata.format(date);
             reserva.setEntrada(data);
             reserva.setValor(resultado.getDouble("valor"));
             reserva.setQuarto(resultado.getString("quartofk"));
@@ -41,5 +41,58 @@ public class CheckinDAO {
         con.close();
         return reservas;
 
+    }
+
+    public void cadastrar(Usuario usuario) throws ClassNotFoundException {
+
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rsDiaria = null;
+
+        try {
+            //Conecta com o banco
+            con = ConectaBanco.getConexao();
+            pstmt = con.prepareStatement("select diaria, nome from quartos, usuario where quarto=? and usuarioid=?;");            
+            pstmt.setString(1, usuario.getQuarto());
+            pstmt.setInt(2, usuario.getId());
+            rsDiaria = pstmt.executeQuery();
+            rsDiaria.next();
+            //A querry acima retorna o valor da diaria       
+            double diaria = rsDiaria.getDouble("diaria");
+            usuario.setNome(rsDiaria.getString("nome"));
+
+            rsDiaria.close();
+
+            //Essa querry irá inserir dados na tabela reserva
+            pstmt = con.prepareStatement("INSERT INTO reservas(nomefunc, nomecli, entrada, saida, valor, quartofk, status, usuariofk) VALUES(?,?,?,?,?,?,'Em andamento',?);");
+            pstmt.setString(1, usuario.getLogin());
+            pstmt.setString(2, usuario.getNome());
+            pstmt.setDate(3, usuario.getEntrada());
+            pstmt.setDate(4, usuario.getSaida());
+            pstmt.setDouble(5, diaria);
+            pstmt.setString(6, usuario.getQuarto());
+            pstmt.setInt(7, usuario.getId());
+
+            pstmt.execute();
+            pstmt.close();
+
+            //Essa querry irá alterar dados da tabela quartoss
+            pstmt = con.prepareStatement("UPDATE quartos SET status='Ocupado', reservafk=(select reservaid from reservas where quartofk=? and status = 'Em andamento') WHERE quarto=?;");
+            pstmt.setString(1, usuario.getQuarto());
+            pstmt.setString(2, usuario.getQuarto());
+
+            pstmt.execute();
+
+        } catch (SQLException sqlErro) {
+            throw new RuntimeException(sqlErro);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        }
     }
 }
