@@ -38,9 +38,9 @@ public class CartaoDAO {
 
             if (qntCartao == 0) {
                 pstmt = conexao.prepareStatement(CADASTRA_NOVO_CARTAO);
-                pstmt.setInt(1, cartao.getNumeroCartao());
+                pstmt.setString(1, cartao.getNumeroCartao());
                 pstmt.setString(2, cartao.getNome());
-                pstmt.setInt(3, cartao.getValidade());
+                pstmt.setString(3, cartao.getValidade());
                 pstmt.setInt(4, cartao.getCodigo());
                 pstmt.setString(5, cartao.getBandeira());
                  pstmt.execute();    
@@ -71,9 +71,9 @@ public class CartaoDAO {
             Cartao cartao = new Cartao();
             
              //cartao.setId(resultado.getInt("cartaoid"));
-             cartao.setNumeroCartao(resultado.getInt("numerocartao"));
+             cartao.setNumeroCartao(resultado.getString("numerocartao"));
              cartao.setNome(resultado.getString("nome"));
-             cartao.setValidade(resultado.getInt("validade"));
+             cartao.setValidade(resultado.getString("validade"));
              cartao.setCodigo(resultado.getInt("codigo"));
              cartao.setBandeira(resultado.getString("bandeira"));
                                           

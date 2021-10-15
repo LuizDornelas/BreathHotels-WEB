@@ -68,14 +68,14 @@ public class ControleCartao extends HttpServlet {
                 //Ao clicar em cadastrar no CadCartao ele trarÃ¡ atÃ© esse servlet
                 Cartao cartao = new Cartao();
                 //Instancia na classe o que foi inserido nas caixas de texto
-                cartao.setNumeroCartao(Integer.parseInt(request.getParameter("numerocartao")));
+                cartao.setNumeroCartao(request.getParameter("numerocartao"));
                 cartao.setNome(request.getParameter("nome"));
-                cartao.setValidade(Integer.parseInt(request.getParameter("validade")));
+                cartao.setValidade(request.getParameter("validade"));
                 cartao.setCodigo(Integer.parseInt(request.getParameter("codigo")));
                  cartao.setBandeira(request.getParameter("bandeira"));
 
                 //Valida se os dados  não estão vazios
-                if (cartao.getNumeroCartao() == 0 || cartao.getNome().equals("") || cartao.getValidade() == 0 || cartao.getCodigo() == 0 || cartao.getBandeira().equals("")){
+                if (cartao.getNumeroCartao().equals("") || cartao.getNome().equals("") || cartao.getValidade().equals("")|| cartao.getCodigo() == 0 || cartao.getBandeira().equals("")){
                     RequestDispatcher rd = request.getRequestDispatcher("CadCard.jsp");
                     request.setAttribute("msg", "Há dados vazios, favor validar!");
                     rd.forward(request, response);

@@ -32,13 +32,13 @@
                             <form action="CadastroCartao" method="POST">
 
                                 <div class="form-group">
-                                    <input type="number" name="numerocartao" class="form-control" placeholder="Número do cartão">
+                                    <input type="text" name="numerocartao" class="form-control" placeholder="Número do cartão">
                                 </div>
                                 <div class="form-group">
                                     <input type="text" name="nome" class="form-control" placeholder="Nome">
                                 </div>
                                 <div class="form-group">
-                                    <input type="number" name="validade" class="form-control" placeholder="Validade do cartão">
+                                    <input type="text" name="validade" class="form-control" placeholder="Validade do cartão">
                                 </div>
                                 <div class="form-group">
                                     <input type="number" name="codigo" class="form-control" placeholder="Código do cartão">

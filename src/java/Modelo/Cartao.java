@@ -5,18 +5,18 @@ package Modelo;
  * @author Leticia Possas
  */
 public class Cartao {
- private int numerocartao;
+ private String numerocartao;
     private String nome;
-    private int validade;
+    private String validade;
     private int codigo;
     private String bandeira;
     private boolean cartao_duplicado;
 
-    public int getNumeroCartao() {
+    public String getNumeroCartao() {
         return numerocartao;
     }
 
-    public void setNumeroCartao(int numerocartao) {
+    public void setNumeroCartao(String numerocartao) {
         this.numerocartao = numerocartao;
     }
 
@@ -28,11 +28,11 @@ public class Cartao {
         this.nome = nome;
     }
 
-    public int getValidade() {
+    public String getValidade() {
         return validade;
     }
 
-    public void setValidade(int validade) {
+    public void setValidade(String validade) {
         this.validade = validade;
     }
 
