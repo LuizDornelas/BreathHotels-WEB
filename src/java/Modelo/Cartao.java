@@ -4,14 +4,23 @@ package Modelo;
  *
  * @author Leticia Possas
  */
+
 public class Cartao {
- private String numerocartao;
+    private int id;
+    private String numerocartao;
     private String nome;
     private String validade;
     private int codigo;
     private String bandeira;
     private boolean cartao_duplicado;
 
+      public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     public String getNumeroCartao() {
         return numerocartao;
     }

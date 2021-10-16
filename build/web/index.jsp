@@ -72,7 +72,7 @@
                     <a class="nav-link" href="ListarQuarto">Quartos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Cartões</a>
+                    <a class="nav-link" href="ListarCartao">Cartões</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Histórico</a>

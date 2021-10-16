@@ -41,7 +41,7 @@
                                     <input type="text" name="validade" class="form-control" placeholder="Validade do cartão">
                                 </div>
                                 <div class="form-group">
-                                    <input type="number" name="codigo" class="form-control" placeholder="Código do cartão">
+                                    <input type="text" name="codigo" class="form-control" placeholder="Código do cartão">
                                 </div>
                                 <div class="form-group">
                                     <input type="text" name="bandeira" class="form-control" placeholder="Bandeira do cartão">
@@ -49,7 +49,6 @@
                                 <div class="form-group">
                                     <input class="btn btn-primary custom-btn" type="submit" name="acao" value="Cadastrar">
                                     </br></br>                                    
-                                    <a href="index.jsp">Voltar</a>
                                     <br>
                                     <%
                                         //Traz a mensagem diretamente da control
@@ -60,6 +59,9 @@
                                     <font color="#274360"><%=msg%></font>
                                     <%}%>
                                     <%}%>
+                                    <div class="botoes">
+                                        <a href="ListarCartao">Voltar</a>  
+                                    </div>
                                 </div>
                             </form>
                         </div>      

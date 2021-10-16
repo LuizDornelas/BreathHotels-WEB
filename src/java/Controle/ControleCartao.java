@@ -1,6 +1,7 @@
 package Controle;
 
 import DAO.CartaoDAO;
+import Modelo.Cartao;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
@@ -8,7 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import Modelo.Cartao;
 import java.util.List;
 import javax.servlet.http.HttpServlet;
 
@@ -29,12 +29,12 @@ public class ControleCartao extends HttpServlet {
             String uri = request.getRequestURI();
 
             if (uri.equals(request.getContextPath() + "/ListarCartao")) {
-                listarCartao(request, response);
+                ListarCartao(request, response);
             }
             else if (uri.equals(request.getContextPath() + "/EditarCartao")) {
-                //iniciarEdicao(request, response);
+                IniciarEdicao(request, response);
             } else if (uri.equals(request.getContextPath() + "/ExcluirCartao")) {
-               // excluir(request, response);
+                Excluir(request, response);
             }
         } catch (Exception e) {
             RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
@@ -50,7 +50,7 @@ public class ControleCartao extends HttpServlet {
             if (uri.equals(request.getContextPath() + "/CadastroCartao")) {
                 CadastroCartao(request, response);
             } else if (uri.equals(request.getContextPath() + "/ConfirmarEdicaoCartao")) {
-               // confirmarEdicao(request, response);
+               ConfirmarEdicao(request, response);
             }
         } catch (Exception e) {
             RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
@@ -72,10 +72,10 @@ public class ControleCartao extends HttpServlet {
                 cartao.setNome(request.getParameter("nome"));
                 cartao.setValidade(request.getParameter("validade"));
                 cartao.setCodigo(Integer.parseInt(request.getParameter("codigo")));
-                 cartao.setBandeira(request.getParameter("bandeira"));
+                cartao.setBandeira(request.getParameter("bandeira"));
 
                 //Valida se os dados  não estão vazios
-                if (cartao.getNumeroCartao().equals("") || cartao.getNome().equals("") || cartao.getValidade().equals("")|| cartao.getCodigo() == 0 || cartao.getBandeira().equals("")){
+                if (cartao.getNumeroCartao().equals("") || cartao.getNome().equals("") || cartao.getValidade().equals("")|| cartao.getCodigo()== 0|| cartao.getBandeira().equals("")){
                     RequestDispatcher rd = request.getRequestDispatcher("CadCard.jsp");
                     request.setAttribute("msg", "Há dados vazios, favor validar!");
                     rd.forward(request, response);
@@ -111,7 +111,7 @@ public class ControleCartao extends HttpServlet {
                 rd.forward(request, response);
             }
         }
-    private void listarCartao(HttpServletRequest request, HttpServletResponse response)
+    private void ListarCartao(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
 
         CartaoDAO dao = new CartaoDAO();    
@@ -120,9 +120,9 @@ public class ControleCartao extends HttpServlet {
 
         request.setAttribute("todosCartao", todosCartao);
 
-        request.getRequestDispatcher("ListaCartao.jsp").forward(request, response);
+        request.getRequestDispatcher("ListCard.jsp").forward(request, response);
     }
-   /* private void iniciarEdicao(HttpServletRequest request, HttpServletResponse response)
+    private void IniciarEdicao(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ClassNotFoundException, SQLException, ServletException {
         try {
 
@@ -139,20 +139,20 @@ public class ControleCartao extends HttpServlet {
             e.printStackTrace();
             response.sendRedirect("Erro.jsp");
         }
-    }*/
-  /*  private void confirmarEdicao(HttpServletRequest request, HttpServletResponse response)
+    }
+    private void ConfirmarEdicao(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ClassNotFoundException, SQLException, ServletException {
         try {
             Cartao cartao = new Cartao();
             CartaoDAO dao = new CartaoDAO();
-            cartao.setNumeroCartao(Integer.parseInt(request.getParameter("numerocartao")));
+            cartao.setNumeroCartao(request.getParameter("numerocartao"));
             cartao.setNome(request.getParameter("nome"));
-            cartao.setValidade(Integer.parseInt(request.getParameter("validade")));
+            cartao.setValidade(request.getParameter("validade"));
             cartao.setCodigo(Integer.parseInt(request.getParameter("codigo")));
             cartao.setBandeira(request.getParameter("bandeira"));
 
             //Valida se os dados não estão vazios
-            if (cartao.getNumeroCartao() == 0 || cartao.getNome().equals("") || cartao.getValidade() == 0 || cartao.getCodigo() == 0 || cartao.getBandeira().equals("")) {
+            if (cartao.getNumeroCartao().equals("") || cartao.getNome().equals("") || cartao.getValidade().equals("")|| cartao.getCodigo()== 0 || cartao.getBandeira().equals("")) {
                 RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
                 request.setAttribute("erro", "Há dados vazios, favor validar!");
                 rd.forward(request, response);
@@ -178,8 +178,8 @@ public class ControleCartao extends HttpServlet {
                 request.setAttribute("msg", erro);
                 rd.forward(request, response);
         }
-    }*/
-   /*  private void excluir(HttpServletRequest request, HttpServletResponse response)
+    }
+    private void Excluir(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ClassNotFoundException, SQLException, ServletException {
         try {
 
@@ -187,7 +187,7 @@ public class ControleCartao extends HttpServlet {
             CartaoDAO dao = new CartaoDAO();
             cartao.setId(Integer.valueOf(request.getParameter("id")));
 
-            dao.excluir(cartao);
+            dao.Excluir(cartao);
 
             response.sendRedirect("ListarCartao");
 
@@ -195,5 +195,5 @@ public class ControleCartao extends HttpServlet {
             e.printStackTrace();
             response.sendRedirect("Erro.jsp");
         }
-    }*/
+    }
 }
