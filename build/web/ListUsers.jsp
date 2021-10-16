@@ -35,11 +35,11 @@
                 <th style="width: 10%;">Cidade</th>
                 <th style="width: 10%;">Estado</th>
                 <th style="width: 10%;">CEP</th>
-                <th style="width: 7%;">Login</th>
-                <th style="width: 7%;">Senha</th>
+                <th style="width: 7%;">Login</th>                
                 <th style="width: 10%;">Tipo</th>
                 <th style="width: 10%;">Ativo</th>
                 <th style="width: 10%;">Editar</th>
+                <th style="width: 10%;">Senha</th>
             </tr>
     </center>
 
@@ -54,11 +54,11 @@
             <td align="center">${user.cidade}</td>
             <td align="center">${user.estado}</td>
             <td align="center">${user.cep}</td>
-            <td align="center">${user.login}</td>
-            <td align="center">${user.senha}</td>
+            <td align="center">${user.login}</td>            
             <td align="center">${user.tipo.toString()}</td>
             <td align="center">${user.ativo.toString()}</td>
-            <td align="center"><a href="IniciarEdicaoUsuario?id=${user.id}" alt="">Editar</a></td>               
+            <td align="center"><a href="IniciarEdicaoUsuario?id=${user.id}" alt="">Editar</a></td>    
+            <td align="center"><a href="IniciarResetSenha?id=${user.id}" alt="">Resetar Senha</a></td>  
         </tr>
     </c:forEach>
 </table>

@@ -15,10 +15,12 @@ import Modelo.Usuario;
 import DAO.UsuarioDAO;
 import Modelo.EnumTipoAcesso;
 import Modelo.EnumAtivo;
+import java.math.BigInteger;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
+import java.security.MessageDigest;
 
 /**
  *
@@ -28,7 +30,9 @@ import javax.servlet.http.HttpSession;
     "/CadastroUsuario",
     "/ListarUsuario",
     "/IniciarEdicaoUsuario",
-    "/ConfirmarEdicao"})
+    "/ConfirmarEdicao",
+    "/IniciarResetSenha",
+    "/ResetSenha"})
 
 public class ControleUsuario extends HttpServlet {
 
@@ -43,6 +47,8 @@ public class ControleUsuario extends HttpServlet {
                 listar(request, response);
             } else if (uri.equals(request.getContextPath() + "/IniciarEdicaoUsuario")) {
                 iniciarEdicao(request, response);
+            } else if (uri.equals(request.getContextPath() + "/IniciarResetSenha")) {
+                iniciarResetSenha(request, response);
             }
         } catch (Exception e) {
             RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
@@ -60,6 +66,8 @@ public class ControleUsuario extends HttpServlet {
                 cadastrar(request, response);
             } else if (uri.equals(request.getContextPath() + "/ConfirmarEdicao")) {
                 confirmarEdicao(request, response);
+            } else if (uri.equals(request.getContextPath() + "/ResetSenha")) {
+                resetSenha(request, response);
             }
         } catch (Exception e) {
             RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
@@ -103,6 +111,10 @@ public class ControleUsuario extends HttpServlet {
                     request.setAttribute("msg", "Há dados vazios, favor validar!");
                     rd.forward(request, response);
                 } else {
+                    MessageDigest md = MessageDigest.getInstance("MD5");
+                    byte[] messageDigest = md.digest(usuario.getSenha().getBytes());
+                    BigInteger number = new BigInteger(1, messageDigest);
+                    usuario.setSenha(number.toString(16));
 
                     UsuarioDAO usuarioDAO = new UsuarioDAO();
                     //Instancia uma DAO e leva os dados até o método
@@ -165,6 +177,57 @@ public class ControleUsuario extends HttpServlet {
         }
     }
 
+    private void iniciarResetSenha(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ClassNotFoundException, SQLException, ServletException {
+        try {
+
+            Usuario user = new Usuario();
+            UsuarioDAO dao = new UsuarioDAO();
+            user.setId(Integer.valueOf(request.getParameter("id")));
+
+            request.setAttribute("usuario", user);
+            request.getRequestDispatcher("ResetPass.jsp").forward(request, response);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("Erro.jsp");
+        }
+    }
+
+    private void resetSenha(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ClassNotFoundException, SQLException, ServletException {
+        try {
+            Usuario usuario = new Usuario();
+            UsuarioDAO dao = new UsuarioDAO();
+            usuario.setId(Integer.valueOf(request.getParameter("txt_id")));
+            usuario.setSenha(request.getParameter("txt_senha"));
+            usuario.setConfirmasenha(request.getParameter("txt_confirma"));
+
+            if (usuario.getSenha().equals("") || usuario.getConfirmasenha().equals("")) {
+                RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
+                request.setAttribute("erro", "Há dados vazios, favor validar!");
+                rd.forward(request, response);
+            } else if (usuario.getSenha().equals(usuario.getConfirmasenha())) {
+                MessageDigest md = MessageDigest.getInstance("MD5");
+                byte[] messageDigest = md.digest(usuario.getSenha().getBytes());
+                BigInteger number = new BigInteger(1, messageDigest);
+                usuario.setSenha(number.toString(16));
+
+                dao.ResetSenha(usuario);
+
+                response.sendRedirect("ListarUsuario");
+
+            } else {
+                RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
+                request.setAttribute("erro", "Senha e confirmação estão divergentes!");
+                rd.forward(request, response);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("Erro.jsp");
+        }
+    }
+
     private void confirmarEdicao(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ClassNotFoundException, SQLException, ServletException {
         try {
@@ -180,8 +243,7 @@ public class ControleUsuario extends HttpServlet {
             usuario.setCidade(request.getParameter("txt_cidade"));
             usuario.setEstado(request.getParameter("txt_estado"));
             usuario.setCep(request.getParameter("txt_cep"));
-            usuario.setLogin(request.getParameter("txt_login"));
-            usuario.setSenha(request.getParameter("txt_senha"));
+            usuario.setLogin(request.getParameter("txt_login"));            
             String perfil = request.getParameter("cmb_tipo");
             String ativo = request.getParameter("cmb_ativo");
             if (perfil.equalsIgnoreCase("Admin")) {
@@ -197,7 +259,7 @@ public class ControleUsuario extends HttpServlet {
                 usuario.setAtivo(EnumAtivo.NAO);
             }
             //Valida se os dados não estão vazios
-            if (usuario.getNome().equals("") || usuario.getRg().equals("") || usuario.getTelefone().equals("") || usuario.getRua().equals("") || usuario.getNumero().equals("") || usuario.getBairro().equals("") || usuario.getCidade().equals("") || usuario.getEstado().equals("") || usuario.getCep().equals("") || usuario.getLogin().equals("") || usuario.getSenha().equals("")) {
+            if (usuario.getNome().equals("") || usuario.getRg().equals("") || usuario.getTelefone().equals("") || usuario.getRua().equals("") || usuario.getNumero().equals("") || usuario.getBairro().equals("") || usuario.getCidade().equals("") || usuario.getEstado().equals("") || usuario.getCep().equals("") || usuario.getLogin().equals("")) {
                 RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
                 request.setAttribute("erro", "Há dados vazios, favor validar!");
                 rd.forward(request, response);

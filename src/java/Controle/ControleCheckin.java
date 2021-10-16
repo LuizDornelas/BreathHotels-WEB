@@ -6,11 +6,8 @@ import DAO.UsuarioDAO;
 import Modelo.Quartos;
 import Modelo.Usuario;
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -110,12 +107,12 @@ public class ControleCheckin extends HttpServlet {
                 saida = LocalDateTime.parse(parameter, formatter);
             }
 
-            usuario.setQuarto(request.getParameter("cmb_quarto"));
+            usuario.setQuarto(Integer.parseInt(request.getParameter("cmb_quarto")));
             if (request.getParameter("cmb_cliente") != null) {
                 usuario.setId(Integer.parseInt(request.getParameter("cmb_cliente")));
             }
 
-            if (usuario.getEntrada() == null || usuario.getSaida() == null || usuario.getQuarto() == null || usuario.getId() == 0) {
+            if (usuario.getEntrada() == null || usuario.getSaida() == null || usuario.getId() == 0) {
                 RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
                 request.setAttribute("erro", "Há dados vazios, favor validar!");
                 rd.forward(request, response);
@@ -126,15 +123,15 @@ public class ControleCheckin extends HttpServlet {
                     RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
                     request.setAttribute("erro", "Data de entrada não pode ser menor que hoje!");
                     rd.forward(request, response);
-                } else if (validaSaida < 0){
+                } else if (validaSaida < 0) {
                     RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
                     request.setAttribute("erro", "Data de saída não pode ser menor que entrada!");
                     rd.forward(request, response);
+                } else {
+                    usuario.setDias((int) validaSaida);
+                    dao.cadastrar(usuario);
+                    response.sendRedirect("index");
                 }
-                usuario.setDias((int)validaSaida);
-                dao.cadastrar(usuario);
-                response.sendRedirect("index");
-
             }
         } catch (Exception e) {
             RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");

@@ -109,7 +109,8 @@
 
         <table class="table">
             <thead class="thead-light">
-                <tr>                                
+                <tr>               
+                    <th style="width: 5%;">Reserva</th>
                     <th style="width: 15%;">Cliente</th>
                     <th style="width: 10%;">Entrada</th>
                     <th style="width: 5%;">Valor</th>
@@ -119,7 +120,8 @@
     </center>
 
     <c:forEach items="${todasReservas}" var="todasReservas">      
-        <tr>                                           
+        <tr>                                       
+            <td>${todasReservas.numreserva}</td>
             <td>${todasReservas.nomeCliente}</td>
             <td>${todasReservas.entrada}</td>
             <td>R$ ${todasReservas.valor}0</td>

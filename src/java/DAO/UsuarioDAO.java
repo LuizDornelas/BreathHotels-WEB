@@ -165,7 +165,7 @@ public class UsuarioDAO {
 
     public void consultarporId(Usuario user) throws ClassNotFoundException, SQLException {
         Connection con = ConectaBanco.getConexao();
-        PreparedStatement com = con.prepareStatement("select usuarioid, nome, rg, telefone, rua, numero, bairro, cidade, estado, cep, login, senha, tipo, ativo from usuario, login where usuarioid = fk_usuario and usuarioid= ?");
+        PreparedStatement com = con.prepareStatement("select usuarioid, nome, rg, telefone, rua, numero, bairro, cidade, estado, cep, login, tipo, ativo from usuario, login where usuarioid = fk_usuario and usuarioid= ?");
         com.setInt(1, user.getId());
         ResultSet resultado = com.executeQuery();
 
@@ -180,8 +180,7 @@ public class UsuarioDAO {
             user.setCidade(resultado.getString("cidade"));
             user.setEstado(resultado.getString("estado"));
             user.setCep(resultado.getString("cep"));
-            user.setLogin(resultado.getString("login"));
-            user.setSenha(resultado.getString("senha"));
+            user.setLogin(resultado.getString("login"));            
             user.setTipo((EnumTipoAcesso.valueOf(resultado.getString("tipo"))));
             user.setAtivo((EnumAtivo.valueOf(resultado.getString("ativo"))));
         }
@@ -193,13 +192,12 @@ public class UsuarioDAO {
         Connection con = ConectaBanco.getConexao();
 
         //Se não houver login igual irá cadastrar na tabela usuário e login conforme parametros
-        pstmt = con.prepareStatement("UPDATE public.login SET login=?, senha=?, ativo=?, tipo=?, fk_usuario=? WHERE loginid=?;");
-        pstmt.setString(1, usuario.getLogin());
-        pstmt.setString(2, usuario.getSenha());
-        pstmt.setString(3, usuario.getAtivo().toString());
-        pstmt.setString(4, usuario.getTipo().toString());
+        pstmt = con.prepareStatement("UPDATE public.login SET login=?, ativo=?, tipo=?, fk_usuario=? WHERE loginid=?;");
+        pstmt.setString(1, usuario.getLogin());        
+        pstmt.setString(2, usuario.getAtivo().toString());
+        pstmt.setString(3, usuario.getTipo().toString());
+        pstmt.setInt(4, usuario.getId());
         pstmt.setInt(5, usuario.getId());
-        pstmt.setInt(6, usuario.getId());
         pstmt.execute();
         pstmt.close();
 
@@ -217,6 +215,18 @@ public class UsuarioDAO {
         pstmt.execute();
     }
 
+    public void ResetSenha(Usuario usuario) throws ClassNotFoundException, SQLException {
+        PreparedStatement pstmt = null;
+
+        Connection con = ConectaBanco.getConexao();
+
+        //Reseta senha conforme id do ListUser
+        pstmt = con.prepareStatement("UPDATE public.login SET senha=? WHERE fk_usuario=?;");
+        pstmt.setString(1, usuario.getSenha());
+        pstmt.setInt(2, usuario.getId());
+        pstmt.execute();
+    }
+
     public List<Usuario> consultarClientes() throws ClassNotFoundException, SQLException {
 
         Connection con = ConectaBanco.getConexao();
@@ -231,7 +241,7 @@ public class UsuarioDAO {
             Usuario user = new Usuario();
 
             user.setId(resultado.getInt("usuarioid"));
-            user.setNome(resultado.getString("nome"));            
+            user.setNome(resultado.getString("nome"));
             user.setAtivo((EnumAtivo.valueOf(resultado.getString("ativo"))));
 
             todosUsuarios.add(user);

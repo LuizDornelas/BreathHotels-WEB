@@ -137,8 +137,9 @@ public class ControleItens extends HttpServlet {
             request.getRequestDispatcher("EdItens.jsp").forward(request, response);
 
         } catch (Exception e) {
-            e.printStackTrace();
-            response.sendRedirect("Erro.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
+            request.setAttribute("erro", e.toString());
+            rd.forward(request, response);
         }
     }
 
@@ -189,8 +190,9 @@ public class ControleItens extends HttpServlet {
             response.sendRedirect("ListarItem");
 
         } catch (Exception e) {
-            e.printStackTrace();
-            response.sendRedirect("Erro.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
+            request.setAttribute("erro", e.toString());
+            rd.forward(request, response);
         }
     }
 }

@@ -1,6 +1,7 @@
 package Modelo;
 
 public class Quartos {
+    private int id;
     private String quarto;
     private String tipo;
     private int camaSolteiro;
@@ -9,6 +10,14 @@ public class Quartos {
     private double diaria;
     private boolean quarto_duplicado;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }      
+    
     public String getQuarto() {
         return quarto;
     }

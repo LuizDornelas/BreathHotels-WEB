@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="Modelo.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -46,6 +47,13 @@
                                 <div class="form-group">
                                     <input type="text" name="bandeira" class="form-control" placeholder="Bandeira do cartão">
                                 </div>              
+                                <label>Cliente</label>
+                                <select name="cmb_cliente" class="browser-default">
+                                    <option disabled selected>Selecione o cliente</option>
+                                    <c:forEach items="${user}" var="user">                                                                                                                       
+                                        <option value="${user.id}">${user.nome}</option>                                                                                       
+                                    </c:forEach>                                    
+                                </select>
                                 <div class="form-group">
                                     <input class="btn btn-primary custom-btn" type="submit" name="acao" value="Cadastrar">
                                     </br></br>                                    

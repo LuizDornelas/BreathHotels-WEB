@@ -42,11 +42,11 @@
     <c:forEach items="${todosItens}" var="item">
         <tr>            
             <td align="center">${item.nome_item}</td>
-            <td align="center">${item.valor_item}</td>
+            <td align="center">R$${item.valor_item}0</td>
             <td align="center">${item.quantidade}</td>
             <td align="center">${item.status}</td>
             <td align="center">${item.nome_fornecedor}</td>
-            <td align="center">${item.valor_compra}</td>
+            <td align="center">R$${item.valor_compra}0</td>
             <td align="center"><a href="IniciarEdicaoItem?id=${item.id}" alt="">Editar</a></td>     
             <td align="center"><a href="ExcluirItem?id=${item.id}" alt="">Excluir</a></td>  
         </tr>

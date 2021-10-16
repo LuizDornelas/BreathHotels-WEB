@@ -31,9 +31,11 @@
                             <a href="#"><img src="view/img/icons/BreathLogo.png" alt="logo" class="logo"></a>
                             <h2>Editar Quartos</h2>
                             <form action="ConfirmarEdicaoQuarto" method="POST">
-
+                                <div class="form-group">                                    
+                                    <input type="hidden" name="id" class="form-control" value="${quarto.id}">
+                                </div>
                                 <div class="form-group">
-                                    <input type="text" name="quarto" class="form-control" placeholder="Quarto" value="${quarto.quarto}" readonly>
+                                    <input type="text" name="quarto" class="form-control" placeholder="Quarto" value="${quarto.quarto}">
                                 </div>
                                 <div class="form-group">
                                     <input type="text" name="tipo" class="form-control" placeholder="Tipo" value="${quarto.tipo}">
@@ -48,7 +50,7 @@
                                     <input type="text" name="diaria" class="form-control" placeholder="Valor da diária" value="${quarto.diaria}">
                                 </div>              
                                  <div class="form-group">
-                                    <input class="btn btn-primary custom-btn" type="submit" name="acao" value="Cadastrar" >
+                                    <input class="btn btn-primary custom-btn" type="submit" name="acao" value="Atualizar" >
                                     <%
                                         //Traz a mensagem diretamente da control
                                         String msg = (String) request.getAttribute("msg");

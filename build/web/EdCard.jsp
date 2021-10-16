@@ -1,9 +1,4 @@
-<%-- 
-    Document   : EdCard
-    Created on : 07/10/2021, 14:54:46
-    Author     : Leticia Possas
---%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="Modelo.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -35,12 +30,12 @@
                         <div class="form-bg">
                             <a href="#"><img src="view/img/icons/BreathLogo.png" alt="logo" class="logo"></a>
                             <h2>Editar Cartão</h2>
-                            <form action="ConfirmarEdicao" method="POST">
+                            <form action="ConfirmarEdicaoCartao" method="POST">
                                 <div class="form-group">                                    
                                     <input type="hidden" name="codigoid" class="form-control" value="${cartao.id}">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="numerocartao" class="form-control" placeholder="Número do cartão" value="${cartao.numerocartao}">
+                                    <input type="text" name="numerocartao" class="form-control" placeholder="Número do cartão" value="${cartao.numero}">
                                 </div>
                                 <div class="form-group">
                                     <input type="text" name="nome" class="form-control" placeholder="Nome" value="${cartao.nome}">
@@ -54,10 +49,7 @@
                                 <div class="form-group">
                                     <input type="text" name="bandeira" class="form-control" placeholder="Bandeira do cartão" value="${cartao.bandeira}">
                                 </div>              
-                                <div class="form-group">
-                                    <input class="btn btn-primary custom-btn" type="submit" name="acao" value="Cadastrar">
-                                    </br></br>                                    
-                                    <br>
+                                <div class="form-group">                                                                                                        
                                     <%
                                         //Traz a mensagem diretamente da control
                                         String msg = (String) request.getAttribute("msg");
@@ -66,7 +58,7 @@
                                     %>
                                      <font color="#274360"><%=msg%></font>
                                 <%}%>
-
+                                <%}%>
                                 <div class="botoes">
                                     <input class="btn btn-primary custom-btn" type="submit" name="acao" value="Confirmar">
                                     <a href="ListarCartao">Voltar</a>  

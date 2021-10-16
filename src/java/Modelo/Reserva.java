@@ -6,11 +6,20 @@
 package Modelo;
 
 public class Reserva {
+    private int numreserva;
     private String nomeCliente;
     private String entrada;
     private double valor;
     private String quarto;
 
+    public int getNumreserva() {
+        return numreserva;
+    }
+
+    public void setNumreserva(int numreserva) {
+        this.numreserva = numreserva;
+    }        
+    
     public String getNomeCliente() {
         return nomeCliente;
     }

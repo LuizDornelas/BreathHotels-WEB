@@ -12,7 +12,7 @@ import java.util.List;
 
 public class CheckinDAO {
 
-    private static final String CONSULTA_RESERVA = "select nomecli, entrada, valor, quartofk from reservas where status = 'Em andamento' order by reservaid;";
+    private static final String CONSULTA_RESERVA = "select reservaid, nomecli, entrada, valor, quarto from reservas, quartos where reservas.status = 'Em andamento' and quartofk = id_quarto order by reservaid;";
 
     public List<Reserva> consultarReservas() throws ClassNotFoundException, SQLException {
 
@@ -26,10 +26,11 @@ public class CheckinDAO {
         List<Reserva> reservas = new ArrayList<>();
         while (resultado.next()) {
             Reserva reserva = new Reserva();
+            reserva.setNumreserva(Integer.parseInt(resultado.getString("reservaid")));
             reserva.setNomeCliente(resultado.getString("nomecli"));                       
             reserva.setEntrada(resultado.getString("entrada"));
             reserva.setValor(resultado.getDouble("valor"));
-            reserva.setQuarto(resultado.getString("quartofk"));
+            reserva.setQuarto(resultado.getString("quarto"));
             reservas.add(reserva);
         }
         con.close();
@@ -46,8 +47,8 @@ public class CheckinDAO {
         try {
             //Conecta com o banco
             con = ConectaBanco.getConexao();
-            pstmt = con.prepareStatement("select diaria, nome from quartos, usuario where quarto=? and usuarioid=?;");            
-            pstmt.setString(1, usuario.getQuarto());
+            pstmt = con.prepareStatement("select diaria, nome from quartos, usuario where id_quarto=? and usuarioid=?;");            
+            pstmt.setInt(1, usuario.getQuarto());
             pstmt.setInt(2, usuario.getId());
             rsDiaria = pstmt.executeQuery();
             rsDiaria.next();
@@ -67,16 +68,16 @@ public class CheckinDAO {
             pstmt.setString(3, usuario.getEntrada());
             pstmt.setString(4, usuario.getSaida());
             pstmt.setDouble(5, diaria);
-            pstmt.setString(6, usuario.getQuarto());
+            pstmt.setInt(6, usuario.getQuarto());
             pstmt.setInt(7, usuario.getId());
 
             pstmt.execute();
             pstmt.close();
 
             //Essa querry irá alterar dados da tabela quartoss
-            pstmt = con.prepareStatement("UPDATE quartos SET status='Ocupado', reservafk=(select reservaid from reservas where quartofk=? and status = 'Em andamento') WHERE quarto=?;");
-            pstmt.setString(1, usuario.getQuarto());
-            pstmt.setString(2, usuario.getQuarto());
+            pstmt = con.prepareStatement("UPDATE quartos SET status='Ocupado', reservafk=(select reservaid from reservas where quartofk=? and status = 'Em andamento') WHERE id_quarto=?;");
+            pstmt.setInt(1, usuario.getQuarto());
+            pstmt.setInt(2, usuario.getQuarto());
 
             pstmt.execute();
 

@@ -12,6 +12,8 @@ import javax.servlet.RequestDispatcher;
 import Modelo.Usuario;
 import DAO.UsuarioDAO;
 import Modelo.Reserva;
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -21,8 +23,8 @@ import java.util.List;
 public class Login extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {              
-        
+            throws ServletException, IOException {
+
     }
 
     @Override
@@ -56,7 +58,7 @@ public class Login extends HttpServlet {
             rd.forward(request, response);
         }
     }
-    
+
     private void login(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
         try {
@@ -68,6 +70,11 @@ public class Login extends HttpServlet {
                 //Instancia o que foi escrito nas caixas de texto até a classe instancia anteriormente
                 usuario.setLogin(request.getParameter("txt_login"));
                 usuario.setSenha(request.getParameter("txt_senha"));
+
+                MessageDigest md = MessageDigest.getInstance("MD5");
+                byte[] messageDigest = md.digest(usuario.getSenha().getBytes());
+                BigInteger number = new BigInteger(1, messageDigest);
+                usuario.setSenha(number.toString(16));
 
                 UsuarioDAO usuarioDAO = new UsuarioDAO();
                 Usuario usuarioAutenticado = usuarioDAO.autenticaUsuario(usuario);
@@ -102,21 +109,22 @@ public class Login extends HttpServlet {
             rd.forward(request, response);
         }
     }
+
     private void reservas(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
 
-        CheckinDAO dao = new CheckinDAO();        
+        CheckinDAO dao = new CheckinDAO();
 
         List<Reserva> todasReservas = dao.consultarReservas();
-        
+
         boolean validaDados;
-        
-        if(todasReservas != null){
+
+        if (todasReservas != null) {
             validaDados = true;
-        } else{
+        } else {
             validaDados = false;
         }
-        
+
         request.setAttribute("todasReservas", todasReservas);
         request.setAttribute("validaDados", validaDados);
 

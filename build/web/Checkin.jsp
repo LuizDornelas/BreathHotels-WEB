@@ -36,7 +36,7 @@
                             <form action="CadastraCheckin" method="POST">                               
                                 <div class="form-group">
                                     <label>Entrada</label>
-                                    <input type="datetime-local" name="entrada" class="form-control timepicker" >
+                                    <input type="datetime-local" name="entrada" class="form-control timepicker">
                                 </div>
                                 <div class="form-group">
                                     <label>Saída</label>
@@ -47,7 +47,7 @@
                                 <select name="cmb_quarto" class="browser-default">
                                     <option disabled selected>Selecione o quarto</option>
                                     <c:forEach items="${quarto}" var="quarto">                                                                                                                       
-                                        <option value="${quarto.quarto}">${quarto.quarto} | R$${quarto.diaria} | Cama Solteiro: ${quarto.camaSolteiro} | Cama Casal: ${quarto.camaCasal}</option>                                                                                       
+                                        <option value="${quarto.id}">${quarto.quarto} | R$${quarto.diaria} | Cama Solteiro: ${quarto.camaSolteiro} | Cama Casal: ${quarto.camaCasal}</option>                                                                                       
                                     </c:forEach>                                    
                                 </select>
 

@@ -39,10 +39,10 @@
                                     <input type="text" name="tipo" class="form-control" placeholder="Tipo">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="camaSolteiro" class="form-control" placeholder="Número de camas de solteiro">
+                                    <input type="text" name="camaSolteiro" class="form-control" placeholder="Número de camas de solteiro" REQUIRED>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="camaCasal" class="form-control" placeholder="Número de camas de casal">
+                                    <input type="text" name="camaCasal" class="form-control" placeholder="Número de camas de casal" REQUIRED>
                                 </div>
                                 <div class="form-group">
                                     <input type="text" name="diaria" class="form-control" placeholder="Valor da diária">

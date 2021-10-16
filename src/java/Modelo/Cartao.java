@@ -4,29 +4,48 @@ package Modelo;
  *
  * @author Leticia Possas
  */
-
 public class Cartao {
+
     private int id;
-    private String numerocartao;
+    private int id_cliente;
+    private String numero;
     private String nome;
+    private String nome_cliente;
     private String validade;
     private int codigo;
     private String bandeira;
     private boolean cartao_duplicado;
 
-      public int getId() {
+    public String getNome_cliente() {
+        return nome_cliente;
+    }
+
+    public void setNome_cliente(String nome_cliente) {
+        this.nome_cliente = nome_cliente;
+    }   
+    
+    public int getId_cliente() {
+        return id_cliente;
+    }
+
+    public void setId_cliente(int id_cliente) {
+        this.id_cliente = id_cliente;
+    }    
+    
+    public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
     }
-    public String getNumeroCartao() {
-        return numerocartao;
+
+    public String getNumero() {
+        return numero;
     }
 
-    public void setNumeroCartao(String numerocartao) {
-        this.numerocartao = numerocartao;
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
 
     public String getNome() {
@@ -67,10 +86,8 @@ public class Cartao {
 
     public void setCartao_duplicado(boolean cartao_duplicado) {
         this.cartao_duplicado = cartao_duplicado;
-    }   
+    }
+
     public Cartao() {
     }
-    
 }
-    
-

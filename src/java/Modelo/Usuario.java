@@ -8,6 +8,7 @@ public class Usuario {
     private int dias;
     private String login;
     private String senha;
+    private String confirmasenha;
     private EnumTipoAcesso tipo;
     private EnumAtivo ativo;
     private String nome;
@@ -22,7 +23,7 @@ public class Usuario {
     private boolean login_duplicado;
     private String entrada;
     private String saida;
-    private String quarto;
+    private int quarto;
     
 
     public String getLogin() {
@@ -41,6 +42,14 @@ public class Usuario {
         this.senha = senha;
     }
 
+    public String getConfirmasenha() {
+        return confirmasenha;
+    }
+
+    public void setConfirmasenha(String confirmasenha) {
+        this.confirmasenha = confirmasenha;
+    }        
+    
     public EnumTipoAcesso getTipo() {
         return tipo;
     }
@@ -162,13 +171,13 @@ public class Usuario {
         this.saida = saida;
     }  
 
-    public String getQuarto() {
+    public int getQuarto() {
         return quarto;
     }
 
-    public void setQuarto(String quarto) {
+    public void setQuarto(int quarto) {
         this.quarto = quarto;
-    }        
+    }    
 
     public int getDias() {
         return dias;

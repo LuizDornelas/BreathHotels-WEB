@@ -78,11 +78,7 @@
                                 <div class="form-group">
                                     <label>Login</label>
                                     <input type="text" name="txt_login" class="form-control" value="${usuario.login}">
-                                </div> 
-                                <div class="form-group">
-                                    <label>Senha:</label>
-                                    <input type="password" name="txt_senha" class="form-control" value="${usuario.senha}">
-                                </div> 
+                                </div>                                 
                                 Tipo:           
                                 <%
                                     //Valida se é Func ou Admin, conforme login terá tipos diferentes de usuário para cadastrar

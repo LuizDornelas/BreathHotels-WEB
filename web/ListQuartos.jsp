@@ -45,9 +45,9 @@
             <td align="center">${quartos.camaSolteiro}</td>
             <td align="center">${quartos.camaCasal}</td>
             <td align="center">${quartos.status}</td>
-            <td align="center">${quartos.diaria}</td>
-            <td align="center"><a href="IniciarEdicaoQuarto?quarto=${quartos.quarto}" alt="">Editar</a></td>     
-            <td align="center"><a href="ExcluirQuarto?quarto=${quartos.quarto}" alt="">Excluir</a></td>  
+            <td align="center">R$${quartos.diaria}0</td>
+            <td align="center"><a href="IniciarEdicaoQuarto?id=${quartos.id}" alt="">Editar</a></td>     
+            <td align="center"><a href="ExcluirQuarto?id=${quartos.id}" alt="">Excluir</a></td>  
         </tr>
     </c:forEach>
 </table>
