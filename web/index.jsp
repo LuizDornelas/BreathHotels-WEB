@@ -98,6 +98,9 @@
                         <a class="dropdown-item" href="Estoque.jsp">Estoque</a>
                     </div>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Relatorio">Relatório</a>
+                </li>
             </ul>
         </nav>
         <br>
