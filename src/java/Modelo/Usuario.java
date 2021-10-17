@@ -1,7 +1,5 @@
 package Modelo;
 
-import java.util.Date;
-
 public class Usuario {
     
     private int id;
@@ -23,9 +21,17 @@ public class Usuario {
     private boolean login_duplicado;
     private String entrada;
     private String saida;
-    private int quarto;
-    
+    private String quarto;
+    private double diaria;      
 
+    public double getDiaria() {
+        return diaria;
+    }
+
+    public void setDiaria(double diaria) {
+        this.diaria = diaria;
+    }            
+    
     public String getLogin() {
         return login;
     }
@@ -171,13 +177,13 @@ public class Usuario {
         this.saida = saida;
     }  
 
-    public int getQuarto() {
+    public String getQuarto() {
         return quarto;
     }
 
-    public void setQuarto(int quarto) {
+    public void setQuarto(String quarto) {
         this.quarto = quarto;
-    }    
+    }   
 
     public int getDias() {
         return dias;

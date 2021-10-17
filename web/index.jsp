@@ -85,7 +85,7 @@
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="Checkin">Check-in</a>
-                        <a class="dropdown-item" href="#">Check-out</a>
+                        <a class="dropdown-item" href="Checkout">Check-out</a>
                     </div>
                 </li>
                 <!-- Dropdown -->

@@ -26,11 +26,6 @@ import javax.servlet.http.HttpSession;
 
 public class ControleCheckin extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-    }
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -107,7 +102,7 @@ public class ControleCheckin extends HttpServlet {
                 saida = LocalDateTime.parse(parameter, formatter);
             }
 
-            usuario.setQuarto(Integer.parseInt(request.getParameter("cmb_quarto")));
+            usuario.setQuarto(request.getParameter("cmb_quarto"));
             if (request.getParameter("cmb_cliente") != null) {
                 usuario.setId(Integer.parseInt(request.getParameter("cmb_cliente")));
             }

@@ -48,7 +48,7 @@ public class CheckinDAO {
             //Conecta com o banco
             con = ConectaBanco.getConexao();
             pstmt = con.prepareStatement("select diaria, nome from quartos, usuario where id_quarto=? and usuarioid=?;");            
-            pstmt.setInt(1, usuario.getQuarto());
+            pstmt.setInt(1, Integer.parseInt(usuario.getQuarto()));
             pstmt.setInt(2, usuario.getId());
             rsDiaria = pstmt.executeQuery();
             rsDiaria.next();
@@ -68,7 +68,7 @@ public class CheckinDAO {
             pstmt.setString(3, usuario.getEntrada());
             pstmt.setString(4, usuario.getSaida());
             pstmt.setDouble(5, diaria);
-            pstmt.setInt(6, usuario.getQuarto());
+            pstmt.setInt(6, Integer.parseInt(usuario.getQuarto()));
             pstmt.setInt(7, usuario.getId());
 
             pstmt.execute();
@@ -76,8 +76,8 @@ public class CheckinDAO {
 
             //Essa querry irá alterar dados da tabela quartoss
             pstmt = con.prepareStatement("UPDATE quartos SET status='Ocupado', reservafk=(select reservaid from reservas where quartofk=? and status = 'Em andamento') WHERE id_quarto=?;");
-            pstmt.setInt(1, usuario.getQuarto());
-            pstmt.setInt(2, usuario.getQuarto());
+            pstmt.setInt(1, Integer.parseInt(usuario.getQuarto()));
+            pstmt.setInt(2, Integer.parseInt(usuario.getQuarto()));
 
             pstmt.execute();
 
