@@ -16,52 +16,18 @@
         <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>             
         <title>Breath Hotels</title>
     </head>
-    <body>
-
+    <body class="conteudo">
         <!-- navbar -->
-        <nav class="navbar navbar-expand-sm  navbar-dark" style="background-color: #274360;">
+        <nav class="navbar navbar-expand-sm  navbar-dark justify-content-around" style="background-color: #274360; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
             <!-- Brand/logo -->
 
             <nav class="navbar navbar-light bg-blackt">
                 <a class="navbar-brand" href="#">                    
                     <h3>BreathHotels</h3>
-                </a>
+                </a>    
             </nav>
-
-            <ul class="navbar-nav ml-auto nav-flex-icons">
-
-                <%
-                    //Valida se a sessão está valida
-                    Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
-                    if (usuario == null) {
-                        response.sendRedirect("login.jsp");
-                    } else {
-                        //Traz a mensagem diretamente da control
-                        String login = usuario.getLogin();
-                        if (login != null) {
-                        }
-                %>                             
-                <h3  class="text-light" >Olá, <%=login%> </h3>
-                <%}%>  
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">
-                        <i class='fas fa-user-alt' style='font-size:24px;'></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right dropdown-default"
-                         aria-labelledby="navbarDropdownMenuLink-333">                        
-                        <a class="dropdown-item" href="logout.jsp">Sair</a>
-                    </div>
-                </li>
-            </ul>
-        </nav>
-
-        <!-- Segunda navbar -->
-        <nav class="navbar navbar-expand-sm navbar-dark justify-content-between" style="background-color: #4682B4;">
-
-            <!-- Links -->
-            <ul class="navbar-nav">
+                  <!-- Links -->
+                  <ul class="navbar-nav" style="margin-left: 15vw;" >
                 <li class="nav-item">
                     <a class="nav-link" href="ListarUsuario">Usuários</a>
                 </li>
@@ -102,39 +68,97 @@
                     <a class="nav-link" href="Relatorio">Relatório</a>
                 </li>
             </ul>
+
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+
+                <%
+                    //Valida se a sessão está valida
+                    Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
+                    if (usuario == null) {
+                        response.sendRedirect("login.jsp");
+                    } else {
+                        //Traz a mensagem diretamente da control
+                        String login = usuario.getLogin();
+                        if (login != null) {
+                        }
+                %>                             
+                <h2  class="text-light" >Olá, <%=login%> </h2>
+                <%}%>  
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        <i class='fas fa-user-alt' style='font-size:24px;'></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-default"
+                         aria-labelledby="navbarDropdownMenuLink-333">                        
+                        <a class="dropdown-item" href="logout.jsp">Sair</a>
+                    </div>
+                </li>
+            </ul>
         </nav>
+                
+        <!-- Breath Hotels primeiro container --> 
         <br>
-    <center> 
-        <%//Traz a mensagem diretamente da control
+        
+        <div class="row">
+            <div class="col"><img src="view/img/fotosHotel/piscina1.jpeg" alt="piscina" style="width: 600px;"></div>
+            <div class="col">
+                <p class="texto1"><img src="view/img/icons/BreathLogo.png" alt="logo" style="width: 250px; height: 250px; "></p>
+                <p class="texto1">A sua casa longe de casa,</br> 
+                    há mais de 30 anos!</p>
+            </div>          
+        </div>
+        
+             <!-- Reservas -->
+        <div class="reservas">
+        
+            <%//Traz a mensagem diretamente da control
             Boolean validaDados = (Boolean) request.getAttribute("validaDados");
             if (validaDados = true) {%>
-        <h3>Reservas em andamento</h3>             
+            <h3 class="res">Reservas em andamento</h3>             
+            <br>
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>               
+                        <th style="width: 5%;">Reserva</th>
+                        <th style="width: 15%;">Cliente</th>
+                        <th style="width: 10%;">Entrada</th>
+                        <th style="width: 5%;">Valor</th>
+                        <th style="width: 5%;">Quarto</th>            
+                    </tr>
+                </thead>
+    
 
-        <table class="table">
-            <thead class="thead-light">
-                <tr>               
-                    <th style="width: 5%;">Reserva</th>
-                    <th style="width: 15%;">Cliente</th>
-                    <th style="width: 10%;">Entrada</th>
-                    <th style="width: 5%;">Valor</th>
-                    <th style="width: 5%;">Quarto</th>            
-                </tr>
-            </thead>
-    </center>
-
-    <c:forEach items="${todasReservas}" var="todasReservas">      
-        <tr>                                       
-            <td>${todasReservas.numreserva}</td>
-            <td>${todasReservas.nomeCliente}</td>
-            <td>${todasReservas.entrada}</td>
-            <td>R$ ${todasReservas.valor}0</td>
-            <td>${todasReservas.quarto}</td>           
-        </tr>
-    </c:forEach>   
-</table>
-<%} else {%>
-<h3>Não há reservas em andamento</h3>     
-<%}%>
-
-</body>
+                <c:forEach items="${todasReservas}" var="todasReservas">      
+                    <tr>                                       
+                        <td>${todasReservas.numreserva}</td>
+                        <td>${todasReservas.nomeCliente}</td>
+                        <td>${todasReservas.entrada}</td>
+                        <td>R$ ${todasReservas.valor}0</td>
+                        <td>${todasReservas.quarto}</td>           
+                    </tr>
+                </c:forEach>   
+            </table>
+            <%} else {%>
+            <h3>Não há reservas em andamento</h3>     
+            <%}%>
+        </div>
+        
+       
+    <div class="container">
+        <h1 class="ativ">Horário das atividades do hotel</h1>  
+        <div class="card" style="width:400px">
+        <img class="card-img-top" src="view/img/fotosHotel/aulasDeGolf.jpg" alt="Card image" style="width:100%">
+        <div class="card-body">
+        <h4 class="card-title">Aulas de golf</h4>
+        <p class="card-text">terça-feira das 10:00 as 12:00 horas</p>
+        <p class="card-text">Sexta-feira das 13:00 as 15:00 horas</p>
+        </div>
+        </br>
+  </div>
+  
+  </div>
+        </br></br>
+    </body>
 </html>

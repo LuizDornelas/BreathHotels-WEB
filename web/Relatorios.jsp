@@ -6,14 +6,16 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" type="image/png" href="view/img/icons/logo-hotel.ico" />        
+        <link rel="icon" type="image/png" href="view/img/icons/logo-hotel.ico" /> 
+        <link rel="stylesheet" type="text/css" href="view/styles/index.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>      
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <title>Relatório</title>
     </head>
-    <body>         
+    <body class="conteudo">  
+        <div class="listando">
         <%
             //Valida se a sessão está valida
             Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
@@ -48,15 +50,14 @@
             <td>${reserva.total}</td>                  
         </tr>
     </c:forEach>   
-</table>
-<%} else {%>
-<h3>Não há dados para o relatório</h3>     
-<%}%>
-<br>
-<div class="divider"></div>
-<br>
-<a class="btn btn-outline-secondary" href="index">Voltar</a>  
-</center>
-<%}%>
-</body>
+    </table>
+    <%} else {%>
+        <h3>Não há dados para o relatório</h3>     
+    <%}%>
+    <br><br>
+    <a class="btn btn-outline-secondary" href="index">Voltar</a>  
+    </center>
+    <%}%>
+        </div>
+    </body>
 </html>

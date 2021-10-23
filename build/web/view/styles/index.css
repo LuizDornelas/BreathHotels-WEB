@@ -1,81 +1,78 @@
-body {
+.conteudo {
   font-family: "Lato", sans-serif;
+  background-color: #e5e4e2!important;
 }
 
-.logo {
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: auto;
-    width: calc(100% - 100px);
-    position: relative;
-    
-}
-/* Fixed sidenav, full height */
-.sidenav {
-  position: fixed;
-  width: 220px;
-  height: 100%;
-  left: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
-  background: #274360;
-  color: #fff;
+.reservas {
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    padding: 30px 30px 30px;
+    margin: 30px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-/* Style the sidenav links and the dropdown button */
-.sidenav a, .dropdown-btn {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 20px;
-  color: #818181;
-  display: block;
-  border: none;
-  background: none;
-  width: 100%;
-  text-align: left;
-  cursor: pointer;
-  outline: none;
+.res {
+   color: #274360;
+   text-align: center;
+   font-size: 42px;
+   margin-bottom: 10px;
 }
 
-/* On mouse-over */
-.sidenav a:hover, .dropdown-btn:hover {
-  color: #f1f1f1;
+.row {
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    padding: 30px 30px 30px;
+    margin: 30px!important;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    display: inline-block;
 }
 
-/* Main content */
-.main {
-  margin-left: 200px; /* Same as the width of the sidenav */
-  font-size: 20px; /* Increased text to enable scrolling */
-  padding: 0px 10px;
+.texto1 {
+    text-align: center;
+    color: #274360;
+    font-size: 30px;
 }
 
-/* Add an active class to the active dropdown button */
-.active {
-  background-color: gray;
-  color: white;
+.container {
+    background-color: #fff;
+     border: 1px solid #e5e5e5;
 }
 
-/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
-.dropdown-container {
-  display: none;
-  background-color: #274360;
-  padding-left: 8px;
+.ativ{
+   color: #274360;
+   text-align: center;
+   font-size: 42px;
+   margin: 30px;
 }
 
-/* Optional: Style the caret down icon */
-.fa-caret-down {
-  float: right;
-  padding-right: 8px;
+.card-title, .card-text {
+    text-align: center;
 }
 
-/* Some media queries for responsiveness */
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+.card {
+   margin: 30px; 
 }
 
-#logo{
-    text-height: 50px;
+/* listar itens */
+.listando {
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    padding: 30px 30px 30px;
+    margin: 30px;
+    margin-top: 60px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-/* Carousel */
+.conteudo-itens {
+    background-color: #274360;
+}
+
+/* listar usuarios */
+.listandoUsers {
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    padding: 10px 10px 10px;
+    margin: 20px;
+    margin-top: 60px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
