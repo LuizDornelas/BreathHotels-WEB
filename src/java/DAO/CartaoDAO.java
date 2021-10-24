@@ -37,7 +37,18 @@ public class CartaoDAO {
 
             rsCartao.close();
 
-            if (qntCartao == 0) {
+            pstmt = conexao.prepareStatement("select count(usuariofk) from cartao where usuariofk=?;");
+            pstmt.setInt(1, cartao.getId_cliente());
+            rsCartao = pstmt.executeQuery();
+            rsCartao.next();
+
+            int cartaoUser = Integer.parseInt(rsCartao.getString("count"));
+
+            rsCartao.close();
+
+            if (cartaoUser > 0) {
+                cartao.setUser_cartao_duplicado(true);
+            } else if (qntCartao == 0) {
                 pstmt = conexao.prepareStatement(CADASTRA_NOVO_CARTAO);
                 pstmt.setString(1, cartao.getNumero());
                 pstmt.setString(2, cartao.getNome());
@@ -110,14 +121,14 @@ public class CartaoDAO {
         //Conecta com o banco
         conexao = ConectaBanco.getConexao();
 
-        pstmt = conexao.prepareStatement("UPDATE public.cartao SET numerocartao=?, nome_cartao=?, validade=?, codigo=?, bandeira=? WHERE cartaoid=?;");        
+        pstmt = conexao.prepareStatement("UPDATE public.cartao SET numerocartao=?, nome_cartao=?, validade=?, codigo=?, bandeira=? WHERE cartaoid=?;");
         pstmt.setString(1, cartao.getNumero());
         pstmt.setString(2, cartao.getNome());
         pstmt.setString(3, cartao.getValidade());
         pstmt.setInt(4, cartao.getCodigo());
         pstmt.setString(5, cartao.getBandeira());
         pstmt.setInt(6, cartao.getId());
-        pstmt.execute();        
+        pstmt.execute();
     }
 
     public void Excluir(Cartao cartao) throws ClassNotFoundException, SQLException {

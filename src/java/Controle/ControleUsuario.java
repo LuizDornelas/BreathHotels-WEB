@@ -125,9 +125,7 @@ public class ControleUsuario extends HttpServlet {
                         request.setAttribute("msg", "Esse login já existe!");
                         rd.forward(request, response);
                     } else {
-                        RequestDispatcher rd = request.getRequestDispatcher("CadUser.jsp");
-                        request.setAttribute("msg", "Usuario cadastrado com sucesso!");
-                        rd.forward(request, response);
+                        response.sendRedirect("ListarUsuario");
                     }
                 }
             }

@@ -107,6 +107,10 @@ public class ControleCartao extends HttpServlet {
                         RequestDispatcher rd = request.getRequestDispatcher("CadCard.jsp");
                         request.setAttribute("msg", "Este cartão já existe!");
                         rd.forward(request, response);
+                    } else if (cartao.isUser_cartao_duplicado()) {
+                        RequestDispatcher rd = request.getRequestDispatcher("CadCard.jsp");
+                        request.setAttribute("msg", "Este usuário já possui cartão cadastrado!");
+                        rd.forward(request, response);
                     } else {
                         RequestDispatcher rd = request.getRequestDispatcher("CadCard.jsp");
                         request.setAttribute("msg", "Cartão cadastrado com sucesso!");
@@ -145,7 +149,7 @@ public class ControleCartao extends HttpServlet {
 
     private void IniciarEdicao(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ClassNotFoundException, SQLException, ServletException {
-        
+
         try {
 
             Cartao cartao = new Cartao();
@@ -168,7 +172,7 @@ public class ControleCartao extends HttpServlet {
             throws IOException, ClassNotFoundException, SQLException, ServletException {
         try {
             Cartao cartao = new Cartao();
-            CartaoDAO dao = new CartaoDAO();            
+            CartaoDAO dao = new CartaoDAO();
             cartao.setId(Integer.parseInt(request.getParameter("codigoid")));
             cartao.setNumero(request.getParameter("numerocartao"));
             cartao.setNome(request.getParameter("nome"));

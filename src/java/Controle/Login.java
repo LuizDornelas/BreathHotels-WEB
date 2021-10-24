@@ -74,10 +74,13 @@ public class Login extends HttpServlet {
                 UsuarioDAO usuarioDAO = new UsuarioDAO();
                 Usuario usuarioAutenticado = usuarioDAO.autenticaUsuario(usuario);
 
-                //Verifica se o usuario existe no banco
                 if (usuarioAutenticado != null) {
 
-                    if ("Admin".equals(usuarioAutenticado.getTipo().toString()) || "Func".equals(usuarioAutenticado.getTipo().toString())) {
+                    if (usuarioAutenticado.isDesativado()) {
+                        RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+                        request.setAttribute("msg", "Usuário desativado, contate o administrador!");
+                        rd.forward(request, response);
+                    } else if ("Admin".equals(usuarioAutenticado.getTipo().toString()) || "Func".equals(usuarioAutenticado.getTipo().toString())) {
 
                         //Cria uma sessao para o usuario Admin ou Func
                         HttpSession sessaoUsuario = request.getSession();
@@ -87,9 +90,11 @@ public class Login extends HttpServlet {
                         response.sendRedirect("index");
                     } else {
                         //Se for usuário tipo cliente virá a essa etapa
-                        RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-                        request.setAttribute("msg", "Tipo de login não permitido no momento");
-                        rd.forward(request, response);
+                        HttpSession sessaoUsuario = request.getSession();
+                        sessaoUsuario.setAttribute("usuarioAutenticado", usuarioAutenticado);
+
+                        //Redireciona para a pagina princiapal
+                        response.sendRedirect("Cliente.jsp");
                     }
 
                 } else {

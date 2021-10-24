@@ -30,10 +30,11 @@
             <div class="row">
                 <div class="col-sm-10 col-lg-6 offset-sm-1 offset-lg-3">        
                     <div class="form-bg">
-                        <a href="#"><img src="view/img/icons/BreathLogo.png" alt="logo" class="logo"></a>
-                        <h2>Dados Checkout</h2>
-                        <form action="ConfirmaCheckout" method="POST">                                                                                               
+                        <form onsubmit='return confirmacao()' action="PagamentoCartao" method="POST"> 
+                            <a href="#"><img src="view/img/icons/BreathLogo.png" alt="logo" class="logo"></a>
+                            <h2>Dados Checkout</h2>                                                                                                                   
                             <div class="form-group">
+                                <input type="hidden" name="reserva" class="form-control" value="${user.id}">
                                 <div class="row">
                                     <label>Cliente</label>
                                     <input type="text" name="cliente" class="form-control" placeholder="Cliente" value="${user.nome}" readonly>
@@ -56,8 +57,12 @@
                                     <div class="col-md-6">
                                         <label>Total</label>
                                         <input type="text" name="total" class="form-control" placeholder="Total" value="${user.diaria}" readonly>
-                                    </div>  
+                                    </div>                                   
                                 </div>    
+                                <div class="row">
+                                    <label>Cartão</label>
+                                    <input type="text" name="cartao" class="form-control" placeholder="Cartão" value="${cartao.numero}" readonly>
+                                </div> 
                             </div>       
 
                             <h2>Consumo</h2>            
@@ -91,12 +96,11 @@
 
                                 %>
                                 <font color="#274360"><%=msg%></font>
-                                <%}%>                                    
-                                <div class="botoes">
-                                    <input class="btn btn-primary" type="submit" name="acao" value="Pagamento Cartão">
-                                    <input class="btn btn-primary" type="submit" name="acao" value="Pagamento Dinheiro"><br><br>
-                                    <a href="Checkout">Voltar</a>  
-                                </div>
+                                <%}%>                                                                    
+                            </div>                        
+                            <div class="botoes">
+                                <input class="btn btn-primary" type="submit" name="acao" value="Confirmar Pagamento"><br><br>
+                                <a href="Checkout">Voltar</a>  
                             </div>
                         </form>
                     </div>      
@@ -106,3 +110,8 @@
         <%}%>  
     </body>
 </html>
+<script>
+    function confirmacao() {
+        alert("Transação aprovada com sucesso!");
+    }
+</script>

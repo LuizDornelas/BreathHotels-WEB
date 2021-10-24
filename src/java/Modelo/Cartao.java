@@ -15,7 +15,25 @@ public class Cartao {
     private int codigo;
     private String bandeira;
     private boolean cartao_duplicado;
+    private boolean user_cartao_duplicado;
+    private boolean sem_cartao;
 
+    public boolean isSem_cartao() {
+        return sem_cartao;
+    }
+
+    public void setSem_cartao(boolean valida_cartao) {
+        this.sem_cartao = valida_cartao;
+    }        
+    
+    public boolean isUser_cartao_duplicado() {
+        return user_cartao_duplicado;
+    }
+
+    public void setUser_cartao_duplicado(boolean User_cartao_duplicado) {
+        this.user_cartao_duplicado = User_cartao_duplicado;
+    }        
+    
     public String getNome_cliente() {
         return nome_cliente;
     }

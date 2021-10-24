@@ -51,7 +51,7 @@
                                     <font color="#274360"><%=msg%></font>
                                     <%}%>                                    
                                     <div class="botoes">
-                                        <input class="btn btn-primary" type="submit" name="acao" value="Checkout"><br><br>
+                                        <input class="btn btn-primary" type="submit" name="acao" value="Pagamento Cartao"><br><br>
                                         <a href="index">Voltar</a>  
                                     </div>
                                 </div>

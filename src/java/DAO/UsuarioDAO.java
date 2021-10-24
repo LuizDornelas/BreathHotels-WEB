@@ -13,7 +13,7 @@ import java.util.List;
 
 public class UsuarioDAO {
 
-    private static final String AUTENTICA_USUARIO = "SELECT login, senha, tipo FROM login WHERE login=? AND senha=? AND ativo='SIM';";
+    private static final String AUTENTICA_USUARIO = "SELECT login, senha, tipo, ativo FROM login WHERE login=? AND senha=?;";
     private static final String CADASTRA_NOVO_USUARIO = "INSERT INTO public.usuario(usuarioid, nome, rg, telefone, rua, numero, bairro, cidade, estado, cep) VALUES (?,?,?,?,?,?,?,?,?,?);";
     private static final String CADASTRA_NOVO_LOGIN = "INSERT INTO public.login(loginid, login, senha, ativo, tipo, fk_usuario) VALUES (?,?,?,'SIM',?,?);";
     private static final String CONSULTA_USUARIO = "select usuarioid, nome, rg, telefone, rua, numero, bairro, cidade, estado, cep, login, senha, tipo, ativo from usuario, login where usuarioid = fk_usuario order by usuarioid;";
@@ -37,9 +37,14 @@ public class UsuarioDAO {
             if (rsUsuario.next()) {
                 //Virá até essa etapa se o login e senha forem bem sucedidos conforme o que consta no banco
                 usuarioAutenticado = new Usuario();
-                usuarioAutenticado.setLogin(rsUsuario.getString("login"));
-                usuarioAutenticado.setSenha(rsUsuario.getString("senha"));
-                usuarioAutenticado.setTipo(EnumTipoAcesso.valueOf(rsUsuario.getString("tipo")));
+                String ativo = rsUsuario.getString("ativo");
+                if (ativo.equals("NAO")) {
+                    usuarioAutenticado.setDesativado(true);
+                } else {                    
+                    usuarioAutenticado.setLogin(rsUsuario.getString("login"));
+                    usuarioAutenticado.setSenha(rsUsuario.getString("senha"));
+                    usuarioAutenticado.setTipo(EnumTipoAcesso.valueOf(rsUsuario.getString("tipo")));
+                }
             }
         } catch (SQLException sqlErro) {
             throw new RuntimeException(sqlErro);
@@ -180,7 +185,7 @@ public class UsuarioDAO {
             user.setCidade(resultado.getString("cidade"));
             user.setEstado(resultado.getString("estado"));
             user.setCep(resultado.getString("cep"));
-            user.setLogin(resultado.getString("login"));            
+            user.setLogin(resultado.getString("login"));
             user.setTipo((EnumTipoAcesso.valueOf(resultado.getString("tipo"))));
             user.setAtivo((EnumAtivo.valueOf(resultado.getString("ativo"))));
         }
@@ -193,7 +198,7 @@ public class UsuarioDAO {
 
         //Se não houver login igual irá cadastrar na tabela usuário e login conforme parametros
         pstmt = con.prepareStatement("UPDATE public.login SET login=?, ativo=?, tipo=?, fk_usuario=? WHERE loginid=?;");
-        pstmt.setString(1, usuario.getLogin());        
+        pstmt.setString(1, usuario.getLogin());
         pstmt.setString(2, usuario.getAtivo().toString());
         pstmt.setString(3, usuario.getTipo().toString());
         pstmt.setInt(4, usuario.getId());
