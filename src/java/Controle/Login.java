@@ -94,7 +94,7 @@ public class Login extends HttpServlet {
                         sessaoUsuario.setAttribute("usuarioAutenticado", usuarioAutenticado);
 
                         //Redireciona para a pagina princiapal
-                        response.sendRedirect("Cliente.jsp");
+                        response.sendRedirect("indexCliente.jsp");
                     }
 
                 } else {

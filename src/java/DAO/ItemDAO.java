@@ -19,6 +19,7 @@ public class ItemDAO {
     private static final String CADASTRA_ITEM = "INSERT INTO public.itens(item, valor, quantidade, status) VALUES (?, ?, ?, ?);";
     private static final String CADASTRA_FORNECEDOR = "INSERT INTO fornecedor(nome_fornecedor, valor_item, itemfk) VALUES (?, ?, ?);";
     private static final String CONSULTA_ITEM = "select itemid, item, valor, status, quantidade, nome_fornecedor, valor_item from itens, fornecedor where itemfk = itemid order by itemid;";
+    private static final String CONSULTA_ITEM_DISPONIVEIS = "select itemid, item, valor, status, quantidade, nome_fornecedor, valor_item from itens, fornecedor where itemfk = itemid and quantidade > 0 order by itemid;";
 
     public void cadastraNovoItem(Itens item) throws ClassNotFoundException {
 
@@ -111,6 +112,31 @@ public class ItemDAO {
         }
         con.close();
         return todosItens;
+    }
+
+    public List<Itens> consultarDisponiveis() throws ClassNotFoundException, SQLException {
+
+        Connection con = ConectaBanco.getConexao();
+
+        PreparedStatement comando = con.prepareStatement(CONSULTA_ITEM_DISPONIVEIS);
+        ResultSet resultado = comando.executeQuery();
+
+        List<Itens> todosItens = new ArrayList<Itens>();
+        while (resultado.next()) {
+            Itens item = new Itens();
+
+            item.setId(resultado.getInt("itemid"));
+            item.setNome_item(resultado.getString("item"));
+            item.setValor_item(resultado.getDouble("valor"));
+            item.setQuantidade(resultado.getInt("quantidade"));
+            item.setStatus((EnumStatus.valueOf(resultado.getString("status"))));
+            item.setNome_fornecedor(resultado.getString("nome_fornecedor"));
+            item.setValor_compra(resultado.getDouble("valor_item"));
+
+            todosItens.add(item);
+        }
+        con.close();
+        return todosItens;
 
     }
 
@@ -128,6 +154,20 @@ public class ItemDAO {
             item.setStatus((EnumStatus.valueOf(resultado.getString("status"))));
             item.setNome_fornecedor(resultado.getString("nome_fornecedor"));
             item.setValor_compra(resultado.getDouble("valor_item"));
+        }
+    }
+
+    public void comprarItem(Itens item) throws ClassNotFoundException, SQLException {
+        Connection con = ConectaBanco.getConexao();
+        PreparedStatement com = con.prepareStatement("select quantidade from itens where itemid=?;");
+        com.setInt(1, item.getId());
+        ResultSet resultado = com.executeQuery();
+        resultado.next();
+        int quantidade = Integer.parseInt(resultado.getString("quantidade"));
+        resultado.close();
+
+        if (item.getQuantidade() > quantidade) {
+            item.setItem_valicacao(true);
         }
     }
 

@@ -1,7 +1,9 @@
 package Controle;
 
 import DAO.ItemDAO;
+import DAO.QuartoDAO;
 import Modelo.Itens;
+import Modelo.Quartos;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -18,7 +20,9 @@ import javax.servlet.http.HttpServletResponse;
     "/ListarItem",
     "/IniciarEdicaoItem",
     "/ConfirmarEdicaoItem",
-    "/ExcluirItem"})
+    "/ExcluirItem",
+    "/ListarItensDeCompra",
+    "/ComprarItens"})
 
 public class ControleItens extends HttpServlet {
 
@@ -35,6 +39,8 @@ public class ControleItens extends HttpServlet {
                 iniciarEdicao(request, response);
             } else if (uri.equals(request.getContextPath() + "/ExcluirItem")) {
                 excluir(request, response);
+            } else if (uri.equals(request.getContextPath() + "/ListarItensDeCompra")) {
+                listarCompras(request, response);
             }
         } catch (Exception e) {
             RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
@@ -51,6 +57,8 @@ public class ControleItens extends HttpServlet {
             if (uri.equals(request.getContextPath() + "/CadastroItem")) {
                 cadastrar(request, response);
             } else if (uri.equals(request.getContextPath() + "/ConfirmarEdicaoItem")) {
+                confirmarEdicao(request, response);
+            } else if (uri.equals(request.getContextPath() + "/ComprarItens")) {
                 confirmarEdicao(request, response);
             }
         } catch (Exception e) {
@@ -112,6 +120,46 @@ public class ControleItens extends HttpServlet {
         }
     }
 
+    private void comprarItens(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ClassNotFoundException, SQLException {
+
+        response.setContentType("text/html;charset=UTF-8");
+        try {
+            request.setCharacterEncoding("UTF-8");
+
+            //Ao clicar em cadastrar no CadItens ele trará até esse servlet
+            Itens item = new Itens();
+
+            item.setNome_item(request.getParameter("quarto"));
+            item.setId(Integer.parseInt(request.getParameter("item")));
+            item.setQuantidade(Integer.parseInt(request.getParameter("quantidade")));
+
+            if (item.getQuantidade() <= 0) {
+
+                RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
+                request.setAttribute("erro", "Quantidade inválida!");
+                rd.forward(request, response);
+
+            } else {
+                //Valida se os dados não estão vazios
+                ItemDAO itemDAO = new ItemDAO();
+                
+                //Instancia uma DAO e leva os dados até o método
+                itemDAO.comprarItem(item);
+
+                if (item.isItem_valicacao()) {
+                    RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
+                    request.setAttribute("erro", "Quantidade maior que o estoque!");
+                    rd.forward(request, response);
+                }
+            }
+        } catch (Exception erro) {
+            RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
+            request.setAttribute("erro", erro);
+            rd.forward(request, response);
+        }
+    }
+
     private void listar(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
 
@@ -122,6 +170,23 @@ public class ControleItens extends HttpServlet {
         request.setAttribute("todosItens", todosItens);
 
         request.getRequestDispatcher("ListItens.jsp").forward(request, response);
+    }
+
+    private void listarCompras(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ClassNotFoundException, SQLException {
+        QuartoDAO dao = new QuartoDAO();
+
+        List<Quartos> quarto = dao.consultarReservas();
+
+        request.setAttribute("quarto", quarto);
+
+        ItemDAO dao2 = new ItemDAO();
+
+        List<Itens> todosItens = dao2.consultarDisponiveis();
+
+        request.setAttribute("todosItens", todosItens);
+
+        request.getRequestDispatcher("ComprarItens.jsp").forward(request, response);
     }
 
     private void iniciarEdicao(HttpServletRequest request, HttpServletResponse response)
@@ -179,6 +244,7 @@ public class ControleItens extends HttpServlet {
             rd.forward(request, response);
         }
     }
+
     private void excluir(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ClassNotFoundException, SQLException, ServletException {
         try {

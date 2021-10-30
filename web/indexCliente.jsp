@@ -16,7 +16,7 @@
         <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>             
         <title>Breath Hotels</title>
     </head>
-    <body id="conteudo">
+    <body class="conteudo">
         <!-- navbar -->
         <nav class="navbar navbar-expand-sm  navbar-dark justify-content-around" style="background-color: #274360; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
             <!-- Brand/logo -->
@@ -29,40 +29,13 @@
                   <!-- Links -->
                   <ul class="navbar-nav" style="margin-left: 15vw;" >
                 <li class="nav-item">
-                    <a class="nav-link" href="ListarUsuario">Usuários</a>
+                    <a class="nav-link" href="comprarItensCliente.jsp">Comprar itens</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="ListarQuarto">Quartos</a>
+                    <a class="nav-link" href="ListarItem">Reservas em andamento</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="ListarCartao">Cartões</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Histórico</a>
-                </li>
-
-                <!-- Dropdown -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                        Reservas
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="Checkin">Check-in</a>
-                        <a class="dropdown-item" href="Checkout">Check-out</a>
-                    </div>
-                </li>
-                <!-- Dropdown -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                        Produtos
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="ListarItensDeCompra">Comprar itens</a>
-                        <a class="dropdown-item" href="ListarItem">Estoque</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Relatorio">Relatório</a>
+                    <a class="nav-link" href="ListarQuarto">Reservas encerradas</a>
                 </li>
             </ul>
 
@@ -122,7 +95,8 @@
                         <th style="width: 15%;">Cliente</th>
                         <th style="width: 10%;">Entrada</th>
                         <th style="width: 5%;">Valor</th>
-                        <th style="width: 5%;">Quarto</th>            
+                        <th style="width: 5%;">Quarto</th>  
+                        <th style="width: 1%;">Itens</th>
                     </tr>
                 </thead>
     
@@ -133,7 +107,47 @@
                         <td>${todasReservas.nomeCliente}</td>
                         <td>${todasReservas.entrada}</td>
                         <td>R$ ${todasReservas.valor}0</td>
-                        <td>${todasReservas.quarto}</td>           
+                        <td>${todasReservas.quarto}</td>  
+                        <td><a href="#" alt="">Comprar itens</a></td> 
+                        
+                    </tr>
+                </c:forEach>   
+            </table>
+            <%} else {%>
+            <h3>Não há reservas em andamento</h3>     
+            <%}%>
+        </div>
+        
+         <!-- Reservas encerradas-->
+        <div class="reservas">
+        
+            <%//Traz a mensagem diretamente da control
+          
+            if (validaDados = true) {%>
+            <h3 class="res">Reservas encerradas</h3>             
+            <br>
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>               
+                        <th style="width: 5%;">Reserva</th>
+                        <th style="width: 15%;">Cliente</th>
+                        <th style="width: 10%;">Entrada</th>
+                        <th style="width: 5%;">Valor</th>
+                        <th style="width: 5%;">Quarto</th>  
+                        <th style="width: 5%;">Compras feitas</th>
+                    </tr>
+                </thead>
+    
+
+                <c:forEach items="${todasReservas}" var="todasReservas">      
+                    <tr>                                       
+                        <td>${todasReservas.numreserva}</td>
+                        <td>${todasReservas.nomeCliente}</td>
+                        <td>${todasReservas.entrada}</td>
+                        <td>R$ ${todasReservas.valor}0</td>
+                        <td>${todasReservas.quarto}</td>  
+                        <td><a href="#" alt="">visualizar</a></td> 
+                        
                     </tr>
                 </c:forEach>   
             </table>
@@ -143,26 +157,57 @@
         </div>
         
        
-    <div class="container">
-        <h1 class="ativ">Horário das atividades do hotel</h1>  
-        <div class="card" style="width:400px">
-        <img class="card-img-top" src="view/img/fotosHotel/aulasDeGolf.jpg" alt="Card image" style="width:100%">
-        <div class="card-body">
-        <h4 class="card-title">Aulas de golf</h4>
-        <p class="card-text">terça-feira das 10:00 as 12:00 horas</p>
-        <p class="card-text">Sexta-feira das 13:00 as 15:00 horas</p>
+    <div class="containerCards row" style="margin: 50px;  background-color: #fff;">
+        <h1>Horário das atividades do hotel</h1> 
+        <div class="col">
+                <p class="texto1"><img src="view/img/icons/BreathLogo.png" alt="logo" style="width: 250px; height: 250px; "></p>
+                <p class="texto1">A sua casa longe de casa,</br> 
+                    há mais de 30 anos!</p>
+            </div> 
+        <div class="card-deck" style="margin: 20px;">
+        <div class="card" style="width: 300px">
+            <img class="card-img-top" src="view/img/fotosHotel/aulasDeGolf.jpg" alt="Card image" style="width: 100%"/>
+            <div class="card-body">
+              <h4 class="card-title">Aulas de golf</h4>
+              <p class="card-text">terça-feira das 10:00 as 12:00 horas</p>
+              <p class="card-text">Sexta-feira das 13:00 as 15:00 horas</p>
+            </div>
         </div>
-        </br>
-  </div>  
-  </div>
-        </br></br>
-        
-        
+        <div class="card" style="width: 300px">
+            <img class="card-img-top" src="view/img/fotosHotel/aulasDeGolf.jpg" alt="Card image" style="width: 100%"/>
+            <div class="card-body">
+              <h4 class="card-title">Aulas de golf</h4>
+              <p class="card-text">terça-feira das 10:00 as 12:00 horas</p>
+              <p class="card-text">Sexta-feira das 13:00 as 15:00 horas</p>
+            </div>
+        </div>
+        <div class="card" style="width: 200px">
+            <img class="card-img-top" src="view/img/fotosHotel/aulasDeGolf.jpg" alt="Card image" style="width: 100%"/>
+            <div class="card-body">
+              <h4 class="card-title">Aulas de golf</h4>
+              <p class="card-text">terça-feira das 10:00 as 12:00 horas</p>
+              <p class="card-text">Sexta-feira das 13:00 as 15:00 horas</p>
+            </div>
+        </div>
+        <div class="card" style="width: 200px">
+            <img class="card-img-top" src="view/img/fotosHotel/aulasDeGolf.jpg" alt="Card image" style="width: 100%"/>
+            <div class="card-body">
+              <h4 class="card-title">Aulas de golf</h4>
+              <p class="card-text">terça-feira das 10:00 as 12:00 horas</p>
+              <p class="card-text">Sexta-feira das 13:00 as 15:00 horas</p>
+            </div>
+        </div>
+             <div class="card" style="width: 200px">
+            <img class="card-img-top" src="view/img/fotosHotel/aulasDeGolf.jpg" alt="Card image" style="width: 100%"/>
+            <div class="card-body">
+              <h4 class="card-title">Aulas de golf</h4>
+              <p class="card-text">terça-feira das 10:00 as 12:00 horas</p>
+              <p class="card-text">Sexta-feira das 13:00 as 15:00 horas</p>
+            </div>
+        </div>
+        </div>
          </br></br>
-    <footer>
-        <nav class="navbar navbar-expand-sm  navbar-dark bottom justify-content-center p-4" style="background-color: #274360;">
-        <a class="navbar-brand" href="#">&copy;2021 Breath Hotels Limitado</a>
-      </nav>
-    </footer>
+  </div>
+ </br></br>
     </body>
 </html>

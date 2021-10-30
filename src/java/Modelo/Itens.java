@@ -10,6 +10,15 @@ public class Itens {
     private double valor_compra;
     private EnumStatus status;
     private boolean item_duplicado;
+    private boolean item_valicacao;
+
+    public boolean isItem_valicacao() {
+        return item_valicacao;
+    }
+
+    public void setItem_valicacao(boolean item_valicacao) {
+        this.item_valicacao = item_valicacao;
+    }
 
     public String getNome_item() {
         return nome_item;
