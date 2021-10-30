@@ -26,6 +26,7 @@
         <center> 
             <h3 class="cyan-text text-cyan darken-2">Usuários</h3>
             <table class="striped highlight responsive-table" border="1">
+                <input type="text" style="" id="search" class="form-control" placeholder="Busca usuário"/><br>  
                 <tr>                
                     <th style="width: 15%;">Nome</th>
                     <th style="width: 10%;">RG</th>
@@ -46,7 +47,7 @@
 
         <c:forEach items="${todosUsuarios}" var="user">
             <tr>                                           
-                <td align="center">${user.nome}</td>
+                <td id="nome" align="center">${user.nome}</td>
                 <td align="center">${user.rg}</td>
                 <td align="center">${user.telefone}</td>
                 <td align="center">${user.rua}</td>
@@ -71,3 +72,18 @@
         </div>
     </body>
 </html>
+<script>
+
+$('#search').keyup(function() {
+  var regex = new RegExp($('#search').val(), "i");
+  var rows = $('table tr:gt(0)');
+  rows.each(function (index) {
+    title = $(this).children("#nome").html()
+    if (title.search(regex) != -1) {
+      $(this).show();
+    } else {
+      $(this).hide();
+    }
+  });
+});
+</script>

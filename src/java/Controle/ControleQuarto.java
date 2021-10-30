@@ -69,6 +69,7 @@ public class ControleQuarto extends HttpServlet {
         
         response.setContentType("text/html;charset=UTF-8");
         try {
+            request.setCharacterEncoding("UTF-8");
             String acao = request.getParameter("acao");
             if (acao.equals("Cadastrar")) {
                 //Ao clicar em cadastrar no CadQuarto ele trarÃ¡ atÃ© esse servlet
@@ -152,6 +153,7 @@ public class ControleQuarto extends HttpServlet {
     private void confirmarEdicao(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ClassNotFoundException, SQLException, ServletException {
         try {
+            request.setCharacterEncoding("UTF-8");
             Quartos quartos = new Quartos();
             QuartoDAO quartoDAO = new QuartoDAO();
             quartos.setId(Integer.parseInt(request.getParameter("id")));

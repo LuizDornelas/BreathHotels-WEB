@@ -26,6 +26,7 @@
         <center>   
             <h3 class="cyan-text text-cyan darken-2" style="margin-bottom: 40px;">Itens</h3>
             <table class="striped highlight" border="1">
+                <input type="text" style="" id="search" class="form-control" placeholder="Busca item"/><br>  
                 <tr>                
                     <th style="width: 10%;">Item</th>
                     <th style="width: 10%;">Valor</th>
@@ -40,7 +41,7 @@
 
         <c:forEach items="${todosItens}" var="item">
             <tr>            
-                <td align="center">${item.nome_item}</td>
+                <td id="item" align="center">${item.nome_item}</td>
                 <td align="center">R$${item.valor_item}0</td>
                 <td align="center">${item.quantidade}</td>
                 <td align="center">${item.status}</td>
@@ -58,3 +59,18 @@
     </div>
 </body>
 </html>
+<script>
+
+$('#search').keyup(function() {
+  var regex = new RegExp($('#search').val(), "i");
+  var rows = $('table tr:gt(0)');
+  rows.each(function (index) {
+    title = $(this).children("#item").html()
+    if (title.search(regex) != -1) {
+      $(this).show();
+    } else {
+      $(this).hide();
+    }
+  });
+});
+</script>

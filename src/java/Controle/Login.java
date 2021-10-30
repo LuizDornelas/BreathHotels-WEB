@@ -117,16 +117,7 @@ public class Login extends HttpServlet {
 
         List<Reserva> todasReservas = dao.consultarReservas();
 
-        boolean validaDados;
-
-        if (todasReservas != null) {
-            validaDados = true;
-        } else {
-            validaDados = false;
-        }
-
-        request.setAttribute("todasReservas", todasReservas);
-        request.setAttribute("validaDados", validaDados);
+        request.setAttribute("todasReservas", todasReservas);        
 
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }

@@ -229,6 +229,7 @@ public class ControleUsuario extends HttpServlet {
     private void confirmarEdicao(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ClassNotFoundException, SQLException, ServletException {
         try {
+            request.setCharacterEncoding("UTF-8");
             Usuario usuario = new Usuario();
             UsuarioDAO dao = new UsuarioDAO();
             usuario.setId(Integer.valueOf(request.getParameter("txt_id")));

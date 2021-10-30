@@ -27,6 +27,7 @@
         <center>       
             <h3 class="cyan-text text-cyan darken-2" style="margin-bottom: 40px;">Quartos</h3>
             <table class="striped highlight" border="1">
+                <input type="text" style="" id="search" class="form-control" placeholder="Busca quarto"/><br>  
                 <tr>                
                     <th style="width: 10%;">Quarto</th>
                     <th style="width: 10%;">Tipo</th>
@@ -41,7 +42,7 @@
 
         <c:forEach  items="${todosQuartos}" var="quartos">
             <tr>            
-                <td align="center">${quartos.quarto}</td>
+                <td id="quarto" align="center">${quartos.quarto}</td>
                 <td align="center">${quartos.tipo}</td>
                 <td align="center">${quartos.camaSolteiro}</td>
                 <td align="center">${quartos.camaCasal}</td>
@@ -59,3 +60,18 @@
         </div>
     </body>
 </html>
+<script>
+
+$('#search').keyup(function() {
+  var regex = new RegExp($('#search').val(), "i");
+  var rows = $('table tr:gt(0)');
+  rows.each(function (index) {
+    title = $(this).children("#quarto").html()
+    if (title.search(regex) != -1) {
+      $(this).show();
+    } else {
+      $(this).hide();
+    }
+  });
+});
+</script>

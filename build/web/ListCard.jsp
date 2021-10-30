@@ -26,6 +26,7 @@
         <center>   
             <h3 class="cyan-text text-cyan darken-2" style="margin-bottom: 40px;" >Cartões</h3>
             <table class="striped highlight" border="1">
+                <input type="text" style="" id="search" class="form-control" placeholder="Busca cartão por usuário"/><br>  
                 <tr>         
                     <th style="width: 10%;">Usuário</th>
                     <th style="width: 10%;">Número do cartão</th>
@@ -39,7 +40,7 @@
         </center>
         <c:forEach items="${todosCartao}" var="cartao">
             <tr>          
-                <td align="center">${cartao.nome_cliente}</td>
+                <td id="user" align="center">${cartao.nome_cliente}</td>
                 <td align="center">${cartao.numero}</td>
                 <td align="center">${cartao.nome}</td>
                 <td align="center">${cartao.validade}</td>
@@ -57,4 +58,18 @@
         </div>
     </body>
 </html>
+<script>
 
+$('#search').keyup(function() {
+  var regex = new RegExp($('#search').val(), "i");
+  var rows = $('table tr:gt(0)');
+  rows.each(function (index) {
+    title = $(this).children("#user").html()
+    if (title.search(regex) != -1) {
+      $(this).show();
+    } else {
+      $(this).hide();
+    }
+  });
+});
+</script>

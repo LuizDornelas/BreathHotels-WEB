@@ -35,49 +35,49 @@
                             <a href="#"><img src="view/img/icons/BreathLogo.png" alt="logo" class="logo"></a>
                             <h2>Atualização de Usuários</h2>
                             <form action="ConfirmarEdicao" method="POST">
-                                
+
                                 <div class="form-group">                                    
                                     <input type="hidden" name="txt_id" class="form-control" value="${usuario.id}">
                                 </div>
                                 <div class="form-group">
                                     <label>Nome:</label>
-                                    <input type="text" name="txt_nome" class="form-control" value="${usuario.nome}">
+                                    <input type="text" name="txt_nome" maxlength="80" class="form-control" value="${usuario.nome}">
                                 </div>
                                 <div class="form-group">
                                     <label>RG:</label>
-                                    <input type="text" name="txt_rg" class="form-control" value="${usuario.rg}">
+                                    <input type="text" name="txt_rg" maxlength="13" OnKeyPress="formatar('##.###.###-##', this)" class="form-control" value="${usuario.rg}">
                                 </div>
                                 <div class="form-group">
                                     <label>Telefone:</label>
-                                    <input type="tel" name="txt_telefone" class="form-control" value="${usuario.telefone}">
+                                    <input type="input" name="txt_telefone" onkeydown="phoneMask()" maxlength="15" class="form-control" value="${usuario.telefone}">                             
                                 </div>
                                 <div class="form-group">
                                     <label>Rua:</label>
-                                    <input type="text" name="txt_rua" class="form-control" value="${usuario.rua}">
+                                    <input type="text" name="txt_rua" maxlength="40" class="form-control" value="${usuario.rua}">
                                 </div>
                                 <div class="form-group">
                                     <label>Número:</label>
-                                    <input type="text" name="txt_numero" class="form-control" value="${usuario.numero}">
+                                    <input type="number" min="0" id="number" max="9999" name="txt_numero" class="form-control" value="${usuario.numero}">
                                 </div>
                                 <div class="form-group">
                                     <label>Bairro:</label>
-                                    <input type="text" name="txt_bairro" class="form-control" value="${usuario.bairro}">
+                                    <input type="text" name="txt_bairro" maxlength="40" class="form-control" value="${usuario.bairro}">
                                 </div>
                                 <div class="form-group">
                                     <label>Cidade:</label>
-                                    <input type="text" name="txt_cidade" class="form-control" value="${usuario.cidade}">
+                                    <input type="text" name="txt_cidade" maxlength="40" class="form-control" value="${usuario.cidade}">
                                 </div>
                                 <div class="form-group">
                                     <label>Estado:</label>
-                                    <input type="text" name="txt_estado" class="form-control" value="${usuario.estado}">
+                                    <input type="text" name="txt_estado" maxlength="40" class="form-control" value="${usuario.estado}">
                                 </div>
                                 <div class="form-group">
                                     <label>CEP:</label>
-                                    <input type="text" name="txt_cep" class="form-control" value="${usuario.cep}">
+                                    <input type="text" name="txt_cep" maxlength="9" OnKeyPress="formatar('#####-###', this)" class="form-control" value="${usuario.cep}">
                                 </div>  
                                 <div class="form-group">
                                     <label>Login</label>
-                                    <input type="text" name="txt_login" class="form-control" value="${usuario.login}">
+                                    <input type="text" name="txt_login" maxlength="20" class="form-control" value="${usuario.login}">
                                 </div>                                 
                                 Tipo:           
                                 <%
@@ -121,3 +121,43 @@
                 </div>
             </div>
         </div>
+        <script>
+            function formatar(mascara, documento) {
+                var i = documento.value.length;
+                var saida = mascara.substring(0, 1);
+                var texto = mascara.substring(i)
+
+                if (texto.substring(0, 1) != saida) {
+                    documento.value += texto.substring(0, 1);
+                }
+
+            }
+        </script>
+        <script>
+            // Select your input element.
+            var number = document.getElementById('number');
+
+            // Listen for input event on numInput.
+            number.onkeydown = function (e) {
+                if (!((e.keyCode === 190)
+                        || (e.keyCode >= 16 && e.keyCode <= 17)
+                        || (e.keyCode >= 37 && e.keyCode <= 40)
+                        || (e.keyCode >= 48 && e.keyCode <= 57)
+                        || (e.keyCode === 8))) {
+                    return false;
+                }
+        </script>
+        <script>
+                function phoneMask() {
+                    var key = window.event.key;
+                    var element = window.event.target;
+                    var isAllowed = /\d|Backspace|Tab/;
+                    if (!isAllowed.test(key))
+                        window.event.preventDefault();
+                    var inputValue = element.value;
+                    inputValue = inputValue.replace(/\D/g, '');
+                    inputValue = inputValue.replace(/(^\d{2})(\d)/, '($1) $2');
+                    inputValue = inputValue.replace(/(\d{4,5})(\d{4}$)/, '$1-$2');
+                    element.value = inputValue;
+                }
+        </script>

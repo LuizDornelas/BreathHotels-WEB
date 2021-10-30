@@ -65,6 +65,7 @@ public class ControleItens extends HttpServlet {
 
         response.setContentType("text/html;charset=UTF-8");
         try {
+            request.setCharacterEncoding("UTF-8");
             String acao = request.getParameter("acao");
             if (acao.equals("Cadastrar")) {
                 //Ao clicar em cadastrar no CadItens ele trará até esse servlet
@@ -146,6 +147,7 @@ public class ControleItens extends HttpServlet {
     private void confirmarEdicao(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ClassNotFoundException, SQLException, ServletException {
         try {
+            request.setCharacterEncoding("UTF-8");
             Itens item = new Itens();
             ItemDAO dao = new ItemDAO();
             item.setId(Integer.valueOf(request.getParameter("txt_id")));

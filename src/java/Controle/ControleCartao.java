@@ -81,6 +81,7 @@ public class ControleCartao extends HttpServlet {
 
         response.setContentType("text/html;charset=UTF-8");
         try {
+            request.setCharacterEncoding("UTF-8");
             String acao = request.getParameter("acao");
             if (acao.equals("Cadastrar")) {
                 //Ao clicar em cadastrar no CadCartao ele trarÃ¡ atÃ© esse servlet
@@ -173,6 +174,7 @@ public class ControleCartao extends HttpServlet {
         try {
             Cartao cartao = new Cartao();
             CartaoDAO dao = new CartaoDAO();
+            request.setCharacterEncoding("UTF-8");
             cartao.setId(Integer.parseInt(request.getParameter("codigoid")));
             cartao.setNumero(request.getParameter("numerocartao"));
             cartao.setNome(request.getParameter("nome"));

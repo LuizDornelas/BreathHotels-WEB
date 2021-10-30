@@ -1,3 +1,5 @@
+<%@page import="Modelo.Reserva"%>
+<%@page import="java.util.List"%>
 <%@page import="Modelo.Usuario"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -26,8 +28,8 @@
                     <h3>BreathHotels</h3>
                 </a>    
             </nav>
-                  <!-- Links -->
-                  <ul class="navbar-nav" style="margin-left: 15vw;" >
+            <!-- Links -->
+            <ul class="navbar-nav" style="margin-left: 15vw;" >
                 <li class="nav-item">
                     <a class="nav-link" href="ListarUsuario">Usuários</a>
                 </li>
@@ -83,7 +85,7 @@
                         }
                 %>                             
                 <h2  class="text-light" >Olá, <%=login%> </h2>
-                <%}%>  
+
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
@@ -97,10 +99,10 @@
                 </li>
             </ul>
         </nav>
-                
+
         <!-- Breath Hotels primeiro container --> 
         <br>
-        
+
         <div class="row">
             <div class="col"><img src="view/img/fotosHotel/piscina1.jpeg" alt="piscina" style="width: 600px;"></div>
             <div class="col">
@@ -109,13 +111,13 @@
                     há mais de 30 anos!</p>
             </div>          
         </div>
-        
-             <!-- Reservas -->
+
+        <!-- Reservas -->
         <div class="reservas">
-        
+
             <%//Traz a mensagem diretamente da control
-            Boolean validaDados = (Boolean) request.getAttribute("validaDados");
-            if (validaDados = true) {%>
+                List<Reserva> todasReservas = (List<Reserva>) request.getAttribute("todasReservas");
+                if (todasReservas.size() > 0) {%>
             <h3 class="res">Reservas em andamento</h3>             
             <br>
             <table class="table">
@@ -128,7 +130,7 @@
                         <th style="width: 5%;">Quarto</th>            
                     </tr>
                 </thead>
-    
+
 
                 <c:forEach items="${todasReservas}" var="todasReservas">      
                     <tr>                                       
@@ -144,21 +146,22 @@
             <h3>Não há reservas em andamento</h3>     
             <%}%>
         </div>
-        
-       
-    <div class="container">
-        <h1 class="ativ">Horário das atividades do hotel</h1>  
-        <div class="card" style="width:400px">
-        <img class="card-img-top" src="view/img/fotosHotel/aulasDeGolf.jpg" alt="Card image" style="width:100%">
-        <div class="card-body">
-        <h4 class="card-title">Aulas de golf</h4>
-        <p class="card-text">terça-feira das 10:00 as 12:00 horas</p>
-        <p class="card-text">Sexta-feira das 13:00 as 15:00 horas</p>
+
+
+        <div class="container">
+            <h1 class="ativ">Horário das atividades do hotel</h1>  
+            <div class="card" style="width:400px">
+                <img class="card-img-top" src="view/img/fotosHotel/aulasDeGolf.jpg" alt="Card image" style="width:100%">
+                <div class="card-body">
+                    <h4 class="card-title">Aulas de golf</h4>
+                    <p class="card-text">terça-feira das 10:00 as 12:00 horas</p>
+                    <p class="card-text">Sexta-feira das 13:00 as 15:00 horas</p>
+                </div>
+                </br>
+            </div>
+
         </div>
-        </br>
-  </div>
-  
-  </div>
         </br></br>
     </body>
+    <%}%>  
 </html>
