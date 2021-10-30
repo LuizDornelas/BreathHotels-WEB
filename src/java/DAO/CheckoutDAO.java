@@ -103,6 +103,58 @@ public class CheckoutDAO {
         }
     }
 
+    public void consultarReservaDinheiro(Usuario user) throws ClassNotFoundException, SQLException {
+        Connection con = ConectaBanco.getConexao();
+        PreparedStatement com = con.prepareStatement("select usuariofk from reservas where reservaid=?;");
+        com.setInt(1, user.getId());
+        ResultSet resultado = com.executeQuery();
+        resultado.next();
+
+        int id = Integer.parseInt(resultado.getString("usuariofk"));
+
+        resultado.close();
+
+        com = con.prepareStatement(CONSULTA_RESERVA);
+        com.setInt(1, user.getId());
+        resultado = com.executeQuery();
+
+        if (resultado.next()) {
+            user.setNome(resultado.getString("nomecli"));
+            user.setEntrada(resultado.getString("entrada"));
+            user.setSaida(resultado.getString("saida"));
+            user.setQuarto(resultado.getString("quarto"));
+
+            double diaria = Double.parseDouble(resultado.getString("diaria"));
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+            String parameter = user.getEntrada();
+
+            LocalDateTime entrada = LocalDateTime.parse(parameter, formatter);
+
+            LocalDateTime hoje = LocalDateTime.now();
+
+            int countDias = hoje.getDayOfMonth() - entrada.getDayOfMonth();
+
+            if (countDias != 0) {
+                diaria *= countDias;
+            }
+
+            resultado.close();
+
+            com = con.prepareStatement(CONSULTA_TOTAL_CONSUMO);
+            com.setInt(1, user.getId());
+            resultado = com.executeQuery();
+            resultado.next();
+
+            if (resultado.getString("total") != null) {
+                double consumo = (Double.parseDouble(resultado.getString("total")));
+                diaria += consumo;
+            }
+            user.setDiaria(diaria);
+        }
+    }
+
     public List<Consumo> consultarConsumo(Usuario user) throws ClassNotFoundException, SQLException {
 
         Connection con = ConectaBanco.getConexao();
@@ -146,7 +198,7 @@ public class CheckoutDAO {
         }
     }
 
-    public void pagamentoCartao(Usuario user) throws ClassNotFoundException, SQLException {
+    public void pagamentoCheckout(Usuario user) throws ClassNotFoundException, SQLException {
         Connection con = ConectaBanco.getConexao();
         PreparedStatement com = con.prepareStatement("select usuariofk, quartofk from reservas where reservaid=?;");
         com.setInt(1, user.getId());

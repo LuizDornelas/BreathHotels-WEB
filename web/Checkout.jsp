@@ -52,6 +52,7 @@
                                     <%}%>                                    
                                     <div class="botoes">
                                         <input class="btn btn-primary" type="submit" name="acao" value="Pagamento Cartao"><br><br>
+                                        <input class="btn btn-primary" type="submit" name="acao" value="Pagamento Dinheiro"><br><br>
                                         <a href="index">Voltar</a>  
                                     </div>
                                 </div>

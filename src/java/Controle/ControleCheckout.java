@@ -19,7 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "ControleCheckout", urlPatterns = {
     "/Checkout",
     "/CheckoutDados",
-    "/PagamentoCartao"})
+    "/PagamentoCartao",
+    "/PagamentoDinheiro",
+    "/ConfirmarPagamentoDinheiro"})
 public class ControleCheckout extends HttpServlet {
 
     @Override
@@ -32,6 +34,8 @@ public class ControleCheckout extends HttpServlet {
                 checkout(request, response);
             } else if (uri.equals(request.getContextPath() + "/CheckoutDados")) {
                 checkoutDados(request, response);
+            } else if (uri.equals(request.getContextPath() + "/ConfirmarPagamentoDinheiro")) {
+                checkoutDinheiro(request, response);
             }
         } catch (Exception e) {
             RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
@@ -48,6 +52,8 @@ public class ControleCheckout extends HttpServlet {
 
             if (uri.equals(request.getContextPath() + "/PagamentoCartao")) {
                 pagamentoCartao(request, response);
+            } else if (uri.equals(request.getContextPath() + "/PagamentoDinheiro")) {
+                pagamentoDinheiro(request, response);
             }
         } catch (Exception e) {
             RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
@@ -62,10 +68,14 @@ public class ControleCheckout extends HttpServlet {
         CheckoutDAO dao = new CheckoutDAO();
 
         List<Usuario> user = dao.consultarReservas();
+        if (user.size() == 0) {
+            response.sendRedirect("index");            
+        } else{
+            request.setAttribute("user", user);
 
-        request.setAttribute("user", user);
+            request.getRequestDispatcher("Checkout.jsp").forward(request, response);
+        }
 
-        request.getRequestDispatcher("Checkout.jsp").forward(request, response);
     }
 
     private void checkoutDados(HttpServletRequest request, HttpServletResponse response)
@@ -91,6 +101,45 @@ public class ControleCheckout extends HttpServlet {
                     request.setAttribute("todosConsumos", todosConsumos);
                     request.getRequestDispatcher("PagamentoCartao.jsp").forward(request, response);
                 }
+            } else {
+                Usuario user = new Usuario();
+                CheckoutDAO dao = new CheckoutDAO();
+                user.setId(Integer.valueOf(request.getParameter("reserva")));
+
+                dao.consultarReservaDinheiro(user);
+
+                List<Consumo> todosConsumos = dao.consultarConsumo(user);
+                request.setAttribute("user", user);
+                request.setAttribute("todosConsumos", todosConsumos);
+                request.getRequestDispatcher("PagamentoDinheiro.jsp").forward(request, response);
+
+            }
+        } catch (Exception e) {
+            RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
+            request.setAttribute("erro", e.toString());
+            rd.forward(request, response);
+        }
+    }
+
+    private void checkoutDinheiro(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ClassNotFoundException, SQLException, ServletException {
+        try {
+
+            Usuario user = new Usuario();
+            user.setId(Integer.valueOf(request.getParameter("reserva")));
+            user.setNome(request.getParameter("cliente"));
+            user.setQuarto(request.getParameter("quarto"));
+            user.setDiaria(Double.valueOf(request.getParameter("total").replace("R$", "").trim()));
+            user.setPago(Double.valueOf(request.getParameter("pago")));
+
+            if (user.getPago() < user.getDiaria()) {
+                RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
+                request.setAttribute("erro", "Valor pago menor que total!");
+                rd.forward(request, response);
+            } else {
+                user.setTroco(user.getPago() - user.getDiaria());
+                request.setAttribute("user", user);
+                request.getRequestDispatcher("ConfirmaPagamentoDinheiro.jsp").forward(request, response);
             }
         } catch (Exception e) {
             RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
@@ -105,17 +154,43 @@ public class ControleCheckout extends HttpServlet {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-            LocalDateTime agora = LocalDateTime.now();                        
+            LocalDateTime agora = LocalDateTime.now();
 
-            String parameter = agora.format(formatter);                       
+            String parameter = agora.format(formatter);
 
-            Usuario user = new Usuario();            
+            Usuario user = new Usuario();
             CheckoutDAO dao = new CheckoutDAO();
             user.setId(Integer.valueOf(request.getParameter("reserva")));
             user.setSaida(parameter);
-            user.setDiaria(Double.parseDouble(request.getParameter("total")));
-            
-            dao.pagamentoCartao(user);
+            user.setDiaria(Double.parseDouble(request.getParameter("total").replace("R$", "").trim()));
+
+            dao.pagamentoCheckout(user);
+
+            response.sendRedirect("index");
+        } catch (Exception e) {
+            RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
+            request.setAttribute("erro", e.toString());
+            rd.forward(request, response);
+        }
+    }
+
+    private void pagamentoDinheiro(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ClassNotFoundException, SQLException {
+
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+            LocalDateTime agora = LocalDateTime.now();
+
+            String parameter = agora.format(formatter);
+
+            Usuario user = new Usuario();
+            CheckoutDAO dao = new CheckoutDAO();
+            user.setId(Integer.valueOf(request.getParameter("reserva")));
+            user.setSaida(parameter);
+            user.setDiaria(Double.parseDouble(request.getParameter("total").replace("R$", "").trim()));
+
+            dao.pagamentoCheckout(user);
 
             response.sendRedirect("index");
         } catch (Exception e) {

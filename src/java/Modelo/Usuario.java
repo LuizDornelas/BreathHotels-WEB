@@ -23,8 +23,26 @@ public class Usuario {
     private String saida;
     private String quarto;
     private double diaria;
+    private double pago;
+    private double troco;
     private boolean desativado;
 
+    public double getPago() {
+        return pago;
+    }
+
+    public void setPago(double pago) {
+        this.pago = pago;
+    }
+
+    public double getTroco() {
+        return troco;
+    }
+
+    public void setTroco(double troco) {
+        this.troco = troco;
+    }        
+    
     public boolean isDesativado() {
         return desativado;
     }

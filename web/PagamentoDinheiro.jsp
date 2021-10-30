@@ -30,7 +30,7 @@
             <div class="row">
                 <div class="col-sm-10 col-lg-6 offset-sm-1 offset-lg-3">        
                     <div class="form-bg">
-                        <form onsubmit='return confirmacao()' action="PagamentoCartao" method="POST"> 
+                        <form action="ConfirmarPagamentoDinheiro" method="GET"> 
                             <a href="#"><img src="view/img/icons/BreathLogo.png" alt="logo" class="logo"></a>
                             <h2>Dados Checkout</h2>                                                                                                                   
                             <div class="form-group">
@@ -57,11 +57,11 @@
                                     <div class="col-md-6">
                                         <label>Total</label>
                                         <input type="text" name="total" class="form-control" placeholder="Total" value="R$${user.diaria}0" readonly>
-                                    </div>                                   
+                                    </div>    
                                 </div>    
                                 <div class="row">
-                                    <label>Cartão</label>
-                                    <input type="text" name="cartao" class="form-control" placeholder="Cartão" value="${cartao.numero}" readonly>
+                                    <label>Valor pago</label>
+                                    <input type="number" min="0" id="number" max="9999" step="0.01" name="pago" class="form-control" placeholder="Valor pago" required>
                                 </div> 
                             </div>       
 
@@ -99,7 +99,7 @@
                                 <%}%>                                                                    
                             </div>                        
                             <div class="botoes">
-                                <input class="btn btn-primary" type="submit" name="acao" value="Confirmar Pagamento"><br><br>
+                                <input class="btn btn-primary" type="submit" name="acao" value="Realizar Pagamento"><br><br>
                                 <a href="Checkout">Voltar</a>  
                             </div>
                         </form>
@@ -111,7 +111,17 @@
     </body>
 </html>
 <script>
-    function confirmacao() {
-        alert("Transação aprovada com sucesso!");
+    // Select your input element.
+    var number = document.getElementById('number');
+
+// Listen for input event on numInput.
+    number.onkeydown = function (e) {
+        if (!((e.keyCode === 190)
+                || (e.keyCode >= 16 && e.keyCode <= 17)
+                || (e.keyCode >= 37 && e.keyCode <= 40)
+                || (e.keyCode >= 48 && e.keyCode <= 57)
+                || (e.keyCode === 8))) {
+            return false;
+        }
     }
 </script>
