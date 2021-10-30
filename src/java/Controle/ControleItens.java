@@ -7,7 +7,6 @@ import Modelo.Quartos;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-import javax.mail.FetchProfile;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -59,7 +58,7 @@ public class ControleItens extends HttpServlet {
             } else if (uri.equals(request.getContextPath() + "/ConfirmarEdicaoItem")) {
                 confirmarEdicao(request, response);
             } else if (uri.equals(request.getContextPath() + "/ComprarItens")) {
-                confirmarEdicao(request, response);
+                comprarItens(request, response);
             }
         } catch (Exception e) {
             RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
@@ -130,7 +129,7 @@ public class ControleItens extends HttpServlet {
             //Ao clicar em cadastrar no CadItens ele trará até esse servlet
             Itens item = new Itens();
 
-            item.setNome_item(request.getParameter("quarto"));
+            item.setId_quarto(Integer.parseInt(request.getParameter("quarto")));
             item.setId(Integer.parseInt(request.getParameter("item")));
             item.setQuantidade(Integer.parseInt(request.getParameter("quantidade")));
 
@@ -143,7 +142,7 @@ public class ControleItens extends HttpServlet {
             } else {
                 //Valida se os dados não estão vazios
                 ItemDAO itemDAO = new ItemDAO();
-                
+
                 //Instancia uma DAO e leva os dados até o método
                 itemDAO.comprarItem(item);
 
@@ -151,6 +150,8 @@ public class ControleItens extends HttpServlet {
                     RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
                     request.setAttribute("erro", "Quantidade maior que o estoque!");
                     rd.forward(request, response);
+                } else {
+                    response.sendRedirect("index");
                 }
             }
         } catch (Exception erro) {

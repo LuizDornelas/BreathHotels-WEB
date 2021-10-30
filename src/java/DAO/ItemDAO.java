@@ -159,15 +159,39 @@ public class ItemDAO {
 
     public void comprarItem(Itens item) throws ClassNotFoundException, SQLException {
         Connection con = ConectaBanco.getConexao();
-        PreparedStatement com = con.prepareStatement("select quantidade from itens where itemid=?;");
+        PreparedStatement com = con.prepareStatement("select item, quantidade, valor from itens where itemid=?;");
         com.setInt(1, item.getId());
         ResultSet resultado = com.executeQuery();
         resultado.next();
         int quantidade = Integer.parseInt(resultado.getString("quantidade"));
+        String nome = resultado.getString("item");
+        double valor = Double.parseDouble(resultado.getString("valor"));
         resultado.close();
 
         if (item.getQuantidade() > quantidade) {
             item.setItem_valicacao(true);
+        } else {
+            com = con.prepareStatement("INSERT INTO consumos(item, valor, quantidade, reservafk, itemfk) VALUES(?,?,?,?,?);");
+            com.setString(1, nome);
+            com.setDouble(2, valor);
+            com.setInt(3, quantidade);
+            com.setInt(4, item.getId_quarto());
+            com.setInt(5, item.getId());
+            com.execute();
+            com.close();
+
+            com = con.prepareStatement("UPDATE itens set quantidade =? WHERE itemid=?;");
+            quantidade -= item.getQuantidade();
+            com.setInt(1, quantidade);
+            com.setInt(2, item.getId());
+            com.execute();
+            com.close();
+
+            if (quantidade == 0) {
+                com = con.prepareStatement("UPDATE itens set status = 'Indisponível' WHERE itemid=?;");
+                com.setInt(1, item.getId());
+                com.execute();
+            }
         }
     }
 
@@ -184,7 +208,7 @@ public class ItemDAO {
         pstmt.setDouble(2, item.getValor_item());
         pstmt.setInt(3, item.getQuantidade());
         if (item.getQuantidade() == 0) {
-            pstmt.setString(4, "Indisponivel");
+            pstmt.setString(4, "Indisponível");
         } else {
             pstmt.setString(4, "Disponivel");
         }

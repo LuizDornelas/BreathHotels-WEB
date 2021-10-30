@@ -147,8 +147,8 @@ public class ControleUsuario extends HttpServlet {
         UsuarioDAO dao = new UsuarioDAO();
 
         HttpSession session = request.getSession(true);
-        Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
-
+        Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");                
+        
         List<Usuario> todosUsuarios = dao.consultarTodos(usuario.getTipo().toString());
 
         request.setAttribute("todosUsuarios", todosUsuarios);

@@ -3,6 +3,7 @@ package Modelo;
 
 public class Itens {
     private int id;
+    private int id_quarto;
     private String nome_item;
     private double valor_item;
     private int quantidade;
@@ -11,6 +12,14 @@ public class Itens {
     private EnumStatus status;
     private boolean item_duplicado;
     private boolean item_valicacao;
+
+    public int getId_quarto() {
+        return id_quarto;
+    }
+
+    public void setId_quarto(int id_quarto) {
+        this.id_quarto = id_quarto;
+    }
 
     public boolean isItem_valicacao() {
         return item_valicacao;

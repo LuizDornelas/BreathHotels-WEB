@@ -23,7 +23,7 @@ public class QuartoDAO {
     private static final String CADASTRA_NOVO_QUARTO = "INSERT INTO public.quartos(quarto, tipo, camasolteiro, camacasal, status, diaria) VALUES (?,?,?,?,'Disponível',?);";
     private static final String CONSULTA_QUARTO = "select id_quarto, quarto, tipo, camasolteiro, camacasal, status, diaria from quartos order by id_quarto";
     private static final String CONSULTA_DISPONIVEIS = "select id_quarto, quarto, camasolteiro, camacasal, diaria from quartos where status = 'Disponível' order by quarto";
-    private static final String CONSULTA_RESERVAS = "select reservafk, quarto, camasolteiro, camacasal, diaria from quartos where status = 'Ocupado' order by quarto";
+    private static final String CONSULTA_RESERVAS = "select reservafk, quarto, camasolteiro, camacasal, diaria, nomecli from quartos, reservas where quartos.status = 'Ocupado' and reservas.status = 'Em andamento' order by quarto;";
     public void cadastraNovoQuarto(Quartos quartos) throws ClassNotFoundException, SQLException {
 
         Connection conexao = null;
@@ -126,6 +126,7 @@ public class QuartoDAO {
             quartos.setCamaSolteiro(resultado.getInt("camaSolteiro"));
             quartos.setCamaCasal(resultado.getInt("camaCasal"));
             quartos.setDiaria(resultado.getDouble("diaria"));
+            quartos.setNome(resultado.getString("nomecli"));
 
             todosQuartos.add(quartos);
         }

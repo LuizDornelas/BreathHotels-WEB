@@ -9,6 +9,15 @@ public class Quartos {
     private String status;
     private double diaria;
     private boolean quarto_duplicado;
+    private String nome;
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }        
 
     public int getId() {
         return id;

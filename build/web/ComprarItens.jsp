@@ -35,7 +35,7 @@
                         <select name="quarto" class="browser-default" style="width: 60%; margin-top: 10px; margin-bottom: 10px;">
                             <option disabled selected>Selecione o quarto</option>
                             <c:forEach items="${quarto}" var="quarto">                                                                                                                       
-                                <option value="${quarto.id}">${quarto.quarto} | Cama Solteiro: ${quarto.camaSolteiro} | Cama Casal: ${quarto.camaCasal}</option>                                                                                       
+                                <option value="${quarto.id}">${quarto.quarto} | Cama Solteiro: ${quarto.camaSolteiro} | Cama Casal: ${quarto.camaCasal} | Cliente ${quarto.nome}</option>                                                                                       
                             </c:forEach>                                    
                         </select>
 
@@ -68,7 +68,7 @@
                         </div>
                     </div>
                 </form>
-                <div class="col"><img src="view/img/fotosHotel/coffee.jpg" alt="piscina" style="width: 500px;"></div>                      
+                <div class="col"><img src="view/img/fotosHotel/coffee.png" alt="coffee" style="width: 500px;"></div>                      
             </center>
         </div>               
     </body>
