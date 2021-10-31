@@ -21,7 +21,7 @@
             Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
             if (usuario == null) {
                 response.sendRedirect("login.jsp");
-            } else {
+            } else if ("Admin".equals(usuario.getTipo().toString()) || "Func".equals(usuario.getTipo().toString())) {
         %>    
         <div class="signup-page">
             <div class="container">
@@ -33,19 +33,19 @@
                             <form action="CadastroCartao" method="POST">
 
                                 <div class="form-group">
-                                    <input type="text" name="numerocartao" class="form-control" placeholder="Número do cartão">
+                                    <input type="text" name="numerocartao" maxlength="19" OnKeyPress="formatar('####-####-####-####', this)" class="form-control" placeholder="Número do cartão">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="nome" class="form-control" placeholder="Nome">
+                                    <input type="text" name="nome" maxlength="80" class="form-control" placeholder="Nome" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="validade" class="form-control" placeholder="Validade do cartão">
+                                    <input type="text" name="validade" maxlength="5" OnKeyPress="formatar('##/##', this)" class="form-control" placeholder="Validade do cartão">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="codigo" class="form-control" placeholder="Código do cartão">
+                                    <input type="text" name="codigo" maxlength="3" class="form-control" placeholder="Código do cartão">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="bandeira" class="form-control" placeholder="Bandeira do cartão">
+                                    <input type="text" name="bandeira" maxlength="20" class="form-control" placeholder="Bandeira do cartão">
                                 </div>              
                                 <label>Cliente</label>
                                 <select name="cmb_cliente" class="browser-default">
@@ -66,7 +66,7 @@
                                     %>
                                     <font color="#274360"><%=msg%></font>
                                     <%}%>
-                                    <%}%>
+
                                     <div class="botoes">
                                         <a href="ListarCartao">Voltar</a>  
                                     </div>
@@ -79,3 +79,18 @@
         </div>
     </body>
 </html>
+<script>
+    function formatar(mascara, documento) {
+        var i = documento.value.length;
+        var saida = mascara.substring(0, 1);
+        var texto = mascara.substring(i)
+
+        if (texto.substring(0, 1) != saida) {
+            documento.value += texto.substring(0, 1);
+        }
+
+    }
+</script>
+<%} else {
+        response.sendRedirect("indexCliente.jsp");
+    }%>

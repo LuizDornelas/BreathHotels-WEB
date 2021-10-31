@@ -7,6 +7,8 @@ import Modelo.Usuario;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -154,7 +156,7 @@ public class ControleCheckout extends HttpServlet {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-            LocalDateTime agora = LocalDateTime.now();
+            ZonedDateTime  agora = ZonedDateTime.now(ZoneId.of("America/Sao_Paulo"));
 
             String parameter = agora.format(formatter);
 
@@ -180,7 +182,7 @@ public class ControleCheckout extends HttpServlet {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-            LocalDateTime agora = LocalDateTime.now();
+            ZonedDateTime  agora = ZonedDateTime.now(ZoneId.of("America/Sao_Paulo"));
 
             String parameter = agora.format(formatter);
 

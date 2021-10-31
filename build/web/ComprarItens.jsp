@@ -22,7 +22,7 @@
                 Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
                 if (usuario == null) {
                     response.sendRedirect("login.jsp");
-                } else {
+                } else if ("Admin".equals(usuario.getTipo().toString()) || "Func".equals(usuario.getTipo().toString())) {
             %>     
         </div>
         <div class="row" style="width: 95%;">
@@ -72,7 +72,7 @@
             </center>
         </div>               
     </body>
-    <%}%>
+
 </html>
 
 <script>
@@ -91,3 +91,6 @@
         }
     }
 </script>
+<%} else {
+        response.sendRedirect("indexCliente.jsp");
+    }%>

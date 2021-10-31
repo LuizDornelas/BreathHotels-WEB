@@ -96,8 +96,8 @@ public class ControleCartao extends HttpServlet {
 
                 //Valida se os dados  não estão vazios
                 if (cartao.getNumero().equals("") || cartao.getNome().equals("") || cartao.getValidade().equals("") || cartao.getCodigo() == 0 || cartao.getBandeira().equals("")) {
-                    RequestDispatcher rd = request.getRequestDispatcher("CadCard.jsp");
-                    request.setAttribute("msg", "Há dados vazios, favor validar!");
+                    RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
+                    request.setAttribute("erro", "Há dados vazios, favor validar!");
                     rd.forward(request, response);
                 } else {
                     CartaoDAO cartaoDAO = new CartaoDAO();
@@ -105,28 +105,26 @@ public class ControleCartao extends HttpServlet {
                     cartaoDAO.cadastraNovoCartao(cartao);
 
                     if (cartao.isCartao_duplicado()) {
-                        RequestDispatcher rd = request.getRequestDispatcher("CadCard.jsp");
-                        request.setAttribute("msg", "Este cartão já existe!");
+                        RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
+                        request.setAttribute("erro", "Este cartão já existe!");
                         rd.forward(request, response);
                     } else if (cartao.isUser_cartao_duplicado()) {
-                        RequestDispatcher rd = request.getRequestDispatcher("CadCard.jsp");
-                        request.setAttribute("msg", "Este usuário já possui cartão cadastrado!");
+                        RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
+                        request.setAttribute("erro", "Este usuário já possui cartão cadastrado!");
                         rd.forward(request, response);
                     } else {
-                        RequestDispatcher rd = request.getRequestDispatcher("CadCard.jsp");
-                        request.setAttribute("msg", "Cartão cadastrado com sucesso!");
-                        rd.forward(request, response);
+                        response.sendRedirect("ListarCartao");
                     }
                 }
             }
         } catch (NullPointerException erro) {
-            RequestDispatcher rd = request.getRequestDispatcher("CadCard.jsp");
-            request.setAttribute("msg", "Há dados vazios, favor validar");
+            RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
+            request.setAttribute("erro", "Há dados vazios, favor validar");
             rd.forward(request, response);
 
         } catch (NumberFormatException erro) {
-            RequestDispatcher rd = request.getRequestDispatcher("CadCard.jsp");
-            request.setAttribute("msg", "Formato incorreto, favor validar!");
+            RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
+            request.setAttribute("erro", "Formato incorreto, favor validar!");
             rd.forward(request, response);
 
         } catch (Exception erro) {

@@ -21,7 +21,7 @@
             Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
             if (usuario == null) {
                 response.sendRedirect("login.jsp");
-            } else {
+            } else if ("Admin".equals(usuario.getTipo().toString()) || "Func".equals(usuario.getTipo().toString())) {
         %>    
         <div class="signup-page">
             <div class="container">
@@ -35,19 +35,19 @@
                                     <input type="hidden" name="codigoid" class="form-control" value="${cartao.id}">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="numerocartao" class="form-control" placeholder="Número do cartão" value="${cartao.numero}">
+                                    <input type="text" name="numerocartao" maxlength="19" OnKeyPress="formatar('####-####-####-####', this)" class="form-control" placeholder="Número do cartão" value="${cartao.numero}">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="nome" class="form-control" placeholder="Nome" value="${cartao.nome}">
+                                    <input type="text" name="nome" maxlength="80" class="form-control" placeholder="Nome" value="${cartao.nome}">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="validade" class="form-control" placeholder="Validade do cartão" value="${cartao.validade}">
+                                    <input type="text" name="validade" maxlength="5" OnKeyPress="formatar('##/##', this)" class="form-control" placeholder="Validade do cartão" value="${cartao.validade}">
                                 </div>
                                 <div class="form-group">
-                                    <input type="number" name="codigo" class="form-control" placeholder="Código do cartão" value="${cartao.codigo}">
+                                    <input type="number" name="codigo" maxlength="3" class="form-control" placeholder="Código do cartão" value="${cartao.codigo}">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="bandeira" class="form-control" placeholder="Bandeira do cartão" value="${cartao.bandeira}">
+                                    <input type="text" name="bandeira" maxlength="20" class="form-control" placeholder="Bandeira do cartão" value="${cartao.bandeira}">
                                 </div>              
                                 <div class="form-group">                                                                                                        
                                     <%
@@ -56,13 +56,13 @@
                                         if (msg != null) {
 
                                     %>
-                                     <font color="#274360"><%=msg%></font>
-                                <%}%>
-                                <%}%>
-                                <div class="botoes">
-                                    <input class="btn btn-primary custom-btn" type="submit" name="acao" value="Confirmar">
-                                    <a href="ListarCartao">Voltar</a>  
-                                </div>    
+                                    <font color="#274360"><%=msg%></font>
+                                    <%}%>
+
+                                    <div class="botoes">
+                                        <input class="btn btn-primary custom-btn" type="submit" name="acao" value="Confirmar">
+                                        <a href="ListarCartao">Voltar</a>  
+                                    </div>    
                                 </div>
                             </form>
                         </div>      
@@ -72,3 +72,18 @@
         </div>
     </body>
 </html>
+<script>
+    function formatar(mascara, documento) {
+        var i = documento.value.length;
+        var saida = mascara.substring(0, 1);
+        var texto = mascara.substring(i)
+
+        if (texto.substring(0, 1) != saida) {
+            documento.value += texto.substring(0, 1);
+        }
+
+    }
+</script>
+<%} else {
+        response.sendRedirect("indexCliente.jsp");
+    }%>

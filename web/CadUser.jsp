@@ -1,9 +1,7 @@
 <%@page import="Modelo.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
-<!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <title>Cadastro de Usuários</title>
         <meta charset="utf-8">
@@ -24,7 +22,7 @@
                     Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
                     if (usuario == null) {
                         response.sendRedirect("login.jsp");
-                    } else {
+                    } else if ("Admin".equals(usuario.getTipo().toString()) || "Func".equals(usuario.getTipo().toString())) {
                 %>     
                 <div class="row">
                     <div class="col-sm-10 col-lg-6 offset-sm-1 offset-lg-3">        
@@ -93,7 +91,7 @@
                                 %>
                                 <font color="#274360"><%=msg%></font>
                                 <%}%>
-                                <%}%>
+
                                 <div class="botoes">
                                     <a href="ListarUsuario">Voltar</a>  
                                 </div>
@@ -142,5 +140,8 @@
             inputValue = inputValue.replace(/(^\d{2})(\d)/, '($1) $2');
             inputValue = inputValue.replace(/(\d{4,5})(\d{4}$)/, '$1-$2');
             element.value = inputValue;
-            }
+    }
 </script>
+<%} else {
+        response.sendRedirect("indexCliente.jsp");
+    }%> 

@@ -19,6 +19,13 @@
         <title>Breath Hotels</title>
     </head>
     <body id="conteudo">
+        <%
+            //Valida se a sessão está valida
+            Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
+            if (usuario == null) {
+                response.sendRedirect("login.jsp");
+            } else if ("Admin".equals(usuario.getTipo().toString()) || "Func".equals(usuario.getTipo().toString())) {
+        %>
         <!-- navbar -->
         <nav class="navbar navbar-expand-sm  navbar-dark justify-content-around" style="background-color: #274360; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
             <!-- Brand/logo -->
@@ -39,8 +46,14 @@
                 <li class="nav-item">
                     <a class="nav-link" href="ListarCartao">Cartões</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Histórico</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                        Histórico
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="ReservasEncerradas">Reservas</a>
+                        <a class="dropdown-item" href="Consumos">Consumos</a>
+                    </div>
                 </li>
 
                 <!-- Dropdown -->
@@ -68,18 +81,12 @@
                 </li>
             </ul>
 
-            <ul class="navbar-nav ml-auto nav-flex-icons">
-
+            <ul class="navbar-nav ml-auto nav-flex-icons">                
                 <%
-                    //Valida se a sessão está valida
-                    Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
-                    if (usuario == null) {
-                        response.sendRedirect("login.jsp");
-                    } else {
-                        //Traz a mensagem diretamente da control
-                        String login = usuario.getLogin();
-                        if (login != null) {
-                        }
+                    //Traz a mensagem diretamente da control
+                    String login = usuario.getLogin();
+                    if (login != null) {
+                    }
                 %>                             
                 <h2  class="text-light" >Olá, <%=login%> </h2>
 
@@ -165,7 +172,9 @@
             <nav class="navbar navbar-expand-sm  navbar-dark bottom justify-content-center p-4" style="background-color: #274360;">
                 <a class="navbar-brand" href="#">&copy;2021 Breath Hotels Limitado</a>
             </nav>
-        </footer>
-        <%}%> 
+        </footer>       
     </body>
 </html>
+<%} else {
+        response.sendRedirect("indexCliente.jsp");
+    }%>

@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <title>Cadastro de Itens</title>
         <meta charset="utf-8">
@@ -19,12 +19,12 @@
     <body>
         <div class="signup-page">
             <div class="container">
-                <%                    
+                <%
                     //Valida se a sessão está valida
                     Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
                     if (usuario == null) {
                         response.sendRedirect("login.jsp");
-                    } else {
+                    } else if ("Admin".equals(usuario.getTipo().toString()) || "Func".equals(usuario.getTipo().toString())) {
                 %>     
                 <div class="row">
                     <div class="col-sm-10 col-lg-6 offset-sm-1 offset-lg-3">        
@@ -57,7 +57,7 @@
                                     %>
                                     <font color="#274360"><%=msg%></font>
                                     <%}%>
-                                    <%}%>
+
                                     <div class="botoes">
                                         <a href="ListarItem">Voltar</a>  
                                     </div>
@@ -104,3 +104,6 @@
         }
     }
 </script>
+<%} else {
+        response.sendRedirect("indexCliente.jsp");
+    }%>

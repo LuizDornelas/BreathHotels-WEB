@@ -24,7 +24,7 @@
             Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
             if (usuario == null) {
                 response.sendRedirect("login.jsp");
-            } else {
+            } else if ("Admin".equals(usuario.getTipo().toString()) || "Func".equals(usuario.getTipo().toString())) {
         %>
         <div class="signup-page">            
             <div class="row">
@@ -80,7 +80,7 @@
                 </div>
             </div>            
         </div>
-        <%}%>  
+
     </body>
 </html>
 <script>
@@ -88,3 +88,6 @@
         alert("Pagamento realizado com sucesso!");
     }
 </script>
+<%} else {
+        response.sendRedirect("indexCliente.jsp");
+    }%>

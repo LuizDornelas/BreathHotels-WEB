@@ -174,7 +174,7 @@ public class ItemDAO {
             com = con.prepareStatement("INSERT INTO consumos(item, valor, quantidade, reservafk, itemfk) VALUES(?,?,?,?,?);");
             com.setString(1, nome);
             com.setDouble(2, valor);
-            com.setInt(3, quantidade);
+            com.setInt(3, item.getQuantidade());
             com.setInt(4, item.getId_quarto());
             com.setInt(5, item.getId());
             com.execute();

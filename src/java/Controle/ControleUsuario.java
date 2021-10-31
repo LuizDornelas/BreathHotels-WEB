@@ -78,11 +78,11 @@ public class ControleUsuario extends HttpServlet {
 
     private void cadastrar(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
-
-        response.setContentType("text/html;charset=UTF-8");
+       
         try {
             String acao = request.getParameter("acao");
             if (acao.equals("Cadastrar")) {
+                request.setCharacterEncoding("UTF-8");
                 //Ao clicar em cadastrar no CadUser ele trará até esse servlet
                 Usuario usuario = new Usuario();
                 //Instancia na classe o que foi inserido nas caixas de texto
@@ -147,8 +147,8 @@ public class ControleUsuario extends HttpServlet {
         UsuarioDAO dao = new UsuarioDAO();
 
         HttpSession session = request.getSession(true);
-        Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");                
-        
+        Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
+
         List<Usuario> todosUsuarios = dao.consultarTodos(usuario.getTipo().toString());
 
         request.setAttribute("todosUsuarios", todosUsuarios);
@@ -242,7 +242,7 @@ public class ControleUsuario extends HttpServlet {
             usuario.setCidade(request.getParameter("txt_cidade"));
             usuario.setEstado(request.getParameter("txt_estado"));
             usuario.setCep(request.getParameter("txt_cep"));
-            usuario.setLogin(request.getParameter("txt_login"));            
+            usuario.setLogin(request.getParameter("txt_login"));
             String perfil = request.getParameter("cmb_tipo");
             String ativo = request.getParameter("cmb_ativo");
             if (perfil.equalsIgnoreCase("Admin")) {

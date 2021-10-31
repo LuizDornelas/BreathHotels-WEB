@@ -16,48 +16,41 @@
     </head>
     <body class="conteudo">  
         <div class="listando">
-        <%
-            //Valida se a sessão está valida
-            Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
-            if (usuario == null) {
-                response.sendRedirect("login.jsp");
-            } else {
-                //Traz a mensagem diretamente da control
-                String login = usuario.getLogin();
-                if (login != null) {
-                }
-        %>     
+            <%
+                //Valida se a sessão está valida
+                Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
+                if (usuario == null) {
+                    response.sendRedirect("login.jsp");
+                } else if ("Admin".equals(usuario.getTipo().toString()) || "Func".equals(usuario.getTipo().toString())) {
+            %>     
 
-    <center> 
-        <%//Traz a mensagem diretamente da control
-            Boolean validaDados = (Boolean) request.getAttribute("validaDados2");
-            if (validaDados = true) {%>
-        <h3 class="cyan-text text-cyan darken-2">Relatório de reservas</h3>        
-        <table class="striped highlight" border="1">
-            <thead class="thead-light">
-                <tr>               
-                    <th style="width: 33%;">Mês</th>
-                    <th class="col s6 ml-5" style="width: 33%">Quantidade de reservas</th>
-                    <th style="width: 10%;">Total de ganhos</th>                     
+            <center>       
+                <h3 class="cyan-text text-cyan darken-2">Relatório de reservas</h3>        
+                <table class="striped highlight" border="1">
+                    <thead class="thead-light">
+                        <tr>               
+                            <th style="width: 33%;">Mês</th>
+                            <th class="col s6 ml-5" style="width: 33%">Quantidade de reservas</th>
+                            <th style="width: 10%;">Total de ganhos</th>                     
+                        </tr>
+                    </thead>
+            </center>
+
+            <c:forEach items="${reservaMes}" var="reserva">      
+                <tr>                                       
+                    <td>${reserva.mes}</td>
+                    <td style="width: 33%;">${reserva.quantidade}</td>
+                    <td>${reserva.total}</td>                  
                 </tr>
-            </thead>
+            </c:forEach>   
+        </table>  
+        <br><br>
+        <a class="btn btn-outline-secondary" href="index">Voltar</a>  
     </center>
 
-    <c:forEach items="${reservaMes}" var="reserva">      
-        <tr>                                       
-            <td>${reserva.mes}</td>
-            <td style="width: 33%;">${reserva.quantidade}</td>
-            <td>${reserva.total}</td>                  
-        </tr>
-    </c:forEach>   
-    </table>
-    <%} else {%>
-        <h3>Não há dados para o relatório</h3>     
-    <%}%>
-    <br><br>
-    <a class="btn btn-outline-secondary" href="index">Voltar</a>  
-    </center>
-    <%}%>
-        </div>
-    </body>
+</div>
+</body>
 </html>
+<%} else{
+response.sendRedirect("indexCliente.jsp");
+}%>

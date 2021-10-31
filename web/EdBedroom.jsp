@@ -21,7 +21,7 @@
             Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
             if (usuario == null) {
                 response.sendRedirect("login.jsp");
-            } else {
+            } else if ("Admin".equals(usuario.getTipo().toString()) || "Func".equals(usuario.getTipo().toString())) {
         %>    
         <div class="signup-page">
             <div class="container">
@@ -35,21 +35,23 @@
                                     <input type="hidden" name="id" class="form-control" value="${quarto.id}">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="quarto" class="form-control" placeholder="Quarto" value="${quarto.quarto}">
+                                    <input type="text" name="quarto" maxlength="20" class="form-control" placeholder="Quarto" value="${quarto.quarto}">
+                                </div>
+                                <select name="tipo" class="form-select" required>
+                                    <option disabled selected>Selecione o tipo de quarto</option>
+                                    <option value="Simples">Simples</option>                                                                                       
+                                    <option value="Luxo">Luxo</option>  
+                                </select><br><br>
+                                <div class="form-group">
+                                    <input type="number" min="0" id="number1" max="10" name="camaSolteiro" class="form-control" placeholder="Número de camas de solteiro" value="${quarto.camaSolteiro}">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="tipo" class="form-control" placeholder="Tipo" value="${quarto.tipo}">
+                                    <input type="number" min="0" id="number2" max="10" name="camaCasal" class="form-control" placeholder="Número de camas de casal" value="${quarto.camaCasal}">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" name="camaSolteiro" class="form-control" placeholder="Número de camas de solteiro" value="${quarto.camaSolteiro}">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" name="camaCasal" class="form-control" placeholder="Número de camas de casal" value="${quarto.camaCasal}">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" name="diaria" class="form-control" placeholder="Valor da diária" value="${quarto.diaria}">
+                                    <input type="number" min="50" id="number3" max="9999" name="diaria" class="form-control" placeholder="Valor da diária" value="${quarto.diaria}">
                                 </div>              
-                                 <div class="form-group">
+                                <div class="form-group">
                                     <input class="btn btn-primary custom-btn" type="submit" name="acao" value="Atualizar" >
                                     <%
                                         //Traz a mensagem diretamente da control
@@ -59,7 +61,7 @@
                                     %>
                                     <font color="#274360"><%=msg%></font>
                                     <%}%>
-                                    <%}%>
+
                                     <div class="botoes">
                                         <a href="ListarQuarto">Voltar</a>  
                                     </div>
@@ -72,3 +74,40 @@
         </div>
     </body>
 </html>
+<script>
+    // Select your input element.
+    var number = document.getElementById('number1');
+    var number2 = document.getElementById('number2');
+    var number3 = document.getElementById('number3');
+
+// Listen for input event on numInput.
+    number.onkeydown = function (e) {
+        if (!((e.keyCode === 190)
+                || (e.keyCode >= 16 && e.keyCode <= 17)
+                || (e.keyCode >= 37 && e.keyCode <= 40)
+                || (e.keyCode >= 48 && e.keyCode <= 57)
+                || (e.keyCode === 8))) {
+            return false;
+        }
+    }
+    number2.onkeydown = function (e) {
+        if (!((e.keyCode === 190)
+                || (e.keyCode >= 16 && e.keyCode <= 17)
+                || (e.keyCode >= 37 && e.keyCode <= 40)
+                || (e.keyCode >= 48 && e.keyCode <= 57)
+                || (e.keyCode === 8))) {
+            return false;
+        }
+    }
+    number3.onkeydown = function (e) {
+        if (!((e.keyCode >= 16 && e.keyCode <= 17)
+                || (e.keyCode >= 37 && e.keyCode <= 40)
+                || (e.keyCode >= 48 && e.keyCode <= 57)
+                || (e.keyCode === 8))) {
+            return false;
+        }
+    }
+</script>
+<%} else {
+        response.sendRedirect("indexCliente.jsp");
+    }%>

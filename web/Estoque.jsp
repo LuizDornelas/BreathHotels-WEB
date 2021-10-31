@@ -21,7 +21,7 @@
             Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
             if (usuario == null) {
                 response.sendRedirect("login.jsp");
-            } else {
+            } else if ("Admin".equals(usuario.getTipo().toString()) || "Func".equals(usuario.getTipo().toString())) {
         %>    
         <div class="signup-page">
             <div class="container">
@@ -33,13 +33,13 @@
                             <form action="CadastroQuarto" method="POST">
 
                                 <div class="dropdown">
-                                <button class="btn btn-default btn-block text-left dropdown-toggle" type="button" data-toggle="dropdown">Item
-                                <span class="caret"></span></button>
-                                <ul class="dropdown-menu">
-                                  <li><a href="#">1</a></li>
-                                  <li><a href="#">2</a></li>
-                                  <li><a href="#">3</a></li>
-                                </ul>
+                                    <button class="btn btn-default btn-block text-left dropdown-toggle" type="button" data-toggle="dropdown">Item
+                                        <span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">1</a></li>
+                                        <li><a href="#">2</a></li>
+                                        <li><a href="#">3</a></li>
+                                    </ul>
                                 </div>
                                 </br>
                                 <div class="form-group">
@@ -64,8 +64,7 @@
 
                                     %>
                                     <font color="#274360"><%=msg%></font>
-                                    <%}%>
-                                    <%}%>
+                                    <%}%>                                    
                                     <div class="botoes">
                                         <a href="index">Voltar</a>  
                                     </div>
@@ -78,3 +77,6 @@
         </div>
     </body>
 </html>
+<%} else {
+        response.sendRedirect("indexCliente.jsp");
+    }%>

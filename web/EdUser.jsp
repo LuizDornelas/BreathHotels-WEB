@@ -1,8 +1,3 @@
-<%-- 
-    Document   : EdUser
-    Created on : 28/09/2021, 19:28:55
-    Author     : Luiz Dornelas
---%>
 <%@page import="Modelo.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -27,7 +22,7 @@
                     Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
                     if (usuario == null) {
                         response.sendRedirect("login.jsp");
-                    } else {
+                    } else if ("Admin".equals(usuario.getTipo().toString()) || "Func".equals(usuario.getTipo().toString())) {
                 %>     
                 <div class="row">
                     <div class="col-sm-10 col-lg-6 offset-sm-1 offset-lg-3">        
@@ -110,8 +105,7 @@
 
                                 %>
                                 <font color="#274360"><%=msg%></font>
-                                <%}%>
-                                <%}%>
+                                <%}%>                              
                                 <div class="botoes">
                                     <a href="ListarUsuario">Voltar</a>  
                                 </div>
@@ -161,3 +155,6 @@
                     element.value = inputValue;
                 }
         </script>
+        <%} else {
+                response.sendRedirect("indexCliente.jsp");
+            }%>
