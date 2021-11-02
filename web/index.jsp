@@ -32,11 +32,11 @@
 
             <nav class="navbar navbar-light bg-blackt">
                 <a class="navbar-brand" href="#">                    
-                    <h3>BreathHotels</h3>
+                    <img src="view/img/icons/BreathHotels-logo-white.png" alt="logo" style="width: 250px; ">
                 </a>    
             </nav>
             <!-- Links -->
-            <ul class="navbar-nav" style="margin-left: 15vw;" >
+            <ul class="navbar-nav" style="margin-left: 1vw; font-size: 18px;  margin-top: 1vw;">
                 <li class="nav-item">
                     <a class="nav-link" href="ListarUsuario">Usuários</a>
                 </li>
@@ -45,6 +45,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="ListarCartao">Cartões</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Relatorio">Relatório</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
@@ -76,9 +79,6 @@
                         <a class="dropdown-item" href="ListarItem">Estoque</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Relatorio">Relatório</a>
-                </li>
             </ul>
 
             <ul class="navbar-nav ml-auto nav-flex-icons">                
@@ -88,13 +88,12 @@
                     if (login != null) {
                     }
                 %>                             
-                <h2  class="text-light" >Olá, <%=login%> </h2>
-
+                <h2  class="text-light" style=" color: rgb(255,255,255,0.6)!important; text-align: center; font-size: 20px; margin-top: 1.4vw;">Olá, <%=login%> </h2>
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">
-                        <i class='fas fa-user-alt' style='font-size:24px;'></i>
+                        <i class='fas fa-user-alt' style='font-size:19px; margin-left: 1vw; margin-top: 0.8vw;'></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-default"
                          aria-labelledby="navbarDropdownMenuLink-333">                        
@@ -152,27 +151,11 @@
         </div>
 
 
-        <div class="container">
-            <h1 class="ativ">Horário das atividades do hotel</h1>  
-            <div class="card" style="width:400px">
-                <img class="card-img-top" src="view/img/fotosHotel/aulasDeGolf.jpg" alt="Card image" style="width:100%">
-                <div class="card-body">
-                    <h4 class="card-title">Aulas de golf</h4>
-                    <p class="card-text">terça-feira das 10:00 as 12:00 horas</p>
-                    <p class="card-text">Sexta-feira das 13:00 as 15:00 horas</p>
-                </div>
-                </br>
-            </div>  
-        </div>
-        </br></br>
-
-
-        </br></br>
+       
         <footer>
-            <nav class="navbar navbar-expand-sm  navbar-dark bottom justify-content-center p-4" style="background-color: #274360;">
-                <a class="navbar-brand" href="#">&copy;2021 Breath Hotels Limitado</a>
-            </nav>
-        </footer>       
+            <!-- rodapé -->
+            <p style='font-size:18px; margin-top: 3vw; color: rgb(255,255,255,0.6)!important;'>&copy;2021 Breath Hotels Limitado</p>
+        </footer>  
     </body>
 </html>
 <%} else {

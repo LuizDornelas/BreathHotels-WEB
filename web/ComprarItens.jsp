@@ -15,16 +15,26 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>      
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     </head>
-    <body class="conteudo">     
-        <div class="row"  style="width: 95%;">
-            <%
-                //Valida se a sessão está valida
-                Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
-                if (usuario == null) {
-                    response.sendRedirect("login.jsp");
-                } else if ("Admin".equals(usuario.getTipo().toString()) || "Func".equals(usuario.getTipo().toString())) {
-            %>     
-        </div>
+    <body class="conteudo">  
+        <%
+            //Valida se a sessão está valida
+            Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
+            if (usuario == null) {
+                response.sendRedirect("login.jsp");
+            } else if ("Admin".equals(usuario.getTipo().toString()) || "Func".equals(usuario.getTipo().toString())) {
+        %>   
+        <nav style="background-color: #274360; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); height: 100px; margin-bottom: 5vw;">
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo">
+                    <img src="view/img/icons/BreathHotels-logo-white.png" alt="logo" style="width: 250px; margin: 10px; ">
+                </a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down" style="margin-left: 1vw; margin-top: 2vw; font-size: 20px; ">
+                    <li><a href="index" style="margin-right: 2vw; margin-bottom: 1vw; font-size: 20px; color: rgb(255,255,255,0.6)!important;">HOME</a></li>
+                </ul>
+
+            </div>
+        </nav>   
+
         <div class="row" style="width: 95%;">
             <center>
                 <form action="ComprarItens" method="POST">   
@@ -70,7 +80,12 @@
                 </form>
                 <div class="col"><img src="view/img/fotosHotel/coffee.png" alt="coffee" style="width: 500px;"></div>                      
             </center>
-        </div>               
+        </div> 
+
+        <footer>
+            <!-- rodapé -->
+            <p style='font-size:18px; margin-top: 3vw; color: rgb(255,255,255,0.6)!important;'>&copy;2021 Breath Hotels Limitado</p>
+        </footer> 
     </body>
 
 </html>

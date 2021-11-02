@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <title>Lista de Consumos</title>
     </head>
-    <body class="conteudo"> 
+    <body id="conteudo"> 
         <div class="listandoUsers">
             <%
                 //Valida se a sessão está valida

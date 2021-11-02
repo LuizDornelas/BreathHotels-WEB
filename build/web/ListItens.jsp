@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <title>Lista de Itens</title>
     </head>
-    <body class="conteudo">     
+    <body id="conteudo">     
         <div class="listando">
             <%
                 //Valida se a sessão está valida
