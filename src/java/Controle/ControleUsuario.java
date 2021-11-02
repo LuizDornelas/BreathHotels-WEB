@@ -78,55 +78,49 @@ public class ControleUsuario extends HttpServlet {
 
     private void cadastrar(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
-       
         try {
-            String acao = request.getParameter("acao");
-            if (acao.equals("Cadastrar")) {
-                request.setCharacterEncoding("UTF-8");
-                //Ao clicar em cadastrar no CadUser ele trará até esse servlet
-                Usuario usuario = new Usuario();
-                //Instancia na classe o que foi inserido nas caixas de texto
-                usuario.setNome(request.getParameter("txt_nome"));
-                usuario.setRg(request.getParameter("txt_rg"));
-                usuario.setTelefone(request.getParameter("txt_telefone"));
-                usuario.setRua(request.getParameter("txt_rua"));
-                usuario.setNumero(request.getParameter("txt_numero"));
-                usuario.setBairro(request.getParameter("txt_bairro"));
-                usuario.setCidade(request.getParameter("txt_cidade"));
-                usuario.setEstado(request.getParameter("txt_estado"));
-                usuario.setCep(request.getParameter("txt_cep"));
-                usuario.setLogin(request.getParameter("txt_login"));
-                usuario.setSenha(request.getParameter("txt_senha"));
-                String perfil = request.getParameter("cmb_tipo");
-                if (perfil.equalsIgnoreCase("Admin")) {
-                    usuario.setTipo(EnumTipoAcesso.Admin);
-                } else if (perfil.equalsIgnoreCase("Func")) {
-                    usuario.setTipo(EnumTipoAcesso.Func);
-                } else {
-                    usuario.setTipo(EnumTipoAcesso.Cliente);
-                }
-                //Valida se os dados não estão vazios
-                if (usuario.getNome().equals("") || usuario.getRg().equals("") || usuario.getTelefone().equals("") || usuario.getRua().equals("") || usuario.getNumero().equals("") || usuario.getBairro().equals("") || usuario.getCidade().equals("") || usuario.getEstado().equals("") || usuario.getCep().equals("") || usuario.getLogin().equals("") || usuario.getSenha().equals("")) {
+            request.setCharacterEncoding("UTF-8");
+            Usuario usuario = new Usuario();            
+            usuario.setNome(request.getParameter("txt_nome"));
+            usuario.setRg(request.getParameter("txt_rg"));
+            usuario.setTelefone(request.getParameter("txt_telefone"));
+            usuario.setRua(request.getParameter("txt_rua"));
+            usuario.setNumero(request.getParameter("txt_numero"));
+            usuario.setBairro(request.getParameter("txt_bairro"));
+            usuario.setCidade(request.getParameter("txt_cidade"));
+            usuario.setEstado(request.getParameter("txt_estado"));
+            usuario.setCep(request.getParameter("txt_cep"));
+            usuario.setLogin(request.getParameter("txt_login"));
+            usuario.setSenha(request.getParameter("txt_senha"));
+            String perfil = request.getParameter("cmb_tipo");            
+            if (perfil.equalsIgnoreCase("Admin")) {
+                usuario.setTipo(EnumTipoAcesso.Admin);
+            } else if (perfil.equalsIgnoreCase("Func")) {
+                usuario.setTipo(EnumTipoAcesso.Func);
+            } else {
+                usuario.setTipo(EnumTipoAcesso.Cliente);
+            }
+            //Valida se os dados não estão vazios
+            if (usuario.getNome().equals("") || usuario.getRg().equals("") || usuario.getTelefone().equals("") || usuario.getRua().equals("") || usuario.getNumero().equals("") || usuario.getBairro().equals("") || usuario.getCidade().equals("") || usuario.getEstado().equals("") || usuario.getCep().equals("") || usuario.getLogin().equals("") || usuario.getSenha().equals("")) {
+                RequestDispatcher rd = request.getRequestDispatcher("CadUser.jsp");
+                request.setAttribute("msg", "Há dados vazios, favor validar!");
+                rd.forward(request, response);
+            } else {
+                MessageDigest md = MessageDigest.getInstance("MD5");
+                byte[] messageDigest = md.digest(usuario.getSenha().getBytes());
+                BigInteger number = new BigInteger(1, messageDigest);
+                usuario.setSenha(number.toString(16));
+
+                UsuarioDAO usuarioDAO = new UsuarioDAO();
+                //Instancia uma DAO e leva os dados até o método
+                usuarioDAO.cadastraNovoUsuario(usuario);
+
+                if (usuario.isLogin_duplicado()) {
                     RequestDispatcher rd = request.getRequestDispatcher("CadUser.jsp");
-                    request.setAttribute("msg", "Há dados vazios, favor validar!");
+                    request.setAttribute("msg", "Esse login já existe!");
                     rd.forward(request, response);
                 } else {
-                    MessageDigest md = MessageDigest.getInstance("MD5");
-                    byte[] messageDigest = md.digest(usuario.getSenha().getBytes());
-                    BigInteger number = new BigInteger(1, messageDigest);
-                    usuario.setSenha(number.toString(16));
-
-                    UsuarioDAO usuarioDAO = new UsuarioDAO();
-                    //Instancia uma DAO e leva os dados até o método
-                    usuarioDAO.cadastraNovoUsuario(usuario);
-
-                    if (usuario.isLogin_duplicado()) {
-                        RequestDispatcher rd = request.getRequestDispatcher("CadUser.jsp");
-                        request.setAttribute("msg", "Esse login já existe!");
-                        rd.forward(request, response);
-                    } else {
-                        response.sendRedirect("ListarUsuario");
-                    }
+                    response.sendRedirect("ListarUsuario");
                 }
             }
         } catch (NullPointerException erro) {

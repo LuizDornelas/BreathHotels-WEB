@@ -78,5 +78,5 @@
     </body>
 </html>
 <%} else {
-        response.sendRedirect("indexCliente.jsp");
+        response.sendRedirect("indexCliente");
     }%>

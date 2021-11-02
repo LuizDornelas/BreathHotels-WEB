@@ -19,7 +19,8 @@ import java.util.List;
 
 @WebServlet(name = "Login", urlPatterns = {
     "/Login",
-    "/index"})
+    "/index",
+    "/indexCliente"})
 public class Login extends HttpServlet {
 
     @Override
@@ -30,6 +31,8 @@ public class Login extends HttpServlet {
 
             if (uri.equals(request.getContextPath() + "/index")) {
                 reservas(request, response);
+            } else if (uri.equals(request.getContextPath() + "/indexCliente")) {
+                reservasCliente(request, response);
             }
         } catch (Exception e) {
             RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
@@ -94,7 +97,7 @@ public class Login extends HttpServlet {
                         sessaoUsuario.setAttribute("usuarioAutenticado", usuarioAutenticado);
 
                         //Redireciona para a pagina princiapal
-                        response.sendRedirect("indexCliente.jsp");
+                        response.sendRedirect("indexCliente");
                     }
 
                 } else {
@@ -117,8 +120,23 @@ public class Login extends HttpServlet {
 
         List<Reserva> todasReservas = dao.consultarReservas();
 
-        request.setAttribute("todasReservas", todasReservas);        
+        request.setAttribute("todasReservas", todasReservas);
 
         request.getRequestDispatcher("index.jsp").forward(request, response);
+    }
+
+    private void reservasCliente(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ClassNotFoundException, SQLException {
+
+        CheckinDAO dao = new CheckinDAO();
+
+        HttpSession session = request.getSession(true);
+        Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
+
+        List<Reserva> todasReservas = dao.consultarReservasCliente(usuario);
+
+        request.setAttribute("todasReservas", todasReservas);
+
+        request.getRequestDispatcher("indexCliente.jsp").forward(request, response);
     }
 }

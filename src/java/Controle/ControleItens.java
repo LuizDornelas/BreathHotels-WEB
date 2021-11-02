@@ -4,6 +4,7 @@ import DAO.ItemDAO;
 import DAO.QuartoDAO;
 import Modelo.Itens;
 import Modelo.Quartos;
+import Modelo.Usuario;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -13,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "ControleItens", urlPatterns = {
     "/CadastroItem",
@@ -21,7 +23,8 @@ import javax.servlet.http.HttpServletResponse;
     "/ConfirmarEdicaoItem",
     "/ExcluirItem",
     "/ListarItensDeCompra",
-    "/ComprarItens"})
+    "/ComprarItens",
+    "/ItensDeCompra"})
 
 public class ControleItens extends HttpServlet {
 
@@ -40,6 +43,8 @@ public class ControleItens extends HttpServlet {
                 excluir(request, response);
             } else if (uri.equals(request.getContextPath() + "/ListarItensDeCompra")) {
                 listarCompras(request, response);
+            } else if (uri.equals(request.getContextPath() + "/ItensDeCompra")) {
+                listarComprasCliente(request, response);
             }
         } catch (Exception e) {
             RequestDispatcher rd = request.getRequestDispatcher("Erro.jsp");
@@ -151,7 +156,15 @@ public class ControleItens extends HttpServlet {
                     request.setAttribute("erro", "Quantidade maior que o estoque!");
                     rd.forward(request, response);
                 } else {
-                    response.sendRedirect("index");
+
+                    HttpSession session = request.getSession(true);
+                    Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
+
+                    if ("Admin".equals(usuario.getTipo().toString()) || "Func".equals(usuario.getTipo().toString())) {
+                        response.sendRedirect("index");
+                    } else {
+                        response.sendRedirect("indexCliente");
+                    }
                 }
             }
         } catch (Exception erro) {
@@ -188,6 +201,26 @@ public class ControleItens extends HttpServlet {
         request.setAttribute("todosItens", todosItens);
 
         request.getRequestDispatcher("ComprarItens.jsp").forward(request, response);
+    }
+
+    private void listarComprasCliente(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ClassNotFoundException, SQLException {
+        QuartoDAO dao = new QuartoDAO();
+
+        HttpSession session = request.getSession(true);
+        Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
+
+        List<Quartos> quarto = dao.consultarReservasCliente(usuario);
+
+        request.setAttribute("quarto", quarto);
+
+        ItemDAO dao2 = new ItemDAO();
+
+        List<Itens> todosItens = dao2.consultarDisponiveis();
+
+        request.setAttribute("todosItens", todosItens);
+
+        request.getRequestDispatcher("comprarItensCliente.jsp").forward(request, response);
     }
 
     private void iniciarEdicao(HttpServletRequest request, HttpServletResponse response)

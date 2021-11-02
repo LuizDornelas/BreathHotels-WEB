@@ -12,7 +12,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>      
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        <title>Lista de Reservas</title>
+        <title>Lista de Consumos</title>
     </head>
     <body class="conteudo"> 
         <div class="listandoUsers">
@@ -21,37 +21,34 @@
                 Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
                 if (usuario == null) {
                     response.sendRedirect("login.jsp");
-                } else if ("Admin".equals(usuario.getTipo().toString()) || "Func".equals(usuario.getTipo().toString())) {
+                } else if ("Cliente".equals(usuario.getTipo().toString())) {
             %>   
             <center> 
-                <h3 class="cyan-text text-cyan darken-2">Reservas Encerradas</h3>
+                <h3 class="cyan-text text-cyan darken-2">Consumos</h3>
                 <table class="striped highlight responsive-table" border="1">
                     <input type="text" style="" id="search" class="form-control" placeholder="Busca por reserva"/><br>  
                     <tr>                
                         <th style="width: 5%;">Reserva</th>
-                        <th style="width: 10%;">Quarto</th>
-                        <th style="width: 10%;">Cliente</th>
-                        <th style="width: 10%;">Entrada</th>
-                        <th style="width: 10%;">Saída</th>
+                        <th style="width: 10%;">Item</th>
                         <th style="width: 10%;">Valor</th>
-                        <th style="width: 10%;">Funcionário</th>              
+                        <th style="width: 10%;">Quantidade</th>
+                        <th style="width: 10%;">Data</th>                                  
                     </tr>
             </center>
 
-            <c:forEach items="${todasReservas}" var="reserva">
+            <c:forEach items="${todosConsumos}" var="consumo">
                 <tr>                                           
-                    <td id="reserva" align="center">${reserva.reserva}</td>
-                    <td align="center">${reserva.quarto}</td>
-                    <td align="center">${reserva.nome}</td>
-                    <td align="center">${reserva.entrada}</td>
-                    <td align="center">${reserva.saida}</td>
-                    <td align="center">R$${reserva.valor}0</td>
-                    <td align="center">${reserva.funcionario}</td>                
+                    <td id="reserva" align="center">${consumo.reserva}</td>
+                    <td align="center">${consumo.item}</td>
+                    <td align="center">${consumo.valor}</td>
+                    <td align="center">${consumo.quantidade}</td>
+                    <td align="center">${consumo.data}</td>                                
                 </tr>
             </c:forEach>
-        </table>        
+        </table>
+
         <br><br>
-        <a class="btn btn-outline-secondary" href="index">Voltar</a>        
+        <a class="btn btn-outline-secondary" href="indexCliente">Voltar</a>        
         <br><br>
     </div>
 </body>
@@ -72,5 +69,5 @@
     });
 </script>
 <%} else {
-        response.sendRedirect("indexCliente");
+        response.sendRedirect("index");
     }%>

@@ -107,5 +107,5 @@
     }
 </script>
 <%} else{
-response.sendRedirect("indexCliente.jsp");
+response.sendRedirect("indexCliente");
 }%>

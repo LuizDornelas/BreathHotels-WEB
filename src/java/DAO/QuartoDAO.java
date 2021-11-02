@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import Modelo.Quartos;
+import Modelo.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,8 @@ public class QuartoDAO {
     private static final String CONSULTA_QUARTO = "select id_quarto, quarto, tipo, camasolteiro, camacasal, status, diaria from quartos order by id_quarto";
     private static final String CONSULTA_DISPONIVEIS = "select id_quarto, quarto, camasolteiro, camacasal, diaria from quartos where status = 'Disponível' order by quarto";
     private static final String CONSULTA_RESERVAS = "select reservafk, quarto, camasolteiro, camacasal, diaria, nomecli from quartos, reservas where quartos.status = 'Ocupado' and reservas.status = 'Em andamento' and reservafk = reservaid order by quarto;";
+    private static final String CONSULTA_RESERVAS_CLIENTE = "select reservafk, quarto, camasolteiro, camacasal, diaria, nomecli from quartos, reservas where quartos.status = 'Ocupado' and reservas.status = 'Em andamento' and reservafk = reservaid and usuariofk=? order by quarto;";
+
     public void cadastraNovoQuarto(Quartos quartos) throws ClassNotFoundException, SQLException {
 
         Connection conexao = null;
@@ -110,13 +113,46 @@ public class QuartoDAO {
         con.close();
         return todosQuartos;
     }
-    
-     public List<Quartos> consultarReservas() throws ClassNotFoundException, SQLException {
+
+    public List<Quartos> consultarReservas() throws ClassNotFoundException, SQLException {
 
         Connection con = ConectaBanco.getConexao();
 
         PreparedStatement comando = con.prepareStatement(CONSULTA_RESERVAS);
         ResultSet resultado = comando.executeQuery();
+
+        List<Quartos> todosQuartos = new ArrayList<Quartos>();
+        while (resultado.next()) {
+            Quartos quartos = new Quartos();
+            quartos.setId(Integer.parseInt(resultado.getString("reservafk")));
+            quartos.setQuarto(resultado.getString("quarto"));
+            quartos.setCamaSolteiro(resultado.getInt("camaSolteiro"));
+            quartos.setCamaCasal(resultado.getInt("camaCasal"));
+            quartos.setDiaria(resultado.getDouble("diaria"));
+            quartos.setNome(resultado.getString("nomecli"));
+
+            todosQuartos.add(quartos);
+        }
+        con.close();
+        return todosQuartos;
+    }
+
+    public List<Quartos> consultarReservasCliente(Usuario user) throws ClassNotFoundException, SQLException {
+
+        Connection con = ConectaBanco.getConexao();
+        PreparedStatement comando = null;
+        comando = con.prepareStatement("select fk_usuario from login where login=?;");
+        comando.setString(1, user.getLogin());
+        ResultSet resultado = comando.executeQuery();
+        resultado.next();
+
+        int id = Integer.parseInt(resultado.getString("fk_usuario"));
+
+        resultado.close();                
+        
+        comando = con.prepareStatement(CONSULTA_RESERVAS_CLIENTE);
+        comando.setInt(1, id);
+        resultado = comando.executeQuery();
 
         List<Quartos> todosQuartos = new ArrayList<Quartos>();
         while (resultado.next()) {
@@ -167,7 +203,7 @@ public class QuartoDAO {
         com.setInt(1, quarto.getId());
         ResultSet resultado = com.executeQuery();
 
-        if (resultado.next()) {            
+        if (resultado.next()) {
             quarto.setQuarto(resultado.getString("quarto"));
             quarto.setTipo(resultado.getString("tipo"));
             quarto.setCamaSolteiro(resultado.getInt("camasolteiro"));

@@ -8,10 +8,28 @@ package Modelo;
 public class Reserva {
     private int numreserva;
     private String nomeCliente;
+    private String nomeFuncionario;
     private String entrada;
+    private String saida;
     private double valor;
     private String quarto;
 
+    public String getSaida() {
+        return saida;
+    }
+
+    public void setSaida(String saida) {
+        this.saida = saida;
+    }   
+        
+    public String getNomeFuncionario() {
+        return nomeFuncionario;
+    }
+
+    public void setNomeFuncionario(String nomeFuncionario) {
+        this.nomeFuncionario = nomeFuncionario;
+    }        
+    
     public int getNumreserva() {
         return numreserva;
     }
