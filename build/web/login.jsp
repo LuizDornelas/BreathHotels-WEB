@@ -20,15 +20,15 @@
 
         <div class="limiter">
             <div class="container-login100">
-                <div class="login100-more" style="background-image: url('view/img/icons/login.jpg');  background-size: auto;"></div>
+                <div class="login100-more" style="background-image: url('view/img/fotosHotel/login1.jpg');  background-size: auto;"></div>
 
                 <div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
 
 
                     <form class="login100-form validate-form" action="Login" method="POST">
-                        <span class="login100-form-title p-b-59">
-                            Login <b style="color:#254870;">BreathHotels</b>
-                        </span>
+                        <div>
+                             <img src="view/img/icons/BreathLogo.png" alt="logo" style="width: 240px; height: 240px; margin-left: 43%; margin-bottom: 3vw; ">
+                        </div>
 
                         <div class="wrap-input100 validate-input" data-validate="Digite seu Login!">
                             <span class="label-input100">Login</span>
