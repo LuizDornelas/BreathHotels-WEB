@@ -11,7 +11,7 @@
 }
 
 .res {
-   color: #274360;
+   color:  #0277bd!important;
    text-align: center;
    font-size: 42px;
    margin-bottom: 10px;
@@ -83,3 +83,11 @@ footer {
     padding: 10px;
     height: 8vw;
 }
+
+/* label underline focus color */
+   input[type=text]:focus {
+     border-bottom: 1px solid #0277bd!important;
+     box-shadow: 0 1px 0 0 #0277bd!important;
+   }
+   
+
