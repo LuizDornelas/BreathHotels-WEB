@@ -73,7 +73,7 @@
         <!-- lista --> 
         <div class="listandoUsers">     
             <center> 
-                <h3 class="res">Usuários</h3>
+                <h3 style="margin-bottom: 40px; margin-top: 55px; color: #0277bd; text-align: center; font-size: 42px; ">Usuários</h3>
                 <table class="striped highlight responsive-table" border="1">
                     <input type="text" style="" id="search" class="form-control" placeholder="Busca usuário"/><br>  
                     <tr>                

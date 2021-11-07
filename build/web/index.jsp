@@ -89,7 +89,7 @@
             <%//Traz a mensagem diretamente da control
                 List<Reserva> todasReservas = (List<Reserva>) request.getAttribute("todasReservas");
                 if (todasReservas.size() > 0) {%>
-            <h3 class="res">Reservas em andamento</h3>             
+            <h3 style="margin-bottom: 40px; margin-top: 100px; color: #0277bd; text-align: center; font-size: 42px; ">Reservas em andamento</h3>             
             <br>
             <table class="table">
                 <thead class="thead-light">

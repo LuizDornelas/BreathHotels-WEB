@@ -73,7 +73,7 @@
         <!-- lista --> 
         <div class="listando">
             <center>   
-                <h3 class="res" style="margin-bottom: 40px;" >Cartões</h3>
+                <h3 style="margin-bottom: 40px; margin-top: 100px; color: #0277bd; text-align: center; font-size: 42px; " >Cartões</h3>
                 <table class="striped highlight" border="1">
                     <input type="text" style="" id="search" class="form-control" placeholder="Busca cartão por usuário"/><br>  
                     <tr>         
@@ -102,7 +102,7 @@
         </table>        
         <br><br>
         <a class="btn btn-outline-secondary" style="background: #0277bd" href="index">Voltar</a>  
-        <a class="btn btn-outline-primary" style="background: #0277bd" href="CadCard">Cadastrar Cartao</a>        
+        <a class="btn btn-outline-primary" style="background: #0277bd" href="CadCard">Cadastrar Cartão</a>        
     </div>
     <footer>
         <!-- rodapé -->

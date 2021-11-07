@@ -73,7 +73,7 @@
         <!-- lista --> 
         <div class="listando">
             <center>       
-                <h3 class="res">Relatório de reservas</h3>        
+                <h3 style="margin-bottom: 40px; margin-top: 100px; color: #0277bd; text-align: center; font-size: 42px; ">Relatório de reservas</h3>        
                 <table class="striped highlight" border="1">
                     <thead class="thead-light">
                         <tr>               

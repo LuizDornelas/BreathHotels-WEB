@@ -32,7 +32,7 @@
                     <div class="form-bg">
                         <form action="ConfirmarPagamentoDinheiro" method="GET"> 
                             <a href="#"><img src="view/img/icons/BreathLogo.png" alt="logo" class="logo"></a>
-                            <h2>Dados Checkout</h2>                                                                                                                   
+                            <h2 style="margin-bottom: 40px; margin-top: 80px; color: #0277bd; text-align: center; font-size: 33px;">Dados Checkout</h2>                                                                                                                   
                             <div class="form-group">
                                 <input type="hidden" name="reserva" class="form-control" value="${user.id}">
                                 <div class="row">
@@ -65,7 +65,7 @@
                                 </div> 
                             </div>       
 
-                            <h2>Consumo</h2>            
+                            <h2 style="margin-bottom: 40px; margin-top: 80px; color: #0277bd; text-align: center; font-size: 33px;">Consumo</h2>            
 
                             <table class="table">
                                 <thead class="thead-light">
@@ -97,10 +97,12 @@
                                 %>
                                 <font color="#274360"><%=msg%></font>
                                 <%}%>                                                                    
-                            </div>                        
+                            </div> 
+                            </br></br>
                             <div class="botoes">
-                                <input class="btn btn-primary" type="submit" name="acao" value="Realizar Pagamento"><br><br>
-                                <a href="Checkout">Voltar</a>  
+
+                                <a class="btn btn-outline-primary" style="background: #0277bd" href="Checkout">Voltar</a>
+                                <a class="btn btn-outline-secondary" style="background: #0277bd; color: white;"  type="submit" name="acao" value="Realizar Pagamento">Confirmar Pagamento</a> 
                             </div>
                         </form>
                     </div>      

@@ -6,7 +6,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">        
-        <link rel="icon" type="image/png" href="view/img/icons/logo-hotel.ico" /> 
+        <link rel="icon" type="image/png" href="view/img/icons/logo-hotel.ico"> 
         <link rel="stylesheet" type="text/css" href="view/styles/index.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -74,7 +74,7 @@
         <!-- lista --> 
         <div class="listando">  
             <center>       
-                <h3 class="res" style="margin-bottom: 40px;">Quartos</h3>
+                <h3 style="margin-bottom: 40px; margin-top: 55px; color: #0277bd; text-align: center; font-size: 42px; ">Quartos</h3>
                 <table class="striped highlight" border="1">
                     <input type="text" style="" id="search" class="form-control" placeholder="Busca quarto"/><br>  
                     <tr>                

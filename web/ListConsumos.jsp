@@ -73,7 +73,7 @@
         <!-- lista --> 
         <div class="listandoUsers"> 
             <center> 
-                <h3 class="res">Consumos</h3>
+                <h3 style="margin-bottom: 40px; margin-top: 100px; color: #0277bd; text-align: center; font-size: 42px; ">Consumos</h3>
                 <table class="striped highlight responsive-table" border="1">
                     <input type="text" style="" id="search" class="form-control" placeholder="Busca por reserva"/><br>  
                     <tr>                

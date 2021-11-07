@@ -33,7 +33,7 @@
             <%//Traz a mensagem diretamente da control
                 List<Reserva> todasReservas = (List<Reserva>) request.getAttribute("todasReservas");
                 if (todasReservas.size() > 0) {%>
-            <h3 class="res">Reservas Encerradas</h3>             
+            <h3 style="margin-bottom: 40px; margin-top: 100px; color: #0277bd; text-align: center; font-size: 42px; ">Reservas Encerradas</h3>             
             <br>
             <table class="table">
                 <input type="text" style="" id="search" class="form-control" placeholder="Busca por reserva"/><br>  

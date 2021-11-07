@@ -9,14 +9,14 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">        
         <link rel="icon" type="image/png" href="view/img/icons/logo-hotel.ico">
-        <link rel="stylesheet" type="text/css" href="view/styles/Estoque.css">        
+        <link rel="stylesheet" type="text/css" href="view/styles/index.css">        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>      
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
-    <body class="conteudo">  
+    <body id="conteudo">  
        <%
             //Valida se a sessão está valida
             Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
@@ -77,7 +77,7 @@
             <center>
                 <form action="ComprarItens" method="POST">   
                     <div class="col" style="width: 50%;">
-                        <h2 class="texto4" style="margin-bottom: 40px; margin-top: 100px; color: #274360;text-align: center; font-size: 42px; ">Produtos</h2>
+                        <h2 style="margin-bottom: 40px; margin-top: 100px; color: #0277bd; text-align: center; font-size: 42px; ">Produtos</h2>
 
                         <label style="margin-top: 10%; margin-right: 50%; margin-bottom: 10%;">Quarto</label>
                         <select name="quarto" class="browser-default" style="width: 60%; margin-top: 10px; margin-bottom: 10px;">
@@ -111,7 +111,7 @@
                             <%}%> 
                             <br><br> 
 
-                            <input class="btn btn-primary" style="width: 60%;" type="submit" name="acao" value="Comprar"><br><br>
+                            <input class="btn btn-primary" style="width: 60%; background: #0277bd;" type="submit" name="acao" value="Comprar"><br><br>
                             <a href="index">Voltar</a>                                     
                         </div>
                     </div>
