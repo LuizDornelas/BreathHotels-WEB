@@ -101,8 +101,7 @@
                             </br></br>
                             <div class="botoes">
                                 <a class="btn btn-outline-primary" style="background: #0277bd" href="Checkout">Voltar</a>
-                                <a class="btn btn-outline-secondary" style="background: #0277bd; color: white;"  type="submit" name="acao" value="Confirmar Pagamento">Confirmar Pagamento</a>  
-
+                                <input class="btn btn-outline-primary" style="background: #0277bd; color: white;" type="submit" name="acao" value="Confirmar Pagamento">
                             </div>
                         </form>
                     </div>      
