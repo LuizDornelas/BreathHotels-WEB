@@ -16,8 +16,8 @@ public class UsuarioDAO {
     private static final String AUTENTICA_USUARIO = "SELECT login, senha, tipo, ativo FROM login WHERE login=? AND senha=?;";
     private static final String CADASTRA_NOVO_USUARIO = "INSERT INTO public.usuario(usuarioid, nome, rg, telefone, rua, numero, bairro, cidade, estado, cep) VALUES (?,?,?,?,?,?,?,?,?,?);";
     private static final String CADASTRA_NOVO_LOGIN = "INSERT INTO public.login(loginid, login, senha, ativo, tipo, fk_usuario) VALUES (?,?,?,'SIM',?,?);";
-    private static final String CONSULTA_USUARIO = "select usuarioid, nome, rg, telefone, rua, numero, bairro, cidade, estado, cep, login, senha, tipo, ativo from usuario, login where usuarioid = fk_usuario order by usuarioid;";
-    private static final String CONSULTA_USUARIO_FUNC = "select usuarioid, nome, rg, telefone, rua, numero, bairro, cidade, estado, cep, login, senha, tipo, ativo from usuario, login where usuarioid = fk_usuario and tipo != 'Admin' order by usuarioid;";
+    private static final String CONSULTA_USUARIO = "select usuarioid, nome, rg, telefone, rua, numero, bairro, cidade, estado, cep, login, tipo, ativo from usuario, login where usuarioid = fk_usuario order by usuarioid;";
+    private static final String CONSULTA_USUARIO_FUNC = "select usuarioid, nome, rg, telefone, rua, numero, bairro, cidade, estado, cep, login, tipo, ativo from usuario, login where usuarioid = fk_usuario and tipo != 'Admin' order by usuarioid;";
     private static final String CONSULTA_CLIENTE = "select usuarioid, nome, ativo from usuario, login where usuarioid = fk_usuario and ativo = 'SIM' order by usuarioid;";
 
     //Trás a classe instanciada como parametro no servlet
@@ -156,8 +156,7 @@ public class UsuarioDAO {
             user.setCidade(resultado.getString("cidade"));
             user.setEstado(resultado.getString("estado"));
             user.setCep(resultado.getString("cep"));
-            user.setLogin(resultado.getString("login"));
-            user.setSenha(resultado.getString("senha"));
+            user.setLogin(resultado.getString("login"));            
             user.setTipo((EnumTipoAcesso.valueOf(resultado.getString("tipo"))));
             user.setAtivo((EnumAtivo.valueOf(resultado.getString("ativo"))));
 

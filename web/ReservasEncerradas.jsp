@@ -85,7 +85,7 @@
                 </c:forEach>   
             </table>
             <%} else {%>
-            <h3>Não há reservas em andamento</h3>     
+            <h3>Não há reservas encerradas</h3>     
             <%}%>
              <br><br>
              <a class="btn btn-outline-secondary" href="indexCliente">Voltar</a>        
