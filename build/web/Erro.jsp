@@ -3,9 +3,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="icon" type="image/png" href="view/img/icons/logo-hotel.ico" />
+        <link rel="icon" type="image/png" href="view/img/icons/logo-hotel.ico"/>
         <title>Error Page</title>
-
         <style>
             h1{
                 text-align: Center;
@@ -40,6 +39,7 @@
         <%}%>
 
     <center>
+        </br></br>
         <a href="javascript:history.back()">Voltar</a>
     </center>
     <div class="ops">

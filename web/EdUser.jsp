@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Atualiza Usuários</title>
+        <title>Atualizar Usuários</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">        
         <link rel="icon" type="image/png" href="view/img/icons/logo-hotel.ico">
@@ -12,7 +12,36 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>      
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">     
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">  
+        <style>
+            /* label focus color */
+            .input-field input[type=text]:focus + label {
+                color: #0277bd!important;
+            }
+            /* label underline focus color */
+            .input-field input[type=text]:focus {
+                border-bottom: 1px solid  #0277bd!important;
+                box-shadow: 0 1px 0 0 #0277bd!important;
+            }
+            /* label focus color */
+            .input-field input[type=number]:focus + label {
+                color: #0277bd!important;
+            }
+            /* label underline focus color */
+            .input-field input[type=number]:focus {
+                border-bottom: 1px solid  #0277bd!important;
+                box-shadow: 0 1px 0 0 #0277bd!important;
+            }
+            /* label focus color */
+            .input-field input[type=password]:focus + label {
+                color: #0277bd!important;
+            }
+            /* label underline focus color */
+            .input-field input[type=password]:focus {
+                border-bottom: 1px solid  #0277bd!important;
+                box-shadow: 0 1px 0 0 #0277bd!important;
+            }
+        </style>        
     </head>
     <body id="conteudo">  
         <%
@@ -23,11 +52,11 @@
             } else if ("Admin".equals(usuario.getTipo().toString()) || "Func".equals(usuario.getTipo().toString())) {
         %>
         <!-- header --> 
-        <div class="navbar-fixed" style=" margin-bottom: 10vw;">
-            <nav style="background-color: #274360; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); margin-bottom: 5vw; height: 100px;">
+        <div class="navbar-fixed" style=" margin-bottom: 5vw;">
+            <nav style="background-color: #274360; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
                 <div class="nav-wrapper">
-                    <a href="index" class="brand-logo"><img src="view/img/icons/BreathHotels-logo-white.png" alt="logo" style="width: 250px; margin: 10px;"></a>
-                    <ul class="right hide-on-med-and-down" style=" margin-top: 1.8vw; ">
+                    <a href="index" alt="nome" style="font-size: 30px; margin-left: 30px;">Breath Hotels</a>
+                    <ul class="right hide-on-med-and-down">
                         <li><a href="ListarUsuario" style="font-size: 18px; color: rgb(255,255,255,0.6)!important;">Usuários</a></li>
                         <li><a href="ListarQuarto" style="font-size: 18px; color: rgb(255,255,255,0.6)!important;">Quartos</a></li>
                         <li><a href="ListarCartao" style="font-size: 18px; color: rgb(255,255,255,0.6)!important;">Cartões</a></li>
@@ -43,7 +72,7 @@
                                 if (login != null) {
                                 }
                             %> 
-                            <h2  class="text-light" style="font-size: 18px; color: rgb(255,255,255,0.6)!important; margin-top: 32%;">Olá, <%=login%></h2>
+                           <li><a href="#" style="font-size: 18px; color: rgb(255,255,255,0.6)!important;">Olá, <%=login%></a><li>
                         </ul>
                         <li><a class="dropdown-trigger" style="font-size: 18px; color: rgb(255,255,255,0.6)!important; margin-right: 1vw;"  href="#!" data-target="dropdown4"><i class="material-icons right" style="font-size: 30px; margin-bottom: 20%;">account_circle</i></a>
                     </ul>
@@ -71,11 +100,16 @@
             </nav>
         </div>
         <!-- cadastro --> 
-        <div class="row" style="width: 96%;">
+        <div class="row" style="width: 96%; background-color: #fff;
+             border: 1px solid #e5e5e5;
+             padding: 30px 30px 30px;
+             margin: 30px!important;
+             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+             display: inline-block;">
             <center>
                 <form action="ConfirmarEdicao" method="POST">   
                     <div class="col" style="width: 40%;">
-                        <h2 style="margin-bottom: 40px; margin-top: 55px; color: #0277bd; text-align: center; font-size: 42px; ">Cadastro de Usuários</h2>
+                        <h2 style="margin-bottom: 40px; margin-top: 42px; color: #0277bd; text-align: center; font-size: 42px; ">Atualizar Usuários</h2>
 
                         <div class="input-field">                                    
                             <input type="hidden" name="txt_id" class="form-control" value="${usuario.id}">
@@ -130,28 +164,28 @@
                             <input type="text" name="txt_login" maxlength="20" class="form-control" value="${usuario.login}">
                             <label class="active">Login</label>
                         </div>
-                            <%
-                                //Valida se é Func ou Admin, conforme login terá tipos diferentes de usuário para cadastrar
-                                if ("Admin".equals(usuario.getTipo().toString())) {
-                            %>
-                            <select name="cmb_tipo" class="browser-default" style="width: 80%; margin-bottom: 10px;">
-                                <option disabled selected>Selecione o Tipo</option>                                                                                                                                            
-                                <option>Admin</option>
-                                <option>Func</option>
-                                <option>Cliente</option>                                                                                                                                                 
-                            </select>
-                            <%} else {%> 
-                            <select name="cmb_tipo" class="browser-default" style="width: 80%;">
-                                <option>Func</option>
-                                <option>Cliente</option> 
-                            </select>
-                            <%}%>                           
-                            <select name="cmb_ativo" class="browser-default" style="width: 80%;">   
-                                <option disabled selected>Ativo:</option>
-                                <option>SIM</option>
-                                <option>NAO</option>
-                            </select> 
-                        
+                        <%
+                            //Valida se é Func ou Admin, conforme login terá tipos diferentes de usuário para cadastrar
+                            if ("Admin".equals(usuario.getTipo().toString())) {
+                        %>
+                        <select name="cmb_tipo" class="browser-default" style="width: 80%; margin-bottom: 10px;">
+                            <option disabled selected>Selecione o Tipo</option>                                                                                                                                            
+                            <option>Admin</option>
+                            <option>Func</option>
+                            <option>Cliente</option>                                                                                                                                                 
+                        </select>
+                        <%} else {%> 
+                        <select name="cmb_tipo" class="browser-default" style="width: 80%;">
+                            <option>Func</option>
+                            <option>Cliente</option> 
+                        </select>
+                        <%}%>                           
+                        <select name="cmb_ativo" class="browser-default" style="width: 80%;">   
+                            <option disabled selected>Ativo:</option>
+                            <option>SIM</option>
+                            <option>NAO</option>
+                        </select> 
+
                         <div class="bot">                                    
                             <%
                                 //Traz a mensagem diretamente da control
@@ -169,14 +203,17 @@
                         </div>                    
                     </div>
                 </form>
-                <div class="col"><img src="view/img/fotosHotel/cadastro.jpg" alt="Porta azul" style="width: 52vw; margin-top: 30px; "></div>                      
+                <div class="col"><img src="view/img/fotosHotel/users1.jpg" alt="Céu azul" style="width: 52vw; margin-top: 30px; "></div>                      
             </center>
         </div> 
-
-        <footer>
-            <!-- rodapé -->
-            <p style='font-size:18px; margin-top: 3vw; color: rgb(255,255,255,0.6)!important;'>&copy;2021 Breath Hotels Limitado</p>
-        </footer> 
+        <!-- rodapé -->
+        <footer class="page-footer" style=" background-color: #274360; text-align: center;">
+            <div class="row" style=" text-align: center;">
+                <div class="col s12 ">
+                    <h5 style="font-size:18px; margin-top: 2vw; color: rgb(255,255,255,0.6)!important; ">&copy;2021 Breath Hotels Limitado</h5>
+                </div>
+            </div>
+        </footer>
     </body>
 </html>
 <script>

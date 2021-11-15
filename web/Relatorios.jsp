@@ -24,11 +24,11 @@
             } else if ("Admin".equals(usuario.getTipo().toString()) || "Func".equals(usuario.getTipo().toString())) {
         %>
         <!-- Header --> 
-        <div class="navbar-fixed" style=" margin-bottom: 10vw;">
-            <nav style="background-color: #274360; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); margin-bottom: 5vw; height: 100px;">
+        <div class="navbar-fixed" style=" margin-bottom: 5vw;">
+            <nav style="background-color: #274360; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
                 <div class="nav-wrapper">
-                    <a href="index" class="brand-logo"><img src="view/img/icons/BreathHotels-logo-white.png" alt="logo" style="width: 250px; margin: 10px;"></a>
-                    <ul class="right hide-on-med-and-down" style=" margin-top: 1.8vw; ">
+                    <a href="index" alt="nome" style="font-size: 30px; margin-left: 30px;">Breath Hotels</a>
+                    <ul class="right hide-on-med-and-down">
                         <li><a href="ListarUsuario" style="font-size: 18px; color: rgb(255,255,255,0.6)!important;">Usuários</a></li>
                         <li><a href="ListarQuarto" style="font-size: 18px; color: rgb(255,255,255,0.6)!important;">Quartos</a></li>
                         <li><a href="ListarCartao" style="font-size: 18px; color: rgb(255,255,255,0.6)!important;">Cartões</a></li>
@@ -44,7 +44,7 @@
                                 if (login != null) {
                                 }
                             %> 
-                            <h2  class="text-light" style="font-size: 18px; color: rgb(255,255,255,0.6)!important; margin-top: 32%;">Olá, <%=login%></h2>
+                           <li><a href="#" style="font-size: 18px; color: rgb(255,255,255,0.6)!important;">Olá, <%=login%></a><li>
                         </ul>
                         <li><a class="dropdown-trigger" style="font-size: 18px; color: rgb(255,255,255,0.6)!important; margin-right: 1vw;"  href="#!" data-target="dropdown4"><i class="material-icons right" style="font-size: 30px; margin-bottom: 20%;">account_circle</i></a>
                     </ul>
@@ -73,7 +73,7 @@
         <!-- lista --> 
         <div class="listando">
             <center>       
-                <h3 style="margin-bottom: 40px; margin-top: 100px; color: #0277bd; text-align: center; font-size: 42px; ">Relatório de reservas</h3>        
+                <h3 style="margin-bottom: 40px; margin-top: 55px; color: #0277bd; text-align: center; font-size: 42px; ">Relatório de reservas</h3>        
                 <table class="striped highlight" border="1">
                     <thead class="thead-light">
                         <tr>               
@@ -82,7 +82,7 @@
                             <th style="width: 10%;">Total de ganhos</th>                     
                         </tr>
                     </thead>
-            </center>
+            
 
             <c:forEach items="${reservaMes}" var="reserva">      
                 <tr>                                       
@@ -96,9 +96,13 @@
         <a class="btn btn-outline-secondary" style="background: #0277bd" href="index">Voltar</a>  
     </center>
 </div>
-<footer>
-    <!-- rodapé -->
-    <p style='font-size:18px; margin-top: 3vw; color: rgb(255,255,255,0.6)!important;'>&copy;2021 Breath Hotels Limitado</p>
+<!-- rodapé -->
+<footer class="page-footer" style=" background-color: #274360; text-align: center;">
+    <div class="row" style=" text-align: center;">
+        <div class="col s12 ">
+            <h5 style="font-size:18px; margin-top: 2vw; color: rgb(255,255,255,0.6)!important; ">&copy;2021 Breath Hotels Limitado</h5>
+        </div>
+    </div>
 </footer> 
 </body>
 </html>

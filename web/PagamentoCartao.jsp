@@ -31,7 +31,6 @@
                 <div class="col-sm-10 col-lg-6 offset-sm-1 offset-lg-3">        
                     <div class="form-bg">
                         <form onsubmit='return confirmacao()' action="PagamentoCartao" method="POST"> 
-                            <a href="#"><img src="view/img/icons/BreathLogo.png" alt="logo" class="logo"></a>
                             <h2 style="margin-bottom: 40px; margin-top: 80px; color: #0277bd; text-align: center; font-size: 33px;">Dados Checkout</h2>                                                                                                                   
                             <div class="form-group">
                                 <input type="hidden" name="reserva" class="form-control" value="${user.id}">

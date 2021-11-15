@@ -13,7 +13,18 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>      
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">            
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <style>
+            /* label focus color */
+            .input-field input[type=text]:focus + label {
+                color: #0277bd!important;
+            }
+            /* label underline focus color */
+            .input-field input[type=text]:focus {
+                border-bottom: 1px solid  #0277bd!important;
+                box-shadow: 0 1px 0 0 #0277bd!important;
+            }
+        </style>        
     </head>
     <body id="conteudo">  
         <%
@@ -24,11 +35,11 @@
             } else if ("Admin".equals(usuario.getTipo().toString()) || "Func".equals(usuario.getTipo().toString())) {
         %>
         <!-- header --> 
-        <div class="navbar-fixed" style=" margin-bottom: 10vw;">
-            <nav style="background-color: #274360; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); margin-bottom: 5vw; height: 100px;">
-                <div class="nav-wrapper">
-                    <a href="index" class="brand-logo"><img src="view/img/icons/BreathHotels-logo-white.png" alt="logo" style="width: 250px; margin: 10px;"></a>
-                    <ul class="right hide-on-med-and-down" style=" margin-top: 1.8vw; ">
+        <div class="nav-wrapper">
+            <nav style="background-color: #274360; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
+                <div class="nav-wrapper">              
+                    <a href="index" alt="nome" style="font-size: 30px; margin-left: 30px;">Breath Hotels</a>
+                    <ul class="right hide-on-med-and-down">
                         <li><a href="ListarUsuario" style="font-size: 18px; color: rgb(255,255,255,0.6)!important;">Usuários</a></li>
                         <li><a href="ListarQuarto" style="font-size: 18px; color: rgb(255,255,255,0.6)!important;">Quartos</a></li>
                         <li><a href="ListarCartao" style="font-size: 18px; color: rgb(255,255,255,0.6)!important;">Cartões</a></li>
@@ -44,7 +55,7 @@
                                 if (login != null) {
                                 }
                             %> 
-                            <h2  class="text-light" style="font-size: 18px; color: rgb(255,255,255,0.6)!important; margin-top: 32%;">Olá, <%=login%></h2>
+                            <li><a href="#" style="font-size: 18px; color: rgb(255,255,255,0.6)!important;">Olá, <%=login%></a><li>
                         </ul>
                         <li><a class="dropdown-trigger" style="font-size: 18px; color: rgb(255,255,255,0.6)!important; margin-right: 1vw;"  href="#!" data-target="dropdown4"><i class="material-icons right" style="font-size: 30px; margin-bottom: 20%;">account_circle</i></a>
                     </ul>
@@ -67,12 +78,16 @@
                     <ul id="dropdown4" class="dropdown-content">  
                         <li><a href="logout.jsp" style="font-size: 18px; color: #274360;">Sair</a></li>
                     </ul>        
-
                 </div>
             </nav>
         </div>
         <!-- cadastro --> 
-        <div class="row" style="width: 96%;">
+        <div class="row" style="width: 96%; background-color: #fff;
+             border: 1px solid #e5e5e5;
+             padding: 30px 30px 30px;
+             margin: 30px!important;
+             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+             display: inline-block;">
             <center>
                 <form action="CadastroCartao" method="POST">   
                     <div class="col" style="width: 42%;">
@@ -89,7 +104,7 @@
                         </div>
 
                         <div class="input-field" style="width: 70%;">
-                            <input input type="text" name="validade" maxlength="5" OnKeyPress="formatar('##/##', this)" class="form-control">
+                            <input type="text" name="validade" maxlength="5" OnKeyPress="formatar('##/##', this)" class="form-control">
                             <label class="active">Validade</label>
                         </div>
 
@@ -131,13 +146,15 @@
                 <div class="col"><img src="view/img/fotosHotel/card.jpg" alt="Cartão" style="width: 48vw; margin-top: 30px; "></div>                      
             </center>
         </div> 
-
-        <footer>
-            <!-- rodapé -->
-            <p style='font-size:18px; margin-top: 3vw; color: rgb(255,255,255,0.6)!important;'>&copy;2021 Breath Hotels Limitado</p>
+        <!-- rodapé -->
+        <footer class="page-footer" style=" background-color: #274360; text-align: center;">
+            <div class="row" style=" text-align: center;">
+                <div class="col s12 ">
+                    <h5 style="font-size:18px; margin-top: 2vw; color: rgb(255,255,255,0.6)!important; ">&copy;2021 Breath Hotels Limitado</h5>
+                </div>
+            </div>
         </footer> 
     </body>
-
 </html>
 <script>
     function formatar(mascara, documento) {
@@ -154,7 +171,6 @@
 <%} else {
         response.sendRedirect("indexCliente");
     }%>
-
 <script>
     // NavBar
     const elemsDropdown = document.querySelectorAll(".dropdown-trigger");
