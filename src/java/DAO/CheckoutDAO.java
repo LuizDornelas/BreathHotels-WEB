@@ -225,7 +225,7 @@ public class CheckoutDAO {
         com.close();
 
         com = con.prepareStatement("select count(usuariofk) from reservas where status = 'Em andamento' and usuariofk=?;");
-        com.setInt(1, user.getId());
+        com.setInt(1, id_user);
         resultado = com.executeQuery();
         resultado.next();
 

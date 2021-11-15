@@ -148,8 +148,8 @@ public class QuartoDAO {
 
         int id = Integer.parseInt(resultado.getString("fk_usuario"));
 
-        resultado.close();                
-        
+        resultado.close();
+
         comando = con.prepareStatement(CONSULTA_RESERVAS_CLIENTE);
         comando.setInt(1, id);
         resultado = comando.executeQuery();
@@ -190,11 +190,22 @@ public class QuartoDAO {
     }
 
     public void excluir(Quartos quartos) throws ClassNotFoundException, SQLException {
+        ResultSet rsQuarto = null;
         Connection con = ConectaBanco.getConexao();
-        PreparedStatement com = con.prepareStatement("DELETE FROM public.quartos WHERE id_quarto=?;");
+        PreparedStatement com = con.prepareStatement("select count(id_quarto) from quartos where id_quarto=? and status = 'Ocupado';");
         com.setInt(1, quartos.getId());
-        com.execute();
-        com.close();
+        rsQuarto = com.executeQuery();
+        rsQuarto.next();
+        int countQuarto = Integer.parseInt(rsQuarto.getString("count"));
+        rsQuarto.close();
+        if (countQuarto > 0) {
+            quartos.setQuarto_duplicado(true);
+        } else {
+            con = ConectaBanco.getConexao();
+            com = con.prepareStatement("DELETE FROM public.quartos WHERE id_quarto=?;");
+            com.setInt(1, quartos.getId());
+            com.execute();
+        }
     }
 
     public void consultarporQuarto(Quartos quarto) throws ClassNotFoundException, SQLException {
