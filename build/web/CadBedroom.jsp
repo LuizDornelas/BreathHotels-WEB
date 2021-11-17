@@ -147,7 +147,7 @@
                         </div>
                     </div>
                 </form>
-                <div class="col"><img src="view/img/fotosHotel/quarto.jpg" alt="Quarto" style="width: 550px;"></div>                      
+                <div class="col"><img src="view/img/fotosHotel/quarto.jpg" alt="Quarto" style="width: 35vw;"></div>                      
             </center>
         </div> 
 
